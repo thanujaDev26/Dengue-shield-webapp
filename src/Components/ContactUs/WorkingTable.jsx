@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const WorkingAreaTable = () => {
   const data = [
     {
       district: "Matara",
-      moh: "Dewndara",
+      moh1: "Dewndara",
       headOfMoh: "W.H. Sarath Perera",
       phone: "041 3456789",
       workingAreas: [
@@ -15,136 +15,146 @@ const WorkingAreaTable = () => {
         },
         {
           area: "Weligama",
-          phi: "K.A. Nimal Perera",
-          contact: "071 1234567",
+          phi: "K.A. Priyanka",
+          contact: "071 9876543",
+        },
+      ],
+    },
+    {
+      district: "Matara",
+      moh1: "Akuressa",
+      headOfMoh: "J.D. Anura Jayasinghe",
+      phone: "041 1234567",
+      workingAreas: [
+        {
+          area: "Kamburupitiya",
+          phi: "B.R. Priyanthi",
+          contact: "071 2345678",
+        },
+        {
+          area: "Hakmana",
+          phi: "M.L. Ruwanthi",
+          contact: "071 8765432",
         },
       ],
     },
     {
       district: "Colombo",
-      moh: "Malabe",
+      moh1: "Malabe",
       headOfMoh: "S.E. Ajith Bandara",
       phone: "041 3456789",
       workingAreas: [
         {
-          area: "Nugegoda",
-          phi: "J.M. Priyantha",
-          contact: "071 9876543",
+          area: "Gandara",
+          phi: "W.H. Idunil Perera",
+          contact: "071 3456789",
         },
         {
-          area: "Kottawa",
-          phi: "S.P. Pradeep",
-          contact: "071 2345678",
+          area: "Kaduwela",
+          phi: "A.C. Saman",
+          contact: "072 3456789",
         },
       ],
     },
+    // More data...
   ];
 
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedMoh, setSelectedMoh] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [selectedMoh, setSelectedMoh] = useState('');
 
-  // Filter data based on district and moh selection
-  const filteredDistricts = data.filter(
-    (entry) =>
-      !selectedDistrict || entry.district === selectedDistrict
-  );
+  const handleDistrictChange = (event) => {
+    setSelectedDistrict(event.target.value);
+    setSelectedMoh('');
+  };
 
-  const filteredMohAreas =
-    selectedDistrict && selectedMoh
-      ? data
-          .find((entry) => entry.district === selectedDistrict)
-          .workingAreas.filter((area) => area.phi === selectedMoh)
-      : [];
+  const handleMohChange = (event) => {
+    setSelectedMoh(event.target.value);
+  };
+
+  const filteredMoh = data.filter(item => item.district === selectedDistrict);
+  const selectedData = filteredMoh.find(item => item.moh1 === selectedMoh);
 
   return (
-    <div className="p-4 bg-white min-h-screen flex justify-center items-center">
-      <div className="max-w-6xl w-full">
-        {/* District Filter */}
-        <div className="mb-4">
-          <label className="mr-2">Select District:</label>
-          <select
-            className="border p-2"
-            value={selectedDistrict}
-            onChange={(e) => setSelectedDistrict(e.target.value)}
+    <div className="p-6">
+      {/* District selection dropdown */}
+      <div className="mb-6 text-center">
+        <label className="block text-xl font-medium text-gray-700">Select District:</label>
+        <select 
+          value={selectedDistrict} 
+          onChange={handleDistrictChange} 
+          className="mt-2 p-3 border border-gray-300 rounded-xl shadow-sm text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">--Select District--</option>
+          {[...new Set(data.map(item => item.district))].map(district => (
+            <option key={district} value={district}>{district}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* MOH selection dropdown */}
+      {selectedDistrict && (
+        <div className="mb-6 text-center">
+          <label className="block text-xl font-medium text-gray-700">Select MOH Location:</label>
+          <select 
+            value={selectedMoh} 
+            onChange={handleMohChange} 
+            className="mt-2 p-3 border border-gray-300 rounded-xl shadow-sm text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">--Select District--</option>
-            {data.map((entry) => (
-              <option key={entry.district} value={entry.district}>
-                {entry.district}
-              </option>
+            <option value="">--Select MOH--</option>
+            {filteredMoh.map(item => (
+              <option key={item.moh1} value={item.moh1}>{item.moh1}</option>
             ))}
           </select>
         </div>
+      )}
 
-        {/* MOH Filter (Visible after selecting district) */}
-        {selectedDistrict && (
-          <div className="mb-4">
-            <label className="mr-2">Select MOH:</label>
-            <select
-              className="border p-2"
-              value={selectedMoh}
-              onChange={(e) => setSelectedMoh(e.target.value)}
-            >
-              <option value="">--Select MOH--</option>
-              {filteredDistricts
-                .flatMap((entry) => entry.workingAreas)
-                .map((area, index) => (
-                  <option key={index} value={area.phi}>
-                    {area.phi}
-                  </option>
-                ))}
-            </select>
-          </div>
-        )}
-
-        {/* First Table - Districts */}
-        <div className="overflow-auto w-full max-h-96 border border-gray-400 mb-4">
-          <table className="table-auto w-full border-collapse border border-gray-400">
-            <thead>
+      {/* Head of MOH Table */}
+      {selectedData && (
+        <div className="mb-6">
+          <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Head of MOH Details</h2>
+          <table className="min-w-full mx-auto table-auto border-collapse bg-white shadow-lg rounded-xl overflow-hidden">
+            <thead className="bg-blue-600 text-white">
               <tr>
-                
-                <th className="border border-gray-400 p-2">MOH</th>
-                <th className="border border-gray-400 p-2">Head of MOH</th>
-                <th className="border border-gray-400 p-2">Phone</th>
+                <th className="px-6 py-4 text-left text-lg font-semibold">District</th>
+                <th className="px-6 py-4 text-left text-lg font-semibold">Head of MOH</th>
+                <th className="px-6 py-4 text-left text-lg font-semibold">Phone</th>
               </tr>
             </thead>
-            <tbody>
-              {filteredDistricts.map((entry, index) => (
-                <tr key={index} className="bg-gray-200">
-                 
-                  <td className="border border-gray-400 p-2">{entry.moh}</td>
-                  <td className="border border-gray-400 p-2">{entry.headOfMoh}</td>
-                  <td className="border border-gray-400 p-2">{entry.phone}</td>
+            <tbody className="text-gray-700">
+              <tr className="border-t">
+                <td className="px-6 py-4">{selectedData.district}</td>
+                <td className="px-6 py-4">{selectedData.headOfMoh}</td>
+                <td className="px-6 py-4">{selectedData.phone}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* PHI Details Table */}
+      {selectedData && selectedData.workingAreas.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">PHI Details</h2>
+          <table className="min-w-full mx-auto table-auto border-collapse bg-white shadow-lg rounded-xl overflow-hidden">
+            <thead className="bg-green-600 text-white">
+              <tr>
+                <th className="px-6 py-4 text-left text-lg font-semibold">Area</th>
+                <th className="px-6 py-4 text-left text-lg font-semibold">PHI</th>
+                <th className="px-6 py-4 text-left text-lg font-semibold">Contact</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-700">
+              {selectedData.workingAreas.map(area => (
+                <tr key={area.area} className="border-t">
+                  <td className="px-6 py-4">{area.area}</td>
+                  <td className="px-6 py-4">{area.phi}</td>
+                  <td className="px-6 py-4">{area.contact}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
-        {/* Second Table - MOH Areas */}
-        {selectedDistrict && selectedMoh && (
-          <div className="overflow-auto w-full max-h-96 border border-gray-400">
-            <table className="table-auto w-full border-collapse border border-gray-400">
-              <thead>
-                <tr>
-                  <th className="border border-gray-400 p-2">Area</th>
-                  <th className="border border-gray-400 p-2">PHI</th>
-                  <th className="border border-gray-400 p-2">Contact</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredMohAreas.map((area, index) => (
-                  <tr key={index} className="bg-gray-200">
-                    <td className="border border-gray-400 p-2">{area.area}</td>
-                    <td className="border border-gray-400 p-2">{area.phi}</td>
-                    <td className="border border-gray-400 p-2">{area.contact}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 };

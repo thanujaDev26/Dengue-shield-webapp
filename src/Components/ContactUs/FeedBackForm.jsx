@@ -20,7 +20,7 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center md:w-full  bg-white  ">
+    <div className=" flex items-center justify-center md:w-full  bg-white   ">
       <div className="border  border-gray-900 w-full md:w-1/2 p-10  rounded-lg bg-teal-100">
         <h2 className="text-center text-xl font-bold mb-6">Feedback Form</h2>
         <form onSubmit={handleSubmit} className="space-y-2 ">
