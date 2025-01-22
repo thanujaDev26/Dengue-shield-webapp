@@ -1,36 +1,41 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const WorkingAreaTable = () => {
   const data = [
-   
+    {
+      district: "Matara",
+      moh1: "Dewndara",
+      headOfMoh: "W.H. Sarath Perera",
+      phone: "041 3456789",
+      workingAreas: [
+        {
+          area: "Gandara",
+          phi: "W.H. Idunil Perera",
+          contact: "071 3456789",
+        },
+        {
+          area: "Weligama",
+          phi: "K.A. Priyanka",
+          contact: "071 9876543",
+        },
+      ],
+    },
     {
       district: "Matara",
       moh1: "Akuressa",
       headOfMoh: "J.D. Anura Jayasinghe",
       phone: "041 1234567",
       workingAreas: [
-        { area: "Kamburupitiya", phi: "B.R. Priyanthi", contact: "071 2345678" },
-        { area: "Hakmana", phi: "M.L. Ruwanthi", contact: "071 8765432" },
-      ],
-    },
-    {
-      district: "Kaluthara",
-      moh1: "Pasgoda",
-      headOfMoh: "J.D. Anura Jayasinghe",
-      phone: "041 1234567",
-      workingAreas: [
-        { area: "Mathugama", phi: "B.R. Priyanthi", contact: "071 2345678" },
-        { area: "Panadura", phi: "M.L. Ruwanthi", contact: "071 8765432" },
-      ],
-    },
-    {
-      district: "Mathale",
-      moh1: "Dabhulla",
-      headOfMoh: "J.D. Anura Jayasinghe",
-      phone: "041 1234567",
-      workingAreas: [
-        { area: "Galewela", phi: "B.R. Priyanthi", contact: "071 2345678" },
-        { area: "Hakmana", phi: "M.L. Ruwanthi", contact: "071 8765432" },
+        {
+          area: "Kamburupitiya",
+          phi: "B.R. Priyanthi",
+          contact: "071 2345678",
+        },
+        {
+          area: "Hakmana",
+          phi: "M.L. Ruwanthi",
+          contact: "071 8765432",
+        },
       ],
     },
     {
@@ -39,121 +44,111 @@ const WorkingAreaTable = () => {
       headOfMoh: "S.E. Ajith Bandara",
       phone: "041 3456789",
       workingAreas: [
-        { area: "Gandara", phi: "W.H. Idunil Perera", contact: "071 3456789" },
-        { area: "Kaduwela", phi: "A.C. Saman", contact: "072 3456789" },
+        {
+          area: "Gandara",
+          phi: "W.H. Idunil Perera",
+          contact: "071 3456789",
+        },
+        {
+          area: "Kaduwela",
+          phi: "A.C. Saman",
+          contact: "072 3456789",
+        },
       ],
     },
-    
-    // More districts and MOH locations can be added here...
+    // More data...
   ];
 
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedMohLocation, setSelectedMohLocation] = useState("");
-  const [mohLocations, setMohLocations] = useState([]);
-  const [selectedMohData, setSelectedMohData] = useState(null);
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [selectedMoh, setSelectedMoh] = useState('');
 
-  // Filter unique districts
-  const uniqueDistricts = Array.from(new Set(data.map((item) => item.district)));
-
-  const handleDistrictChange = (e) => {
-    const district = e.target.value;
-    setSelectedDistrict(district);
-    const selectedDistrictData = data.filter((item) => item.district === district);
-    if (selectedDistrictData) {
-      setMohLocations(selectedDistrictData);
-    }
-    setSelectedMohLocation(""); // Reset MOH location when district changes
-    setSelectedMohData(null); // Reset MOH data
+  const handleDistrictChange = (event) => {
+    setSelectedDistrict(event.target.value);
+    setSelectedMoh('');
   };
 
-  const handleMohLocationChange = (e) => {
-    const mohLocation = e.target.value;
-    setSelectedMohLocation(mohLocation);
-    const selectedMohData = mohLocations.find((item) => item.moh1 === mohLocation);
-    setSelectedMohData(selectedMohData); // Set the selected MOH location data
+  const handleMohChange = (event) => {
+    setSelectedMoh(event.target.value);
   };
+
+  const filteredMoh = data.filter(item => item.district === selectedDistrict);
+  const selectedData = filteredMoh.find(item => item.moh1 === selectedMoh);
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-6 text-center">Working Area Table</h2>
+    <div className="p-6">
+      {/* District selection dropdown */}
+      <div className="mb-6 text-center">
+        <label className="block text-xl font-medium text-gray-700">Select District:</label>
+        <select 
+          value={selectedDistrict} 
+          onChange={handleDistrictChange} 
+          className="mt-2 p-3 border border-gray-300 rounded-xl shadow-sm text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">--Select District--</option>
+          {[...new Set(data.map(item => item.district))].map(district => (
+            <option key={district} value={district}>{district}</option>
+          ))}
+        </select>
+      </div>
 
-      <div className="flex justify-center space-x-6 mb-6">
-        <div>
-          <label className="block text-sm font-medium">Select District:</label>
-          <select
-            onChange={handleDistrictChange}
-            value={selectedDistrict}
-            className="mt-2 p-2 border border-gray-300 rounded"
+      {/* MOH selection dropdown */}
+      {selectedDistrict && (
+        <div className="mb-6 text-center">
+          <label className="block text-xl font-medium text-gray-700">Select MOH Location:</label>
+          <select 
+            value={selectedMoh} 
+            onChange={handleMohChange} 
+            className="mt-2 p-3 border border-gray-300 rounded-xl shadow-sm text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">Select District</option>
-            {uniqueDistricts.map((district) => (
-              <option key={district} value={district}>
-                {district}
-              </option>
+            <option value="">--Select MOH--</option>
+            {filteredMoh.map(item => (
+              <option key={item.moh1} value={item.moh1}>{item.moh1}</option>
             ))}
           </select>
         </div>
+      )}
 
-        {selectedDistrict && (
-          <div>
-            <label className="block text-sm font-medium">Select MOH Location:</label>
-            <select
-              onChange={handleMohLocationChange}
-              value={selectedMohLocation}
-              className="mt-2 p-2 border border-gray-300 rounded"
-            >
-              <option value="">Select MOH Location</option>
-              {mohLocations.map((location, index) => (
-                <option key={index} value={location.moh1}>
-                  {location.moh1}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-      </div>
-
-      {selectedDistrict && selectedMohLocation && selectedMohData && (
-        <div className="mb-6 text-center justify-items-center ">
-          <h3 className="text-xl font-semibold">MOH Head Details:</h3>
-          <table className="md:w-5/6 w-full table-auto  border-separate border border-gray-300 rounded-lg shadow-lg mb-6">
-            <thead className="bg-teal-600 text-white">
+      {/* Head of MOH Table */}
+      {selectedData && (
+        <div className="mb-6">
+          <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Head of MOH Details</h2>
+          <table className="min-w-full mx-auto table-auto border-collapse bg-white shadow-lg rounded-xl overflow-hidden">
+            <thead className="bg-blue-600 text-white">
               <tr>
-                <th className="p-3 text-center border border-gray-300">District</th>
-                <th className="p-3 text-center border border-gray-300">MOH Location</th>
-                <th className="p-3 text-center border border-gray-300">Head of MOH</th>
-                <th className="p-3 ext-center border border-gray-300">Phone</th>
+                <th className="px-6 py-4 text-left text-lg font-semibold">District</th>
+                <th className="px-6 py-4 text-left text-lg font-semibold">Head of MOH</th>
+                <th className="px-6 py-4 text-left text-lg font-semibold">Phone</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td className="p-3 border text-center border-gray-300">{selectedDistrict}</td>
-                <td className="p-3 border text-center border-gray-300">{selectedMohData.moh1}</td>
-                <td className="p-3 border text-center border-gray-300">{selectedMohData.headOfMoh}</td>
-                <td className="p-3 border text-center border-gray-400">{selectedMohData.phone}</td>
+            <tbody className="text-gray-700">
+              <tr className="border-t">
+                <td className="px-6 py-4">{selectedData.district}</td>
+                <td className="px-6 py-4">{selectedData.headOfMoh}</td>
+                <td className="px-6 py-4">{selectedData.phone}</td>
               </tr>
             </tbody>
           </table>
         </div>
       )}
 
-      {selectedDistrict && selectedMohLocation && selectedMohData && selectedMohData.workingAreas && (
-        <div className="mb-6 text-center justify-items-center">
-          <h3 className="text-xl font-semibold mb-4">PHI Details:</h3>
-          <table className="md:w-5/6 w-full table-auto border-separate border  border-gray-300 rounded-lg shadow-lg">
-            <thead className="bg-teal-600 text-white">
-              <tr> 
-                <th className="p-3 text-center border border-gray-400">Area</th>
-                <th className="p-3 text-center border border-gray-400">PHI Name</th>
-                <th className="p-3 text-center  border border-gray-400">Contact</th>
+      {/* PHI Details Table */}
+      {selectedData && selectedData.workingAreas.length > 0 && (
+        <div>
+          <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">PHI Details</h2>
+          <table className="min-w-full mx-auto table-auto border-collapse bg-white shadow-lg rounded-xl overflow-hidden">
+            <thead className="bg-green-600 text-white">
+              <tr>
+                <th className="px-6 py-4 text-left text-lg font-semibold">Area</th>
+                <th className="px-6 py-4 text-left text-lg font-semibold">PHI</th>
+                <th className="px-6 py-4 text-left text-lg font-semibold">Contact</th>
               </tr>
             </thead>
-            <tbody>
-              {selectedMohData.workingAreas.map((area, index) => (
-                <tr key={index}>
-                  <td className="p-3  border border-gray-400">{area.area}</td>
-                  <td className="p-3  border border-gray-400">{area.phi}</td>
-                  <td className="p-3  border border-gray-400" >{area.contact}</td>
+            <tbody className="text-gray-700">
+              {selectedData.workingAreas.map(area => (
+                <tr key={area.area} className="border-t">
+                  <td className="px-6 py-4">{area.area}</td>
+                  <td className="px-6 py-4">{area.phi}</td>
+                  <td className="px-6 py-4">{area.contact}</td>
                 </tr>
               ))}
             </tbody>
