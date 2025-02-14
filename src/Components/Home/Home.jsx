@@ -7,7 +7,7 @@ const Home = () => {
   const onChangeLocation = () => {
     navigate('/about');  // Redirect to internal route
   };
-
+  
   return (
     <section className='m-0'>
       {/*top section introduction*/}
