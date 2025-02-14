@@ -1,12 +1,12 @@
 
 import Databoard from './Databoard.jsx'
-import Landing from './Landing/Landing.jsx';
+
+import LandingApp from './LandingApp.jsx';
 
 const Dashboard = () => {
   return (
     <div className="text-center">
-      
-        <Landing />
+        <LandingApp />
         <Databoard/>
     </div>
   );
