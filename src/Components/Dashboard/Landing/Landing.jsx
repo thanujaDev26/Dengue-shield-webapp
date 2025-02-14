@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 const Landing = () => {
-  const [activeForm, setActiveForm] = useState(''); // Track which form is active
-  const [patientId, setPatientId] = useState(''); // Store the patient ID for passing to Arrival Form
-  const [arrivalData, setArrivalData] = useState({}); // Store the Arrival Form data
+  const [activeForm, setActiveForm] = useState(''); 
+  const [patientId, setPatientId] = useState(''); 
+  const [arrivalData, setArrivalData] = useState({}); 
 
   // Show the form based on the form ID
   const showForm = (formId) => {
@@ -13,9 +13,8 @@ const Landing = () => {
   // Handle form submission for H544Form
   const submitH544Form = async () => {
     const patientId = document.getElementById('patientId').value;
-    setPatientId(patientId); // Store the patientId to pass to Arrival Form
-
-    // After submitting the H544Form, move to the Arrival Form
+    setPatientId(patientId); 
+    
     setActiveForm('ArrivalForm');
   };
 
