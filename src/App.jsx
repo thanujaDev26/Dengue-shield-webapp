@@ -36,7 +36,7 @@ function App() {
       </div>
       
       
-      <Footer />
+npm      <Footer />
     </div>
   );
 }
