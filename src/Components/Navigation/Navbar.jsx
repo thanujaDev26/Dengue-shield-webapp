@@ -41,7 +41,7 @@ export default function Navbar() {
                     <div className="flex items-center">
                         <Link to="/" className="flex items-center">
                             <img src="/images/logo.png" alt="Logo" className="h-11 w-auto" />
-                            <p className="ml-4 text-xl font-semibold">Dengue Shield</p>
+                            <p className="ml-4 text-xl font-semibold">MOS<span className='text-red-600'>Q</span>GUARD</p>
                         </Link>
                     </div>
 
