@@ -28,7 +28,7 @@ export default function H544Table() {
 
       setNotification(`Notification sent to MOH for Patient ID: ${patientId}, H544 form: ${h544Id}.`);
 
-      // navigate('/accepted-requests');
+      navigate('/accepted-requests');
     } else {
       setNotification('Action canceled.');
     }
