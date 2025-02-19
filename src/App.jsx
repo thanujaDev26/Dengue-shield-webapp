@@ -9,7 +9,7 @@ import Contact from "./Components/ContactUs/Contact.jsx";
 import Login from "./Components/Login/Login.jsx";
 import Signup from "./Components/Login/Signup.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
-import ProtectedRoute from "./Components/ProtectedRoutes/ProtectedRoute.jsx";
+//import ProtectedRoute from "./Components/ProtectedRoutes/ProtectedRoute.jsx";
 import H544Table from './Components/Dashboard/PHI/H544Table.jsx';
 import AcceptedRequestsTable from './Components/Dashboard/PHI/AcceptedRequestsTable.jsx';
 import InwardForm from './Components/Dashboard/PHI/InwardForm.jsx';
@@ -29,9 +29,9 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>
+             
                 <Dashboard />
-              </ProtectedRoute>
+              
             }
           />
           <Route path="/about" element={<About />} />

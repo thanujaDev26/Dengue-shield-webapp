@@ -16,7 +16,7 @@ export default function Landing() {
         <div>
             <div className="flex flex-col md:flex-row items-center bg-transparent min-h-1/2 m-0 w-full p-0">
                 {/* Main content section MOH*/}
-                {/* <div className="md:w-1/2 p-12 text-center md:text-left" id="MOH">
+                <div className="md:w-1/2 p-12 text-center md:text-left" id="MOH">
                     <div>
                         <div>
                             <div className='flex flex-col md:flex-row items-center text-center'>
@@ -69,10 +69,10 @@ export default function Landing() {
                             </button>
                         </div>
                     </div>
-                </div> */}
+                </div>
 
                 {/* Main content section PHI*/}
-                <div className="md:w-1/2 p-12 text-center md:text-left" id="PHI">
+                {/* <div className="md:w-1/2 p-12 text-center md:text-left" id="PHI">
                     <div>
                         <div>
                             <div className='flex flex-col md:flex-row items-center text-center'>
@@ -125,7 +125,7 @@ export default function Landing() {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Image section */}
                 <div className="md:w-1/2 relative">
