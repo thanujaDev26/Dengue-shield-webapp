@@ -10,6 +10,9 @@ import Login from "./Components/Login/Login.jsx";
 import Signup from "./Components/Login/Signup.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
 import ProtectedRoute from "./Components/ProtectedRoutes/ProtectedRoute.jsx";
+import H544Table from './Components/Dashboard/PHI/H544Table.jsx';
+import AcceptedRequestsTable from './Components/Dashboard/PHI/AcceptedRequestsTable.jsx';
+import InwardForm from './Components/Dashboard/PHI/InwardForm.jsx';
 
 function App() {
   return (
@@ -32,11 +35,14 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
+          <Route path="/h544-table" element={<H544Table />} />
+          <Route path="/accepted-requests" element={<AcceptedRequestsTable />} />
+          <Route path="/inward-form/:patientId" element={<InwardForm />} />
         </Routes>
       </div>
       
       
-npm      <Footer />
+      <Footer />
     </div>
   );
 }
