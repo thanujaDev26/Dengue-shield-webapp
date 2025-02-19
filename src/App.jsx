@@ -13,6 +13,9 @@ import ProtectedRoute from "./Components/ProtectedRoutes/ProtectedRoute.jsx";
 import H544Table from './Components/Dashboard/PHI/H544Table.jsx';
 import AcceptedRequestsTable from './Components/Dashboard/PHI/AcceptedRequestsTable.jsx';
 import InwardForm from './Components/Dashboard/PHI/InwardForm.jsx';
+import OnwardForm from "./Components/Dashboard/PHI/OnwardForm.jsx";
+import H411Form from "./Components/Dashboard/MOH/h411Form.jsx";
+
 
 function App() {
   return (
@@ -26,9 +29,7 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>
                 <Dashboard />
-              </ProtectedRoute>
             }
           />
           <Route path="/about" element={<About />} />
@@ -38,6 +39,8 @@ function App() {
           <Route path="/h544-table" element={<H544Table />} />
           <Route path="/accepted-requests" element={<AcceptedRequestsTable />} />
           <Route path="/inward-form/:patientId" element={<InwardForm />} />
+          <Route path="/onward-form" element={<OnwardForm />} />
+          <Route path="/h411-form" element={<H411Form />} />
         </Routes>
       </div>
       

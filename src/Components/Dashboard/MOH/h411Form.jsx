@@ -1,7 +1,7 @@
 // src/components/PHIExtendedForm.js
 import React, { useState } from 'react';
 
-export default function PHIExtendedForm({ patientId, onSubmit }) {
+export default function H411Form({ patientId, onSubmit }) {
   const [phiData, setPhiData] = useState({
     phiReferenceNo: '',
     mohNotificationNo: '',
