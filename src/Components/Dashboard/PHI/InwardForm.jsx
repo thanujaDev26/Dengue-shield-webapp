@@ -66,7 +66,7 @@ export default function InwardForm({ onSubmit }) {
     <div className='justify-items-center'>
       <div className="w-2/3 items-center p-6 bg-white rounded-lg shadow-md mt-6 mb-10">
         <h2 className="text-2xl text-center font-bold mb-20">
-          Arrival Form for Patient {patientId}
+          Documents Inward Register {patientId}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-10 mr-10">
@@ -83,7 +83,7 @@ export default function InwardForm({ onSubmit }) {
             />
           </div>
 
-          <div>
+          {/* <div>
             <label htmlFor="date" className="block text-sm font-medium text-gray-700">
               Date
             </label>
@@ -95,24 +95,25 @@ export default function InwardForm({ onSubmit }) {
               name="date"
               className="w-full p-2 mb-4 border border-gray-300 rounded"
             />
-          </div>
+          </div> */}
 
           <div>
             <label htmlFor="invoiceNo" className="block text-sm font-medium text-gray-700">
-              Invoice No
+              Inward No
             </label>
             <input
               type="text"
-              id="invoiceNo"
-              placeholder="Enter Invoice Number"
-              value={arrivalData.invoiceNo}
+              id="h544no"
+              placeholder="H544 ID"
+              value={arrivalData.h544no}
               onChange={handleArrivalChange}
-              name="invoiceNo"
+              name="h544no"
               className="w-full p-2 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
-          <div>
+          {/* <div>
             <label htmlFor="dateReciept" className="block text-sm font-medium text-gray-700">
               Date of Receipt
             </label>
@@ -124,7 +125,7 @@ export default function InwardForm({ onSubmit }) {
               name="dateReciept"
               className="w-full p-2 mb-4 border border-gray-300 rounded"
             />
-          </div>
+          </div> */}
 
           <div>
             <label htmlFor="fromWhom" className="block text-sm font-medium text-gray-700">
@@ -133,15 +134,16 @@ export default function InwardForm({ onSubmit }) {
             <input
               type="text"
               id="fromWhom"
-              placeholder="Enter From Whom"
+              placeholder="Name of the MOH"
               value={arrivalData.fromWhom}
               onChange={handleArrivalChange}
               name="fromWhom"
               className="w-full p-2 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
-          <div>
+          {/* <div>
             <label htmlFor="originalNo" className="block text-sm font-medium text-gray-700">
               Original Number
             </label>
@@ -154,24 +156,51 @@ export default function InwardForm({ onSubmit }) {
               name="originalNo"
               className="w-full p-2 mb-4 border border-gray-300 rounded"
             />
-          </div>
+          </div> */}
 
           <div>
             <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
               Subject
             </label>
-            <input
-              type="text"
+            <select
               id="subject"
               placeholder="Enter Subject"
               value={arrivalData.subject}
               onChange={handleArrivalChange}
               name="subject"
               className="w-full p-2 mb-4 border border-gray-300 rounded"
-            />
+            >
+              <option value="Cholera">Cholera</option>
+              <option value="Plague">Plague</option>
+              <option value="Yellow Fever">Yellow Fever</option>
+              <option value="Acute Poliomyelitis / Acute Flaccid Paralysis">Acute Poliomyelitis / Acute Flaccid Paralysis</option>
+              <option value="Chickenpox">Chickenpox</option>
+              <option value="Dengue Fever / Dengue Haemorrhagic Fever">Dengue Fever / Dengue Haemorrhagic Fever</option>
+              <option value="Diphtheria">Diphtheria</option>
+              <option value="Dysentery">Dysentery</option>
+              <option value="Encephalitis">Encephalitis</option>
+              <option value="Enteric Fever (Typhoid & Paratyphoid Fever)">Enteric Fever (Typhoid & Paratyphoid Fever)</option>
+              <option value="Food Poisoning">Food Poisoning</option>
+              <option value="Human Rabies">Human Rabies</option>
+              <option value="Leptospirosis">Leptospirosis</option>
+              <option value="Malaria">Malaria</option>
+              <option value="Measles">Measles</option>
+              <option value="Meningitis">Meningitis</option>
+              <option value="Mumps">Mumps</option>
+              <option value="Rubella / Congenital Rubella Syndrome">Rubella / Congenital Rubella Syndrome</option>
+              <option value="Simple Continued Fever of Over 7 Days or More">Simple Continued Fever of Over 7 Days or More</option>
+              <option value="Tetanus">Tetanus</option>
+              <option value="Neonatal Tetanus">Neonatal Tetanus</option>
+              <option value="Typhus Fever">Typhus Fever</option>
+              <option value="Viral Hepatitis">Viral Hepatitis</option>
+              <option value="Whooping Cough (Pertussis)">Whooping Cough (Pertussis)</option>
+              <option value="Tuberculosis">Tuberculosis</option>
+              <option value="Leishmaniasis">Leishmaniasis</option>
+              <option value="Leprosy">Leprosy</option>
+            </select>
           </div>
 
-          <div>
+          {/* <div>
             <label htmlFor="dateOfAnswer" className="block text-sm font-medium text-gray-700">
               Date of Answer
             </label>
@@ -183,13 +212,13 @@ export default function InwardForm({ onSubmit }) {
               name="dateOfAnswer"
               className="w-full p-2 mb-4 border border-gray-300 rounded"
             />
-          </div>
+          </div> */}
 
           <div>
             <label htmlFor="remarks" className="block text-sm font-medium text-gray-700">
               Remarks
             </label>
-            <input
+            <textarea
               type="text"
               id="remarks"
               placeholder="Enter Remarks"
