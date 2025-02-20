@@ -13,12 +13,18 @@ import ProtectedRoute from "./Components/ProtectedRoutes/ProtectedRoute.jsx";
 import H544Table from './Components/Dashboard/PHI/H544Table.jsx';
 import AcceptedRequestsTable from './Components/Dashboard/PHI/AcceptedRequestsTable.jsx';
 import InwardForm from './Components/Dashboard/PHI/InwardForm.jsx';
+
+import OnwardForm from "./Components/Dashboard/PHI/OnwardForm.jsx";
+import H411Form from "./Components/Dashboard/MOH/h411Form.jsx";
+import InfectionsDiseasesTable from "./Components/Dashboard/InfectionsDiseasesTable.jsx";
+
 import NoteBook from "./Components/Dashboard/PHI/NoteBook.jsx";
 import Outwardform from "./Components/Dashboard/PHI/Outwardform.jsx";
 import H544Form from "./Components/Dashboard/MOH/H544Form.jsx";
 import PendingTable from "./Components/Dashboard/MOH/PendingTable.jsx";
 import VisitInward from "./Components/Dashboard/MOH/VisitInward.jsx";
 import VisitInwardForm from "./Components/Dashboard/MOH/VisitInwardForm.jsx";
+
 
 function App() {
   const [acceptedRequests, setAcceptedRequests] = useState([]);
@@ -51,15 +57,21 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>
                 <Dashboard />
-              </ProtectedRoute>
             }
           />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
+
+          <Route path="/h544-table" element={<H544Table />} />
+          <Route path="/accepted-requests" element={<AcceptedRequestsTable />} />
+          <Route path="/inward-form/:patientId" element={<InwardForm />} />
+          <Route path="/onward-form" element={<OnwardForm />} />
+          <Route path="/h411-form" element={<H411Form />} />
+          <Route path="/infections-diseases-table" element={<InfectionsDiseasesTable />} />
+
 
           <Route
             path="/h544-table"
@@ -130,6 +142,7 @@ function App() {
             path="/edit-form"
             element={<H544Form onSubmit={handleFormSubmit} />}
           />
+
 
         </Routes>
       </div>
