@@ -94,7 +94,7 @@ const H544Form = () => {
               </label>
               <input
                 type="text"
-                placeholder="Enter Institute"
+                placeholder="Enter Hospital/Institute Name"
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="institute"
                 name="institute"
@@ -159,80 +159,6 @@ const H544Form = () => {
             </div>
             <div>
               <label
-                htmlFor="labResults"
-                className="block text-sm mt-2 font-medium text-gray-700"
-              >
-                Laboratory Results
-              </label>
-              <input
-                type="text"
-                placeholder="Enter Laboratory Results"
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                id="labResults"
-                name="labResults"
-                value={formData.labResults}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="bht"
-                className="block text-sm mt-2 font-medium text-gray-700"
-              >
-                B.H.T.No
-              </label>
-              <input
-                type="text"
-                placeholder="Enter B.H.T.No"
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                id="bht"
-                name="bht"
-                value={formData.bht}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="onsetDate"
-                className="block text-sm mt-2 font-medium text-gray-700"
-              >
-                Date of Onset
-              </label>
-              <input
-                type="date"
-                placeholder="Enter Date of Onset"
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                id="onsetDate"
-                name="onsetDate"
-                value={formData.onsetDate}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="admissionDate"
-                className="block text-sm mt-2 font-medium text-gray-700"
-              >
-                Date of Admission
-              </label>
-              <input
-                type="date"
-                placeholder="Enter Date of Admission"
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                id="admissionDate"
-                name="admissionDate"
-                value={formData.admissionDate}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-10 mr-10">
-            <div>
-              <label
                 htmlFor="patientId"
                 className="block text-sm mt-2 font-medium text-gray-700"
               >
@@ -257,7 +183,7 @@ const H544Form = () => {
                 Patient Age
               </label>
               <input
-                type="text"
+                type="Number"
                 placeholder="Enter Patient Age"
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="patientAge"
@@ -266,48 +192,168 @@ const H544Form = () => {
                 onChange={handleChange}
                 required
               />
-            </div>
+            </div>          
+              <div>
+                <label
+                  htmlFor="ward"
+                  className="block text-sm mt-2 font-medium text-gray-700"
+                >
+                  Patient Ward
+                </label>
+                <input
+                  type="Number"
+                  placeholder="Enter Patient Ward Number"
+                  className="w-full p-2 mb-4 border border-gray-300 rounded"
+                  id="ward"
+                  name="ward"
+                  value={formData.ward}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="gender"
+                  className="block text-sm font-medium mt-2 text-gray-700"
+                >
+                  Gender
+                </label>
+                <select
+                  id="gender"
+                  name="gender"
+                  className="w-full p-2 mb-4 border border-gray-300 rounded"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>
+                    Select Gender
+                  </option>
+                  <option value="female">Female</option>
+                  <option value="male">Male</option>
+                </select>
+              </div>            
             <div>
               <label
-                htmlFor="ward"
+                htmlFor="labResults"
                 className="block text-sm mt-2 font-medium text-gray-700"
               >
-                Patient Ward
+                Laboratory Results
               </label>
               <input
                 type="text"
-                placeholder="Enter Patient Ward"
+                placeholder="Enter Laboratory Results(If Available)"
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
-                id="ward"
-                name="ward"
-                value={formData.ward}
+                id="labResults"
+                name="labResults"
+                value={formData.labResults}
                 onChange={handleChange}
                 required
               />
             </div>
             <div>
               <label
-                htmlFor="gender"
+                htmlFor="bht"
+                className="block text-sm mt-2 font-medium text-gray-700"
+              >
+                B.H.T.No
+              </label>
+              <input
+                type="Number"
+                placeholder="Enter Bed Head Ticket Number"
+                className="w-full p-2 mb-4 border border-gray-300 rounded"
+                id="bht"
+                name="bht"
+                value={formData.bht}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="onsetDate"
+                className="block text-sm mt-2 font-medium text-gray-700"
+              >
+                Date of Onset (Infected Date)
+              </label>
+              <input
+                type="date"
+                placeholder="Enter Date of Onset"
+                className="w-full p-2 mb-4 border border-gray-300 rounded"
+                id="onsetDate"
+                name="onsetDate"
+                value={formData.onsetDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="admissionDate"
+                className="block text-sm mt-2 font-medium text-gray-700"
+              >
+                Date of Admission
+              </label>
+              <input
+                type="date"
+                placeholder="Enter Admitted Date"
+                className="w-full p-2 mb-4 border border-gray-300 rounded"
+                id="admissionDate"
+                name="admissionDate"
+                value={formData.admissionDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="notifier"
+                className="block text-sm mt-2 font-medium text-gray-700"
+              >
+                Notifier's Name
+              </label>
+              <input
+                type="text"
+                placeholder="Enter Name of the Notifier"
+                className="w-full p-2 mb-4 border border-gray-300 rounded"
+                id="notifier"
+                name="notifier"
+                value={formData.notifier}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="notifireStatus"
                 className="block text-sm font-medium mt-2 text-gray-700"
               >
-                Gender
+                Notifire's Status
               </label>
               <select
-                id="gender"
-                name="gender"
+                id="notifireStatus"
+                name="notifireStatus"
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
-                value={formData.gender}
+                value={formData.notifireStatus}
                 onChange={handleChange}
                 required
               >
                 <option value="" disabled>
-                  Select Gender
+                  Select Notifire's Status
                 </option>
-                <option value="female">Female</option>
-                <option value="male">Male</option>
+                <option value="onDuty">On Duty</option>
+                <option value="offDuty">Off Duty</option>
+                <option value="onCall">On Call</option>
+                <option value="leave">Leave</option>
+                <option value="residentDoctor">Resident Doctor</option>
+                <option value="consultant">Consultant</option>
+                <option value="visitingConsultant">Visiting Consultant</option>
+                <option value="intern">Intern</option>
+                <option value="imo">IMO</option>
+                <option value="other">Other</option>
               </select>
             </div>
-          </div>
+          </div>          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ml-10 mr-10">
             <button
               onClick={handleBack}
