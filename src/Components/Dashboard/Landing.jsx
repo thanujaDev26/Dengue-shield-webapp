@@ -8,20 +8,33 @@ export default function Landing() {
         navigate('/h544-table');  // Redirect to H544Table page
     };
 
+    const handleVisitInward = () => {
+        navigate('/visit-inward');  // Redirect to H544Table page
+    };
+
     const handleShowAcceptedRequests = () => {
         navigate('/accepted-requests');  // Redirect to AcceptedRequestsTable page
     };
+    const handlePendingTable = () => {
+        navigate('/pending-table'); // Navigate to the pending table page
+
+    };
+    const handleOpenH544Form = () => {
+        navigate('/h544form');  // Redirect to AcceptedRequestsTable page
+    };
+
 
     return (
         <div>
             <div className="flex flex-col md:flex-row items-center bg-transparent min-h-1/2 m-0 w-full p-0">
                 {/* Main content section MOH*/}
                 <div className="md:w-1/2 p-12 text-center md:text-left" id="MOH">
+              {/*}  <div className="md:w-1/2 p-12 text-center md:text-left" id="MOH">
                     <div>
                         <div>
                             <div className='flex flex-col md:flex-row items-center text-center'>
                                 <button
-                                    onClick=''
+                                    onClick={handleOpenH544Form}
                                     className='md:m-4 m-4 rounded-3xl border-2 bg-emerald-500 border-emerald-600 md:w-full w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105'
                                 >
                                     <div className='flex-shrink-0 flex items-center justify-center p-3'>
@@ -31,10 +44,10 @@ export default function Landing() {
                                 </button>
                             </div>
                         </div>
-                    
+
                         <div className='flex flex-col md:flex-row items-center text-center'>
                             <button
-                                onClick=''
+                                onClick={handlePendingTable}
                                 className='md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105'
                             >
                                 <div className='flex-shrink-0 flex items-center justify-center p-3'>
@@ -42,7 +55,7 @@ export default function Landing() {
                                 </div>
                                 <p className='py-1 px-10 text-md font-normal text-gray-600'>Check Pending Approved H544</p>
                             </button>
-                            
+
                             <button className='md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105'>
                                 <div className='flex-shrink-0 flex items-center justify-center p-3'>
                                     <h1 className='p-1 text-xl font-bold text-gray-600'>Infectious Diseases Register</h1>
@@ -51,10 +64,10 @@ export default function Landing() {
                             </button>
                         </div>
                     </div>
-                    
+
                     <div>
                         <div className='flex flex-col md:flex-row items-center text-center'>
-                            <button className='md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105'>
+                            <button onClick={handleVisitInward} className='md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105'>
                                 <div className='flex-shrink-0 flex items-center justify-center p-3'>
                                     <h1 className='p-1 text-xl font-bold text-gray-600'>View Document Inward</h1>
                                 </div>
@@ -110,7 +123,7 @@ export default function Landing() {
                     
                     <div>
                         <div className='flex flex-col md:flex-row items-center text-center'>
-                            <button className='md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105'>
+                            <button onClick={handleVisitInward} className='md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105'>
                                 <div className='flex-shrink-0 flex items-center justify-center p-3'>
                                     <h1 className='p-1 text-xl font-bold text-gray-600'>View Document Inward</h1>
                                 </div>
@@ -126,6 +139,7 @@ export default function Landing() {
                         </div>
                     </div>
                 </div> */}
+                </div> 
 
                 {/* Image section */}
                 <div className="md:w-1/2 relative">
