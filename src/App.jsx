@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navigation/Navbar.jsx";
 import Home from "./Components/Home/Home.jsx";
@@ -10,6 +10,11 @@ import Login from "./Components/Login/Login.jsx";
 import Signup from "./Components/Login/Signup.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
 import ProtectedRoute from "./Components/ProtectedRoutes/ProtectedRoute.jsx";
+
+import H544Table from "./Components/Dashboard/PHI/H544Table.jsx";
+import AcceptedRequestsTable from "./Components/Dashboard/PHI/AcceptedRequestsTable.jsx";
+import InwardForm from "./Components/Dashboard/PHI/InwardForm.jsx";
+
 import H544Table from './Components/Dashboard/PHI/H544Table.jsx';
 import AcceptedRequestsTable from './Components/Dashboard/PHI/AcceptedRequestsTable.jsx';
 import InwardForm from './Components/Dashboard/PHI/InwardForm.jsx';
@@ -20,6 +25,7 @@ import InfectionsDiseasesTable from "./Components/Dashboard/InfectionsDiseasesTa
 
 import NoteBook from "./Components/Dashboard/PHI/NoteBook.jsx";
 import Outwardform from "./Components/Dashboard/PHI/Outwardform.jsx";
+import { Toaster } from "react-hot-toast";
 import H544Form from "./Components/Dashboard/MOH/H544Form.jsx";
 import PendingTable from "./Components/Dashboard/MOH/PendingTable.jsx";
 import VisitInward from "./Components/Dashboard/MOH/VisitInward.jsx";
@@ -48,7 +54,7 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen">
-
+      <Toaster />
       <Navbar />
 
       <div className="flex-1 bg-white overflow-y-auto p-0 m-0">
@@ -86,7 +92,8 @@ function App() {
               />
             }
           />
-          <Route path="/inward-form/:patientId" element={<InwardForm />} /><Route
+          <Route path="/inward-form/:patientId" element={<InwardForm />} />
+          <Route
             path="/inward-form"
             element={
               <InwardForm
@@ -94,6 +101,10 @@ function App() {
               />
             }
           />
+          <Route path="/inward-form" element={<InwardForm />} />
+          <Route path="/notebook" element={<NoteBook />} />
+
+          <Route path="/outwardform" element={<Outwardform />} />
           <Route
             path="/inward-form"
             element={
@@ -146,7 +157,6 @@ function App() {
 
         </Routes>
       </div>
-
 
       <Footer />
     </div>
