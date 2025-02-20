@@ -1,33 +1,48 @@
-
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        setIsLoggedIn(loggedIn);
-    }, []);
+  useEffect(() => {
+      const userDetailsString = localStorage.getItem("user");
+      console.log(userDetailsString);
+      
 
-    const login = () => {
-        localStorage.setItem('isLoggedIn', 'true');
-        setIsLoggedIn(true);
-    };
+    if (userDetailsString) {
+      try {
+        const userDetails = JSON.parse(userDetailsString);
+        if (userDetails.appuser && userDetails.appuser.role) {
+          setUser(userDetails); // Store user in context
+        } else {
+          logout(); // Invalid data, force logout
+        }
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+        logout();
+      }
+    }
+  }, []);
 
-    const logout = () => {
-        localStorage.removeItem('isLoggedIn');
-        setIsLoggedIn(false);
-    };
+  const login = (userData) => {
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
+  };
 
-    return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/auth/login");
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export const useAuth = () => {
-    return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);

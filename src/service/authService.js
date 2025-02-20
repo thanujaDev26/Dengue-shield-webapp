@@ -25,12 +25,9 @@ const login = async (email, password) => {
       password,
     });
 
-    //if (response.data.accessToken) {
-    // Store user data (including token) in localStorage
-    localStorage.setItem("user", JSON.stringify(response.data));
-    //}
-
-    return response.data; // Return the server response
+    console.log(response.data);
+    return response;
+    // Return the server response
   } catch (error) {
     console.error("Error during login:", error);
     throw error;
