@@ -26,7 +26,7 @@ const login = async (email, password) => {
     });
 
     console.log(response.data);
-    return response;
+    return response.data;
     // Return the server response
   } catch (error) {
     console.error("Error during login:", error);

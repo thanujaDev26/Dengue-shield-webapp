@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+
+import { Card, CardContent, CardHeader } from "@mui/material";
 
 const InfectionsDiseasesTable = () => {
   // Sample data for the table
@@ -43,7 +43,7 @@ const InfectionsDiseasesTable = () => {
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Serial No</th>
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Case No</th>
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Date of Receipt of I.D. Card</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">District Revenue Officer's Division</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">District Revenue Officers Division</th>
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Locality</th>
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Name of Patient</th>
                 <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Age</th>

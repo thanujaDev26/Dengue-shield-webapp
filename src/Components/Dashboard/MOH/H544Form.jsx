@@ -1,8 +1,9 @@
 // H544Form.js
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { saveDiseaseNotification } from "../../../service/mohService";
 
-const H544Form = ({ onSubmit }) => {
+const H544Form = () => {
   const [formData, setFormData] = useState({
     institute: "",
     patientName: "",
@@ -36,13 +37,45 @@ const H544Form = ({ onSubmit }) => {
   };
 
   // Submit the form data and handle the onSubmit action
-  const handleSubmit = () => {
-    if (formData.patientId) {
-      onSubmit(formData); // Pass the form data to the parent
-      navigate("/pending-table"); // Navigate back to the pending table page
-    } else {
-      alert("Please fill in the patient ID.");
+  const handleSubmit = async () => {
+    try {
+      const notificationData = {
+        guardianName: formData.guardianName,
+        name: formData.patientName,
+        labResults: formData.labResults,
+        dateOfOnset: formData.onsetDate, // Ensure format is correct
+        dateOfAdmission: formData.admissionDate, // Ensure format is correct
+        institute: formData.institute,
+        ward: formData.ward,
+        bedNumber: formData.bht,
+        medicalOfficer: "", // Make sure this field exists in DTO
+        patient: {
+          nic: formData.patientId, // Ensure key matches DTO (was patientId, should be nic)
+          name: formData.patientName,
+          address: formData.address,
+          notifierStatus: formData.notifierStatus || "Unknown", // Provide default if needed
+          religion: formData.religion || null, // Handle optional fields
+          race: formData.race || null,
+          telephoneNumber: formData.telephone || null,
+          occupation: formData.occupation || null,
+          gender: formData.gender,
+          nameOfNotifier: formData.nameOfNotifier || "Unknown",
+          // Ensure correct date format
+        },
+      };
+
+      const response = await saveDiseaseNotification(notificationData);
+      console.log(response);
+      navigate("/pending-table");
+    } catch (error) {
+      alert(error);
     }
+    // if (formData.patientId) {
+    //    // Pass the form data to the parent
+    //   navigate("/pending-table"); // Navigate back to the pending table page
+    // } else {
+    //   alert("Please fill in the patient ID.");
+    // }
   };
 
   return (
@@ -67,6 +100,7 @@ const H544Form = ({ onSubmit }) => {
                 name="institute"
                 value={formData.institute}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -84,6 +118,7 @@ const H544Form = ({ onSubmit }) => {
                 name="patientName"
                 value={formData.patientName}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -101,6 +136,7 @@ const H544Form = ({ onSubmit }) => {
                 name="guardianName"
                 value={formData.guardianName}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -118,6 +154,7 @@ const H544Form = ({ onSubmit }) => {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -135,6 +172,7 @@ const H544Form = ({ onSubmit }) => {
                 name="labResults"
                 value={formData.labResults}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -152,6 +190,7 @@ const H544Form = ({ onSubmit }) => {
                 name="bht"
                 value={formData.bht}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -169,6 +208,7 @@ const H544Form = ({ onSubmit }) => {
                 name="onsetDate"
                 value={formData.onsetDate}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -186,6 +226,7 @@ const H544Form = ({ onSubmit }) => {
                 name="admissionDate"
                 value={formData.admissionDate}
                 onChange={handleChange}
+                required
               />
             </div>
           </div>
@@ -205,6 +246,7 @@ const H544Form = ({ onSubmit }) => {
                 name="patientId"
                 value={formData.patientId}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -222,6 +264,7 @@ const H544Form = ({ onSubmit }) => {
                 name="patientAge"
                 value={formData.patientAge}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -239,6 +282,7 @@ const H544Form = ({ onSubmit }) => {
                 name="ward"
                 value={formData.ward}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -254,6 +298,7 @@ const H544Form = ({ onSubmit }) => {
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 value={formData.gender}
                 onChange={handleChange}
+                required
               >
                 <option value="" disabled>
                   Select Gender

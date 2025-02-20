@@ -20,7 +20,7 @@ const AuthLayout = ({ children }) => {
       navigate("/sign-in"); // Redirect if user is not logged in
     }
   }, [user, navigate]);
-
+  console.log(user.data.appuser.role);
   if (!user) return null; // Prevent rendering while checking authentication
 
   return user.data.appuser.role === "ROLE_MOH" ? (

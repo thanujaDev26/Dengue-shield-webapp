@@ -10,8 +10,12 @@ export default function Landing() {
     <AuthLayout>
       <div className="flex flex-col md:flex-row items-center bg-transparent min-h-1/2 m-0 w-full p-0">
         {/* Render MOH or PHI Component Based on Role */}
-        console.log(user);
-        {user?.appuser?.role === "ROLE_MOH" ? <LandingMOH /> : <LandingPHI />}
+
+        {user.data.appuser.role === "ROLE_MOH" ? (
+          <LandingMOH />
+        ) : (
+          <LandingPHI />
+        )}
         {/* Image section */}
         <div className="md:w-1/2 relative">
           <div className="absolute inset-0 bg-gradient-to-r from-white to-transparent md:block hidden"></div>
