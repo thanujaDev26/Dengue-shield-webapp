@@ -15,9 +15,31 @@ import AcceptedRequestsTable from './Components/Dashboard/PHI/AcceptedRequestsTa
 import InwardForm from './Components/Dashboard/PHI/InwardForm.jsx';
 import NoteBook from "./Components/Dashboard/PHI/NoteBook.jsx";
 import Outwardform from "./Components/Dashboard/PHI/Outwardform.jsx";
+import H544Form from "./Components/Dashboard/MOH/H544Form.jsx";
+import PendingTable from "./Components/Dashboard/MOH/PendingTable.jsx";
+import VisitInward from "./Components/Dashboard/MOH/VisitInward.jsx";
+import VisitInwardForm from "./Components/Dashboard/MOH/VisitInwardForm.jsx";
 
 function App() {
   const [acceptedRequests, setAcceptedRequests] = useState([]);
+
+  const [patients, setPatients] = useState([]);
+
+  const handleFormSubmit = (patient) => {
+      // Check if it's an update or new submission
+      if (patients.some(p => p.patientId === patient.patientId)) {
+          // Update existing patient
+          setPatients((prevPatients) =>
+              prevPatients.map((p) => (p.patientId === patient.patientId ? patient : p))
+          );
+      } else {
+          // Add new patient
+          setPatients((prevPatients) => [...prevPatients, patient]);
+      }
+  };
+
+
+
   return (
     <div className="flex flex-col min-h-screen">
 
@@ -74,12 +96,39 @@ function App() {
               <NoteBook />
             }
           />
+          <Route
+            path="/visit-inward"
+            element={
+              <VisitInward />
+            }
+          />
+
+<Route
+            path="/visit-inward-form"
+            element={
+              <VisitInwardForm />
+            }
+          />
+
 
           <Route
             path="/outwardform"
             element={
               <Outwardform />
             }
+          />
+
+          <Route
+            path="/h544form"
+            element={<H544Form onSubmit={handleFormSubmit} />}
+          />
+          <Route
+            path="/pending-table"
+            element={<PendingTable patients={patients} />}
+          />
+          <Route
+            path="/edit-form"
+            element={<H544Form onSubmit={handleFormSubmit} />}
           />
 
         </Routes>
