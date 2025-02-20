@@ -1,5 +1,6 @@
 // src/components/PHIExtendedForm.js
 import React, { useState } from 'react';
+import { ChevronDownIcon } from '@heroicons/react/16/solid';
 
 export default function H411Form({ patientId, onSubmit }) {
   const [phiData, setPhiData] = useState({
@@ -46,397 +47,366 @@ export default function H411Form({ patientId, onSubmit }) {
   };
 
   return (
-    <div className="w-2/3 p-6 bg-white rounded-lg shadow-md mt-6 mb-10">
-      <h2 className="text-2xl font-bold mb-4">Extended P.H.I Form for Patient {patientId}</h2>
+    <form className="space-y-12 p-6">
+      <div className="border-b border-gray-900/10 pb-12">
+        <h2 className="text-xl font-semibold text-gray-900">Extended P.H.I Form for Patient {patientId}</h2>
+        <p className="mt-1 text-sm text-gray-600">
+          Please fill out all fields with the patient's details.
+        </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="patientId" className="block text-sm font-medium text-gray-700">
-            Visit (Patient ID)
-          </label>
-          <input
-            type="text"
-            id="patientId"
-            value={patientId || ''}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-            disabled
-          />
-        </div>
+        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div className="sm:col-span-3">
+            <label htmlFor="phiReferenceNo" className="block text-sm font-medium text-gray-900">P.H.I Reference No</label>
+            <input
+              type="text"
+              id="phiReferenceNo"
+              name="phiReferenceNo"
+              placeholder="Enter P.H.I Reference Number"
+              value={phiData.phiReferenceNo}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="phiReferenceNo" className="block text-sm font-medium text-gray-700">
-            P.H.I Reference No
-          </label>
-          <input
-            type="text"
-            id="phiReferenceNo"
-            placeholder="Enter P.H.I Reference Number"
-            value={phiData.phiReferenceNo}
-            onChange={handlePhiChange}
-            name="phiReferenceNo"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="mohNotificationNo" className="block text-sm font-medium text-gray-900">M.O.H. Notification No</label>
+            <input
+              type="text"
+              id="mohNotificationNo"
+              name="mohNotificationNo"
+              placeholder="Enter M.O.H. Notification Number"
+              value={phiData.mohNotificationNo}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="mohNotificationNo" className="block text-sm font-medium text-gray-700">
-            M.O.H. Notification No
-          </label>
-          <input
-            type="text"
-            id="mohNotificationNo"
-            placeholder="Enter M.O.H. Notification Number"
-            value={phiData.mohNotificationNo}
-            onChange={handlePhiChange}
-            name="mohNotificationNo"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="phiRegisterNo" className="block text-sm font-medium text-gray-900">P.H.I. Register No</label>
+            <input
+              type="text"
+              id="phiRegisterNo"
+              name="phiRegisterNo"
+              placeholder="Enter P.H.I. Register Number"
+              value={phiData.phiRegisterNo}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="phiRegisterNo" className="block text-sm font-medium text-gray-700">
-            P.H.I. Register No
-          </label>
-          <input
-            type="text"
-            id="phiRegisterNo"
-            placeholder="Enter P.H.I. Register Number"
-            value={phiData.phiRegisterNo}
-            onChange={handlePhiChange}
-            name="phiRegisterNo"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="phiRange" className="block text-sm font-medium text-gray-900">P.H.I. Range</label>
+            <input
+              type="text"
+              id="phiRange"
+              name="phiRange"
+              placeholder="Enter P.H.I. Range"
+              value={phiData.phiRange}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="phiRange" className="block text-sm font-medium text-gray-700">
-            P.H.I. Range
-          </label>
-          <input
-            type="text"
-            id="phiRange"
-            placeholder="Enter P.H.I. Range"
-            value={phiData.phiRange}
-            onChange={handlePhiChange}
-            name="phiRange"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-6">
+            <label htmlFor="mohArea" className="block text-sm font-medium text-gray-900">M.O.H. Area</label>
+            <input
+              type="text"
+              id="mohArea"
+              name="mohArea"
+              placeholder="Enter M.O.H. Area"
+              value={phiData.mohArea}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="mohArea" className="block text-sm font-medium text-gray-700">
-            M.O.H. Area
-          </label>
-          <input
-            type="text"
-            id="mohArea"
-            placeholder="Enter M.O.H. Area"
-            value={phiData.mohArea}
-            onChange={handlePhiChange}
-            name="mohArea"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="diseaseAsNotified" className="block text-sm font-medium text-gray-900">Disease as Notified</label>
+            <input
+              type="text"
+              id="diseaseAsNotified"
+              name="diseaseAsNotified"
+              placeholder="Enter Disease as Notified"
+              value={phiData.diseaseAsNotified}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="diseaseAsNotified" className="block text-sm font-medium text-gray-700">
-            Disease as Notified
-          </label>
-          <input
-            type="text"
-            id="diseaseAsNotified"
-            placeholder="Enter Disease as Notified"
-            value={phiData.diseaseAsNotified}
-            onChange={handlePhiChange}
-            name="diseaseAsNotified"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="diseaseAsNotifiedDate" className="block text-sm font-medium text-gray-900">Date of Disease Notified</label>
+            <input
+              type="date"
+              id="diseaseAsNotifiedDate"
+              name="diseaseAsNotifiedDate"
+              value={phiData.diseaseAsNotifiedDate}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="diseaseAsNotifiedDate" className="block text-sm font-medium text-gray-700">
-            Date of Disease Notified
-          </label>
-          <input
-            type="date"
-            id="diseaseAsNotifiedDate"
-            value={phiData.diseaseAsNotifiedDate}
-            onChange={handlePhiChange}
-            name="diseaseAsNotifiedDate"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="diseaseConfirm" className="block text-sm font-medium text-gray-900">Disease Confirmed</label>
+            <input
+              type="text"
+              id="diseaseConfirm"
+              name="diseaseConfirm"
+              placeholder="Enter Disease Confirmed"
+              value={phiData.diseaseConfirm}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="diseaseConfirm" className="block text-sm font-medium text-gray-700">
-            Disease Confirmed
-          </label>
-          <input
-            type="text"
-            id="diseaseConfirm"
-            placeholder="Enter Disease Confirmed"
-            value={phiData.diseaseConfirm}
-            onChange={handlePhiChange}
-            name="diseaseConfirm"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="diseaseConfirmDate" className="block text-sm font-medium text-gray-900">Date of Disease Confirmation</label>
+            <input
+              type="date"
+              id="diseaseConfirmDate"
+              name="diseaseConfirmDate"
+              value={phiData.diseaseConfirmDate}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+            
+          </div>
 
-        <div>
-          <label htmlFor="diseaseConfirmDate" className="block text-sm font-medium text-gray-700">
-            Date of Disease Confirmation
-          </label>
-          <input
-            type="date"
-            id="diseaseConfirmDate"
-            value={phiData.diseaseConfirmDate}
-            onChange={handlePhiChange}
-            name="diseaseConfirmDate"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+            <div className="p-6">
+              {/* Heading */}
+              <h2 className="text-2xl font-semibold text-gray-900">Patient's Details</h2>
+              
+              {/* Horizontal Line */}
+              <hr className="my-4 border-t-2 border-gray-300" />
 
-        <div>
-          <label htmlFor="nameOfPatient" className="block text-sm font-medium text-gray-700">
-            Name of Patient
-          </label>
-          <input
-            type="text"
-            id="nameOfPatient"
-            placeholder="Enter Name of Patient"
-            value={phiData.nameOfPatient}
-            onChange={handlePhiChange}
-            name="nameOfPatient"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+              {/* Other content can follow here */}
+            </div>
 
-        <div>
-          <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-            Address
-          </label>
-          <input
-            type="text"
-            id="address"
-            placeholder="Enter Address"
-            value={phiData.address}
-            onChange={handlePhiChange}
-            name="address"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
 
-        <div>
-          <label htmlFor="age" className="block text-sm font-medium text-gray-700">
-            Age
-          </label>
-          <input
-            type="number"
-            id="age"
-            placeholder="Enter Age"
-            value={phiData.age}
-            onChange={handlePhiChange}
-            name="age"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-6">
+            <label htmlFor="nameOfPatient" className="block text-sm font-medium text-gray-900">Name of Patient</label>
+            <input
+              type="text"
+              id="nameOfPatient"
+              name="nameOfPatient"
+              placeholder="Enter Name of Patient"
+              value={phiData.nameOfPatient}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
+          
+          <div className="sm:col-span-3">
+            <label htmlFor="address" className="block text-sm font-medium text-gray-900">Address</label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="Enter Address"
+              value={phiData.address}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="sex" className="block text-sm font-medium text-gray-700">
-            Sex
-          </label>
-          <select
-            id="sex"
-            value={phiData.sex}
-            onChange={handlePhiChange}
-            name="sex"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          >
-            <option value="">Select Sex</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-        </div>
+          <div className="sm:col-span-2">
+            <label htmlFor="age" className="block text-sm font-medium text-gray-900">Age</label>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              placeholder="Enter Age"
+              value={phiData.age}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="ethnicGroup" className="block text-sm font-medium text-gray-700">
-            Ethnic Group
-          </label>
-          <select
-            id="ethnicGroup"
-            value={phiData.ethnicGroup}
-            onChange={handlePhiChange}
-            name="ethnicGroup"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          >
-            <option value="">Select Ethnic Group</option>
-            <option value="Sinhalese">Sinhalese</option>
-            <option value="Tamil">Tamil</option>
-            <option value="Muslim">Muslim</option>
-            <option value="Burgher">Burgher</option>
-            <option value="Others">Others</option>
-          </select>
-        </div>
+          <div className="sm:col-span-">
+            <label htmlFor="sex" className="block text-sm font-medium text-gray-900">Sex</label>
+            <select
+              id="sex"
+              name="sex"
+              value={phiData.sex}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            >
+              <option value="">Select Sex</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
 
-        <div>
-          <label htmlFor="dateOfOnset" className="block text-sm font-medium text-gray-700">
-            Date of Onset
-          </label>
-          <input
-            type="date"
-            id="dateOfOnset"
-            value={phiData.dateOfOnset}
-            onChange={handlePhiChange}
-            name="dateOfOnset"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="ethnicGroup" className="block text-sm font-medium text-gray-900">Ethnic Group</label>
+            <select
+              id="ethnicGroup"
+              name="ethnicGroup"
+              value={phiData.ethnicGroup}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            >
+              <option value="">Select Ethnic Group</option>
+              <option value="Sinhalese">Sinhalese</option>
+              <option value="Tamil">Tamil</option>
+              <option value="Muslim">Muslim</option>
+              <option value="Burgher">Burgher</option>
+              <option value="Others">Others</option>
+            </select>
+            <div className="w-full">
+            {/* Heading */}
+            <h2 className="text-2xl w-full font-semibold text-gray-900">Disease Infromation</h2>
+            
+            {/* Horizontal Line */}
+            <hr className="my-4 border-t-2 border-gray-300" />
 
-        <div>
-          <label htmlFor="dateOfHospitalization" className="block text-sm font-medium text-gray-700">
-            Date of Hospitalization
-          </label>
-          <input
-            type="date"
-            id="dateOfHospitalization"
-            value={phiData.dateOfHospitalization}
-            onChange={handlePhiChange}
-            name="dateOfHospitalization"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+            {/* Other content can follow here */}
+          </div>
+          </div>
 
-        <div>
-          <label htmlFor="dateOfDischarge" className="block text-sm font-medium text-gray-700">
-            Date of Discharge
-          </label>
-          <input
-            type="date"
-            id="dateOfDischarge"
-            value={phiData.dateOfDischarge}
-            onChange={handlePhiChange}
-            name="dateOfDischarge"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="dateOfOnset" className="block text-sm font-medium text-gray-900">Date of Onset</label>
+            <input
+              type="date"
+              id="dateOfOnset"
+              name="dateOfOnset"
+              value={phiData.dateOfOnset}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="nameOfHospital" className="block text-sm font-medium text-gray-700">
-            Name of Hospital
-          </label>
-          <input
-            type="text"
-            id="nameOfHospital"
-            placeholder="Enter Name of Hospital"
-            value={phiData.nameOfHospital}
-            onChange={handlePhiChange}
-            name="nameOfHospital"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="dateOfHospitalization" className="block text-sm font-medium text-gray-900">Date of Hospitalization</label>
+            <input
+              type="date"
+              id="dateOfHospitalization"
+              name="dateOfHospitalization"
+              value={phiData.dateOfHospitalization}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="outcome" className="block text-sm font-medium text-gray-700">
-            Outcome
-          </label>
-          <select
-            id="outcome"
-            value={phiData.outcome}
-            onChange={handlePhiChange}
-            name="outcome"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          >
-            <option value="">Select Outcome</option>
-            <option value="Recovered">Recovered</option>
-            <option value="Died">Died</option>
-          </select>
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="dateOfDischarge" className="block text-sm font-medium text-gray-900">Date of Discharge</label>
+            <input
+              type="date"
+              id="dateOfDischarge"
+              name="dateOfDischarge"
+              value={phiData.dateOfDischarge}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="whereIsolated" className="block text-sm font-medium text-gray-700">
-            Where Isolated
-          </label>
-          <select
-            id="whereIsolated"
-            value={phiData.whereIsolated}
-            onChange={handlePhiChange}
-            name="whereIsolated"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          >
-            <option value="">Select Isolation Status</option>
-            <option value="Home">Home</option>
-            <option value="Hospital">Hospital</option>
-            <option value="Not isolated">Not isolated</option>
-          </select>
-        </div>
+          <div className="sm:col-span-6">
+            <label htmlFor="nameOfHospital" className="block text-sm font-medium text-gray-900">Name of Hospital</label>
+            <input
+              type="text"
+              id="nameOfHospital"
+              name="nameOfHospital"
+              placeholder="Enter Name of Hospital"
+              value={phiData.nameOfHospital}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="natureOfCase" className="block text-sm font-medium text-gray-700">
-            Nature of Case
-          </label>
-          <input
-            type="text"
-            id="natureOfCase"
-            placeholder="Enter Nature of Case"
-            value={phiData.natureOfCase}
-            onChange={handlePhiChange}
-            name="natureOfCase"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="outcome" className="block text-sm font-medium text-gray-900">Outcome</label>
+            <select
+              id="outcome"
+              name="outcome"
+              value={phiData.outcome}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            >
+              <option value="">Select Outcome</option>
+              <option value="Recovered">Recovered</option>
+              <option value="Died">Died</option>
+            </select>
+          </div>
 
-        <div>
-          <label htmlFor="oneCaseInOutbreak" className="block text-sm font-medium text-gray-700">
-            One Case in Outbreak
-          </label>
-          <input
-            type="text"
-            id="oneCaseInOutbreak"
-            placeholder="Enter if One Case in Outbreak"
-            value={phiData.oneCaseInOutbreak}
-            onChange={handlePhiChange}
-            name="oneCaseInOutbreak"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-3">
+            <label htmlFor="whereIsolated" className="block text-sm font-medium text-gray-900">Where Isolated</label>
+            <select
+              id="whereIsolated"
+              name="whereIsolated"
+              value={phiData.whereIsolated}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            >
+              <option value="">Select Isolation Status</option>
+              <option value="Home">Home</option>
+              <option value="Hospital">Hospital</option>
+              <option value="Not isolated">Not isolated</option>
+            </select>
+          </div>
 
-        <div>
-          <label htmlFor="patientsMovements" className="block text-sm font-medium text-gray-700">
-            Patient's Movements
-          </label>
-          <input
-            type="text"
-            id="patientsMovements"
-            placeholder="Enter Patient's Movements"
-            value={phiData.patientsMovements}
-            onChange={handlePhiChange}
-            name="patientsMovements"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
+          <div className="sm:col-span-6">
+            <label htmlFor="natureOfCase" className="block text-sm font-medium text-gray-900">Nature of Case</label>
+            <input
+              type="text"
+              id="natureOfCase"
+              name="natureOfCase"
+              placeholder="Enter Nature of Case"
+              value={phiData.natureOfCase}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="laboratoryFindings" className="block text-sm font-medium text-gray-700">
-            Laboratory Findings
-          </label>
-          <input
-            type="text"
-            id="laboratoryFindings"
-            placeholder="Enter Laboratory Findings"
-            value={phiData.laboratoryFindings}
-            onChange={handlePhiChange}
-            name="laboratoryFindings"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
+          <div className="sm:col-span-6">
+            <label htmlFor="oneCaseInOutbreak" className="block text-sm font-medium text-gray-900">One Case in Outbreak</label>
+            <input
+              type="text"
+              id="oneCaseInOutbreak"
+              name="oneCaseInOutbreak"
+              placeholder="Enter if One Case in Outbreak"
+              value={phiData.oneCaseInOutbreak}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
+
+          <div className="sm:col-span-6">
+            <label htmlFor="patientsMovements" className="block text-sm font-medium text-gray-900">Patient's Movements</label>
+            <input
+              type="text"
+              id="patientsMovements"
+              name="patientsMovements"
+              placeholder="Enter Patient's Movements"
+              value={phiData.patientsMovements}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
+
+          <div className="sm:col-span-6">
+            <label htmlFor="laboratoryFindings" className="block text-sm font-medium text-gray-900">Laboratory Findings</label>
+            <input
+              type="text"
+              id="laboratoryFindings"
+              name="laboratoryFindings"
+              placeholder="Enter Laboratory Findings"
+              value={phiData.laboratoryFindings}
+              onChange={handlePhiChange}
+              className="w-full p-3 mb-4 border border-gray-300 rounded"
+            />
+          </div>
+
         </div>
       </div>
 
-      <button
-        onClick={handleSubmit}
-        className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600"
-      >
-        Submit P.H.I Extended Form
-      </button>
-    </div>
+      <div className="mt-6 flex items-center justify-end gap-x-6">
+        <button
+          type="button"
+          className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600"
+          onClick={handleSubmit}
+        >
+          Submit P.H.I
+        </button>
+      </div>
+    </form>
   );
 }
