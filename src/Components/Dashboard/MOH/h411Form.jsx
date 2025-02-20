@@ -6,7 +6,7 @@ export default function H411Form({ patientId, onSubmit }) {
     phiReferenceNo: '',
     mohNotificationNo: '',
     phiRegisterNo: '',
-    phiRanga: '',
+    phiRange: '',
     mohArea: '',
     diseaseAsNotified: '',
     diseaseAsNotifiedDate: '',
@@ -109,16 +109,16 @@ export default function H411Form({ patientId, onSubmit }) {
         </div>
 
         <div>
-          <label htmlFor="phiRanga" className="block text-sm font-medium text-gray-700">
-            P.H.I. Ranga
+          <label htmlFor="phiRange" className="block text-sm font-medium text-gray-700">
+            P.H.I. Range
           </label>
           <input
             type="text"
-            id="phiRanga"
-            placeholder="Enter P.H.I. Ranga"
-            value={phiData.phiRanga}
+            id="phiRange"
+            placeholder="Enter P.H.I. Range"
+            value={phiData.phiRange}
             onChange={handlePhiChange}
-            name="phiRanga"
+            name="phiRange"
             className="w-full p-2 mb-4 border border-gray-300 rounded"
           />
         </div>
