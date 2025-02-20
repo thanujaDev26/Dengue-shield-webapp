@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import React from "react";
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 
-const PatientRecordsTable = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  // Sample data
+const InfectionsDiseasesTable = () => {
+  // Sample data for the table
   const data = [
     { 
       serialNo: 1,
@@ -32,115 +29,76 @@ const PatientRecordsTable = () => {
       sourceOfInfection: 'Unknown', 
       remarks: 'Recovered',
     },
-    {
-      serialNo: 2,
-      caseNo: 'A002',
-      dateOfReceipt: '2025-02-11',
-      districtDivision: 'Colombo 2',
-      locality: 'Dehiwala',
-      nameOfPatient: 'Jane Smith',
-      age: 28,
-      sex: 'Female',
-      race: 'Tamil',
-      occupation: 'Teacher',
-      religion: 'Hindu',
-      natureOfDisease: 'Dengue',
-      dateOfOnset: '2025-02-06',
-      notification: 'Yes',
-      byWhomNotified: 'Dr. Jones',
-      dateOfInvestigation: '2025-02-13',
-      byWhomInvestigated: 'Dr. Brown',
-      labResult: 'Positive',
-      isolation: 'Home',
-      dateOfTermination: '2025-02-18',
-      terminalDisinfectionDate: '2025-02-19',
-      sourceOfInfection: 'Mosquito',
-      remarks: 'Under observation',
-    }
+    // Add more sample data here
   ];
 
-  // Filter data based on search term
-  const filteredData = data.filter(item =>
-    Object.values(item).some(value =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
-
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle>Patient Records</CardTitle>
-        <Input
-          placeholder="Search records..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="max-w-sm"
-        />
-      </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Serial No</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Case No</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Date of Receipt</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">District Division</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Locality</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Patient Name</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Age</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Sex</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Race</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Occupation</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Religion</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Disease</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Onset Date</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Notification</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Notified By</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Investigation Date</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Investigated By</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Lab Result</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Isolation</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Termination Date</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Disinfection Date</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Infection Source</th>
-                <th className="whitespace-nowrap border-b p-2 text-left font-medium text-gray-600">Remarks</th>
+    <div className="overflow-x-auto p-4">
+      <Card>
+        <CardHeader title="Infections and Diseases Table" />
+        <CardContent>
+          <table className="min-w-full table-auto border-collapse">
+            <thead className="bg-gray-200">
+              <tr>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Serial No</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Case No</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Date of Receipt of I.D. Card</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">District Revenue Officer's Division</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Locality</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Name of Patient</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Age</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Sex</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Race</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Occupation</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Religion</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Nature of Disease</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Date of Onset</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Notification</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">By Whom Notified</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Date of Investigation</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">By Whom Investigated</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Result of Laboratory Examination</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Isolation (Home, Hospital)</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Date of Termination (Death, Recovery)</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Date of Terminal Disinfection</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Source of Infection</th>
+                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Remarks</th>
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((item) => (
+              {data.map((item) => (
                 <tr key={item.caseNo} className="border-b hover:bg-gray-50">
-                  <td className="p-2 text-sm text-gray-800">{item.serialNo}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.caseNo}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.dateOfReceipt}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.districtDivision}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.locality}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.nameOfPatient}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.age}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.sex}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.race}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.occupation}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.religion}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.natureOfDisease}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.dateOfOnset}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.notification}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.byWhomNotified}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.dateOfInvestigation}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.byWhomInvestigated}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.labResult}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.isolation}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.dateOfTermination}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.terminalDisinfectionDate}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.sourceOfInfection}</td>
-                  <td className="p-2 text-sm text-gray-800">{item.remarks}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.serialNo}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.caseNo}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.dateOfReceipt}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.districtDivision}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.locality}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.nameOfPatient}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.age}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.sex}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.race}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.occupation}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.religion}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.natureOfDisease}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.dateOfOnset}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.notification}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.byWhomNotified}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.dateOfInvestigation}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.byWhomInvestigated}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.labResult}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.isolation}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.dateOfTermination}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.terminalDisinfectionDate}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.sourceOfInfection}</td>
+                  <td className="px-4 py-2 text-sm text-gray-800">{item.remarks}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
-export default PatientRecordsTable;
+export default InfectionsDiseasesTable;

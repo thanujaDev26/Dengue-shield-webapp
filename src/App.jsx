@@ -15,7 +15,7 @@ import AcceptedRequestsTable from './Components/Dashboard/PHI/AcceptedRequestsTa
 import InwardForm from './Components/Dashboard/PHI/InwardForm.jsx';
 import OnwardForm from "./Components/Dashboard/PHI/OnwardForm.jsx";
 import H411Form from "./Components/Dashboard/MOH/h411Form.jsx";
-
+import InfectionsDiseasesTable from "./Components/Dashboard/InfectionsDiseasesTable.jsx";
 
 function App() {
   return (
@@ -41,6 +41,7 @@ function App() {
           <Route path="/inward-form/:patientId" element={<InwardForm />} />
           <Route path="/onward-form" element={<OnwardForm />} />
           <Route path="/h411-form" element={<H411Form />} />
+          <Route path="/infections-diseases-table" element={<InfectionsDiseasesTable />} />
         </Routes>
       </div>
       
