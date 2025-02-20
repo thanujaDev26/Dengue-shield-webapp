@@ -23,7 +23,7 @@ const AuthLayout = ({ children }) => {
 
   if (!user) return null; // Prevent rendering while checking authentication
 
-  return user.appuser.role === "ROLE_MOH" ? (
+  return user.data.appuser.role === "ROLE_MOH" ? (
     <MOHLayout>{children}</MOHLayout>
   ) : (
     <PHILayout>{children}</PHILayout>

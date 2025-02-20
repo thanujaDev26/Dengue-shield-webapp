@@ -8,9 +8,8 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-      const userDetailsString = localStorage.getItem("user");
-      console.log(userDetailsString);
-      
+    const userDetailsString = localStorage.getItem("user");
+    console.log(userDetailsString);
 
     if (userDetailsString) {
       try {
@@ -35,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    navigate("/auth/login");
+    navigate("/sign-in");
   };
 
   return (
