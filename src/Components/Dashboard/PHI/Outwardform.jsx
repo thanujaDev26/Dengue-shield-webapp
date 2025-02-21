@@ -28,7 +28,7 @@ export default function Outwardform({ onSubmit }) {
 
   return (
     <form className="space-y-12 w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-6 mb-10">
-      <h2 className="text-2xl font-semibold text-gray-900">Onward Form</h2>
+      <h2 className="text-2xl font-semibold text-gray-900">Outward Form</h2>
 
       <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         {/* NO Field */}
@@ -149,7 +149,7 @@ export default function Outwardform({ onSubmit }) {
           onClick={handleSubmit}
           className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
         >
-          Submit Onward Form
+          Submit Outward Form
         </button>
       </div>
     </form>
