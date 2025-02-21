@@ -27,7 +27,7 @@ export default function Outwardform({ onSubmit }) {
   };
 
   const handleContinue = () => {
-    navigate('/h411-form'); // Navigate to Notebook with patientId
+    navigate('/h411-form'); // Navigate to h411 with patientId
   };
 
   const handleBack = () => {
@@ -168,12 +168,12 @@ export default function Outwardform({ onSubmit }) {
           >
             Submit 
           </button>
-          <button
-            onClick={handleContinue}
-            className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600"
+          <a
+            href="/h411-form"
+            className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600 text-center"
           >
             Next
-          </button>
+          </a>
         </div>
     </form>
 
