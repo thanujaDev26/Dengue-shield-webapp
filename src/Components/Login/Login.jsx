@@ -41,13 +41,16 @@ const Login = () => {
       return;
     }
     setLoading(true);
+
     try {
       const response = await authService.login(
         formInput.email,
         formInput.password
       );
-      login();
+      login(response);
+
       setUser(response);
+
       toast.success("welcome back!");
       navigate("/dashboard");
     } catch (error) {
@@ -121,8 +124,7 @@ const Login = () => {
             </div>
             <div className="w-full px-4 flex justify-center items-center">
               <p>
-                
-                Don't have an account?{" "}
+                Dont have an account?{" "}
                 <a href="/sign-up" className="font-bold">
                   Sign Up
                 </a>
