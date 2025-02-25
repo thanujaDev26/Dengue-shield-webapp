@@ -13,6 +13,7 @@ import Footer from "./Components/Footer/Footer.jsx";
 import H544Table from "./Components/Dashboard/PHI/H544Table.jsx";
 import AcceptedRequestsTable from "./Components/Dashboard/PHI/AcceptedRequestsTable.jsx";
 import InwardForm from "./Components/Dashboard/PHI/InwardForm.jsx";
+import InwardTable from "./Components/Dashboard/PHI/InwardTable.jsx";
 
 import OnwardForm from "./Components/Dashboard/PHI/OnwardForm.jsx";
 import H411Form from "./Components/Dashboard/MOH/h411Form.jsx";
@@ -60,11 +61,7 @@ function App() {
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
 
-          <Route path="/h544-table" element={<H544Table />} />
-          {/* <Route
-            path="/accepted-requests"
-            element={<AcceptedRequestsTable />}
-          /> */}
+          
           <Route path="/inward-form/:patientId" element={<InwardForm />} />
           <Route path="/onward-form" element={<OnwardForm />} />
           <Route path="/h411-form" element={<H411Form />} />
@@ -96,6 +93,7 @@ function App() {
             }
           />
           <Route path="/inward-form" element={<InwardForm />} />
+          <Route path="/inward-table" element={<InwardTable />} />
           <Route path="/notebook" element={<NoteBook />} />
 
           <Route path="/outwardform" element={<Outwardform />} />

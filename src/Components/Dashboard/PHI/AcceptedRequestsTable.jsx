@@ -9,7 +9,7 @@ const AcceptedRequestsTable = ({ acceptedRequests }) => {
   };
 
   const handleContinue = (patientId) => {
-    navigate(`/inward-form`, { state: { patientId } }); // Navigate to InwardForm with patientId
+    navigate(`/notebook`, { state: { patientId } }); // Navigate to InwardForm with patientId
   };
 
   return (

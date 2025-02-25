@@ -7,7 +7,7 @@ export default function LandingPHI() {
   };
 
   const handleVisitInward = () => {
-    navigate("/visit-inward"); // Redirect to H544Table page
+    navigate("/inward-table"); // Redirect to H544Table page
   };
 
   const handleShowAcceptedRequests = () => {
