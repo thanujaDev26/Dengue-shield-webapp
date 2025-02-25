@@ -50,34 +50,33 @@ export default function H411Form({ patientId, onSubmit }) {
     <form className="space-y-12 p-6">
       <div className="border-b border-gray-900/10 pb-12">
         <h2 className="text-xl font-semibold text-gray-900">Extended P.H.I Form for Patient {patientId}</h2>
-        <p className="mt-1 text-sm text-gray-600">
-          Please fill out all fields with the patient's details.
-        </p>
-
+        
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div className="sm:col-span-3">
-            <label htmlFor="phiReferenceNo" className="block text-sm font-medium text-gray-900">P.H.I Reference No</label>
+            <label htmlFor="phiReferenceNo" className="block text-sm font-medium text-gray-900">P.H.I Name</label>
             <input
               type="text"
               id="phiReferenceNo"
               name="phiReferenceNo"
-              placeholder="Enter P.H.I Reference Number"
+              placeholder="Enter P.H.I Name"
               value={phiData.phiReferenceNo}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="mohNotificationNo" className="block text-sm font-medium text-gray-900">M.O.H. Notification No</label>
+            <label htmlFor="mohNotificationNo" className="block text-sm font-medium text-gray-900">M.O.H. Name</label>
             <input
               type="text"
               id="mohNotificationNo"
               name="mohNotificationNo"
-              placeholder="Enter M.O.H. Notification Number"
+              placeholder="Enter M.O.H. Name"
               value={phiData.mohNotificationNo}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -100,10 +99,11 @@ export default function H411Form({ patientId, onSubmit }) {
               type="text"
               id="phiRange"
               name="phiRange"
-              placeholder="Enter P.H.I. Range"
+              placeholder="Distance from PHI Office to Pations House"
               value={phiData.phiRange}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -117,6 +117,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.mohArea}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -130,6 +131,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.diseaseAsNotified}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -142,6 +144,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.diseaseAsNotifiedDate}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -155,6 +158,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.diseaseConfirm}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -167,6 +171,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.diseaseConfirmDate}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
             
           </div>
@@ -192,6 +197,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.nameOfPatient}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
           
@@ -205,6 +211,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.address}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -218,25 +225,26 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.age}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
           <div className="sm:col-span-">
             <label htmlFor="sex" className="block text-sm font-medium text-gray-900">Sex</label>
-            <select
+            <input
+              type='text'
               id="sex"
               name="sex"
               value={phiData.sex}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             >
-              <option value="">Select Sex</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
+            </input>
+            
           </div>
 
-          <div className="sm:col-span-3">
+          {/* <div className="sm:col-span-3">
             <label htmlFor="ethnicGroup" className="block text-sm font-medium text-gray-900">Ethnic Group</label>
             <select
               id="ethnicGroup"
@@ -253,15 +261,15 @@ export default function H411Form({ patientId, onSubmit }) {
               <option value="Others">Others</option>
             </select>
             <div className="w-full">
-            {/* Heading */}
+           
             <h2 className="text-2xl w-full font-semibold text-gray-900">Disease Infromation</h2>
             
-            {/* Horizontal Line */}
+           
             <hr className="my-4 border-t-2 border-gray-300" />
 
-            {/* Other content can follow here */}
-          </div>
-          </div>
+            
+            </div>
+          </div> */}
 
           <div className="sm:col-span-3">
             <label htmlFor="dateOfOnset" className="block text-sm font-medium text-gray-900">Date of Onset</label>
@@ -272,6 +280,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.dateOfOnset}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -284,6 +293,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.dateOfHospitalization}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -296,6 +306,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.dateOfDischarge}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -309,38 +320,8 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.nameOfHospital}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
-          </div>
-
-          <div className="sm:col-span-3">
-            <label htmlFor="outcome" className="block text-sm font-medium text-gray-900">Outcome</label>
-            <select
-              id="outcome"
-              name="outcome"
-              value={phiData.outcome}
-              onChange={handlePhiChange}
-              className="w-full p-3 mb-4 border border-gray-300 rounded"
-            >
-              <option value="">Select Outcome</option>
-              <option value="Recovered">Recovered</option>
-              <option value="Died">Died</option>
-            </select>
-          </div>
-
-          <div className="sm:col-span-3">
-            <label htmlFor="whereIsolated" className="block text-sm font-medium text-gray-900">Where Isolated</label>
-            <select
-              id="whereIsolated"
-              name="whereIsolated"
-              value={phiData.whereIsolated}
-              onChange={handlePhiChange}
-              className="w-full p-3 mb-4 border border-gray-300 rounded"
-            >
-              <option value="">Select Isolation Status</option>
-              <option value="Home">Home</option>
-              <option value="Hospital">Hospital</option>
-              <option value="Not isolated">Not isolated</option>
-            </select>
           </div>
 
           <div className="sm:col-span-6">
@@ -353,6 +334,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.natureOfCase}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -366,10 +348,11 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.oneCaseInOutbreak}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
-          <div className="sm:col-span-6">
+          {/* <div className="sm:col-span-6">
             <label htmlFor="patientsMovements" className="block text-sm font-medium text-gray-900">Patient's Movements</label>
             <input
               type="text"
@@ -379,8 +362,9 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.patientsMovements}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
-          </div>
+          </div> */}
 
           <div className="sm:col-span-6">
             <label htmlFor="laboratoryFindings" className="block text-sm font-medium text-gray-900">Laboratory Findings</label>
@@ -392,6 +376,7 @@ export default function H411Form({ patientId, onSubmit }) {
               value={phiData.laboratoryFindings}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
+              disabled
             />
           </div>
 
@@ -404,7 +389,7 @@ export default function H411Form({ patientId, onSubmit }) {
           className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600"
           onClick={handleSubmit}
         >
-          Submit P.H.I
+          Submit and Send to MOH
         </button>
       </div>
     </form>

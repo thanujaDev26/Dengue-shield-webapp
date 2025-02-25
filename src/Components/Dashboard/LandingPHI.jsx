@@ -1,19 +1,18 @@
-
 import { useNavigate } from "react-router-dom";
 export default function LandingPHI() {
-     const navigate = useNavigate();
+  const navigate = useNavigate();
 
-      const handleShowH544Table = () => {
-        navigate("/h544-table"); // Redirect to H544Table page
-      };
+  const handleShowH544Table = () => {
+    navigate("/h544-table"); // Redirect to H544Table page
+  };
 
-      const handleVisitInward = () => {
-        navigate("/visit-inward"); // Redirect to H544Table page
-      };
+  const handleVisitInward = () => {
+    navigate("/visit-inward"); // Redirect to H544Table page
+  };
 
-      const handleShowAcceptedRequests = () => {
-        navigate("/accepted-requests"); // Redirect to AcceptedRequestsTable page
-      };
+  const handleShowAcceptedRequests = () => {
+    navigate("/accepted-requests"); // Redirect to AcceptedRequestsTable page
+  };
 
   return (
     <div className="md:w-1/2 p-12 text-center md:text-left" id="PHI">
@@ -51,7 +50,12 @@ export default function LandingPHI() {
             </p>
           </button>
 
-          <button className="md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105">
+          <button
+            className="md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105"
+            onClick={() => {
+              navigate("/infections-diseases-table");
+            }}
+          >
             <div className="flex-shrink-0 flex items-center justify-center p-3">
               <h1 className="p-1 text-xl font-bold text-gray-600">
                 Infectious Diseases Register
@@ -80,7 +84,12 @@ export default function LandingPHI() {
             </p>
           </button>
 
-          <button className="md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105">
+          <button
+            className="md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105"
+            onClick={() => {
+              navigate("/outwardform");
+            }}
+          >
             <div className="flex-shrink-0 flex items-center justify-center p-3">
               <h1 className="p-1 text-xl font-bold text-gray-600">
                 View Document Outward

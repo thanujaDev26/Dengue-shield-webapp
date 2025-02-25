@@ -61,10 +61,10 @@ function App() {
           <Route path="/sign-up" element={<Signup />} />
 
           <Route path="/h544-table" element={<H544Table />} />
-          <Route
+          {/* <Route
             path="/accepted-requests"
             element={<AcceptedRequestsTable />}
-          />
+          /> */}
           <Route path="/inward-form/:patientId" element={<InwardForm />} />
           <Route path="/onward-form" element={<OnwardForm />} />
           <Route path="/h411-form" element={<H411Form />} />
