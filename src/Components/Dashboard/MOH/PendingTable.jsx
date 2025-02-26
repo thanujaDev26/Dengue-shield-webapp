@@ -1,8 +1,19 @@
 // PendingTable.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-const PendingTable = ({ patients }) => {
+
+const PendingTable = () => {
+    const sampleData = [
+        {
+            patientId: 1,
+            address: 'address', // Main date outside formData
+            patientName: 'John Doe',
+        },
+      ];
+    const [patients] = useState(sampleData);
+
     const navigate = useNavigate();
 
     // Handle back button
@@ -12,7 +23,7 @@ const PendingTable = ({ patients }) => {
 
     // Handle edit button click
     const handleEdit = (patient) => {
-        navigate('/edit-form', { state: { patient } }); // Pass patient data to form
+        navigate('/edit-form', { state: { patient } });
     };
 
     return (
@@ -38,9 +49,9 @@ const PendingTable = ({ patients }) => {
                     <tbody>
                         {patients.map((patient, index) => (
                             <tr key={index}>
-                                <td className="border px-4 py-2">{patient.patientId}</td>
-                                <td className="border px-4 py-2">{patient.patientName}</td>
-                                <td className="border px-4 py-2">{patient.address}</td>
+                                <td className="border px-4 py-2 text-center">{patient.patientId}</td>
+                                <td className="border px-4 py-2 text-center">{patient.patientName}</td>
+                                <td className="border px-4 py-2 text-center">{patient.address}</td>
                                 <td className="border px-4 py-2 text-center">
                                     <button
                                         onClick={() => handleEdit(patient)} // Pass patient data on edit

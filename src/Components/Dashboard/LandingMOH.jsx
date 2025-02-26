@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 export default function LandingMOH() {
   const navigate = useNavigate();
 
-  const handleVisitInward = () => {
-    navigate("/visit-inward"); // Redirect to H544Table page
+  const handleNewsCreation = () => {
+    navigate("/createNews"); // Redirect to H544Table page
   };
 
   const handlePendingTable = () => {
@@ -70,27 +70,27 @@ export default function LandingMOH() {
       <div>
         <div className="flex flex-col md:flex-row items-center text-center">
           <button
-            onClick={handleVisitInward}
+            onClick={handleNewsCreation}
             className="md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105"
           >
             <div className="flex-shrink-0 flex items-center justify-center p-3">
               <h1 className="p-1 text-xl font-bold text-gray-600">
-                View Document Inward
+                Post a News or Article
               </h1>
             </div>
             <p className="py-1 px-10 text-md font-normal text-gray-600">
-              Check Inward Register
+              Post a News or Article for Public
             </p>
           </button>
 
           <button className="md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105">
             <div className="flex-shrink-0 flex items-center justify-center p-3">
               <h1 className="p-1 text-xl font-bold text-gray-600">
-                View Document Outward
+                Recived Complains
               </h1>
             </div>
             <p className="py-1 px-10 text-md font-normal text-gray-600">
-              Check Outward Register
+                Recived Complains from Public
             </p>
           </button>
         </div>
