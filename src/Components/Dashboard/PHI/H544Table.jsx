@@ -35,8 +35,7 @@ export default function H544Table({ setAcceptedRequests }) {
             `Notification sent to MOH for Patient ID: ${patientId}, H544 form: ${h544Id}.`
           );
 
-          // Navigate to accepted-requests page
-         
+          // Navigate to accepted-requests page         
 
           return [...prevAcceptedRequests, acceptedRequest];
         } else {

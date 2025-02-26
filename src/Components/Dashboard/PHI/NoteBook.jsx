@@ -93,7 +93,7 @@ const Notebook = () => {
     }
   };
   const handleContinue = () => {
-    navigate('/outwardform', { state: { patientId } }); // Navigate to Notebook with patientId
+    navigate('/h411-form', { state: { patientId } }); // Navigate to Notebook with patientId
   };
 
   const handleBack = () => {
@@ -185,107 +185,6 @@ const Notebook = () => {
             disabled
           />
         </div>
-
-        {/* <div>
-          <label htmlFor="date" className="block text-sm font-medium text-gray-700">
-            Date
-          </label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div> */}
-
-        {/* <div>
-          <label htmlFor="day" className="block text-sm font-medium text-gray-700">
-            Day
-          </label>
-          <input
-            type="text"
-            id="day"
-            name="day"
-            value={formData.day}
-            onChange={handleChange}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div> */}
-
-        <div>
-          <label htmlFor="dutyPlace" className="block text-sm font-medium text-gray-700">
-            Duty Place
-          </label>
-          <input
-            type="text"
-            id="dutyPlace"
-            placeholder='Matara'
-            name="dutyPlace"
-            value={formData.dutyPlace}
-            onChange={handleChange}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-            disabled
-          />
-        </div>
-
-        {/* <div>
-          <label htmlFor="outgoingTime" className="block text-sm font-medium text-gray-700">
-            Outgoing Time
-          </label>
-          <input
-            type="time"
-            id="outgoingTime"
-            name="outgoingTime"
-            value={formData.outgoingTime}
-            onChange={handleChange}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>         */}
-
-        {/* <div>
-          <label htmlFor="fieldInTime" className="block text-sm font-medium text-gray-700">
-            Field In Time
-          </label>
-          <input
-            type="time"
-            id="fieldInTime"
-            name="fieldInTime"
-            value={formData.fieldInTime}
-            onChange={handleChange}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="fieldOutTime" className="block text-sm font-medium text-gray-700">
-            Field Out Time
-          </label>
-          <input
-            type="time"
-            id="fieldOutTime"
-            name="fieldOutTime"
-            value={formData.fieldOutTime}
-            onChange={handleChange}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div> */}
-
-        {/* <div>
-          <label htmlFor="ingoingTime" className="block text-sm font-medium text-gray-700">
-            Ingoing Time
-          </label>
-          <input
-            type="time"
-            id="ingoingTime"
-            name="ingoingTime"
-            value={formData.ingoingTime}
-            onChange={handleChange}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          />
-        </div> */}
-
         
 
         <div>
@@ -302,6 +201,48 @@ const Notebook = () => {
             className="w-full p-2 mb-4 border border-gray-300 rounded"        
           />
         </div>
+
+        <div>
+            <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
+              Subject
+            </label>
+            <select
+              id="subject"
+              placeholder="Enter Subject"
+              value=''
+              onChange=''
+              name="subject"
+              className="w-full p-2 mb-4 border border-gray-300 rounded"
+            >
+              <option value="Cholera">Cholera</option>
+              <option value="Plague">Plague</option>
+              <option value="Yellow Fever">Yellow Fever</option>
+              <option value="Acute Poliomyelitis / Acute Flaccid Paralysis">Acute Poliomyelitis / Acute Flaccid Paralysis</option>
+              <option value="Chickenpox">Chickenpox</option>
+              <option value="Dengue Fever / Dengue Haemorrhagic Fever">Dengue Fever / Dengue Haemorrhagic Fever</option>
+              <option value="Diphtheria">Diphtheria</option>
+              <option value="Dysentery">Dysentery</option>
+              <option value="Encephalitis">Encephalitis</option>
+              <option value="Enteric Fever (Typhoid & Paratyphoid Fever)">Enteric Fever (Typhoid & Paratyphoid Fever)</option>
+              <option value="Food Poisoning">Food Poisoning</option>
+              <option value="Human Rabies">Human Rabies</option>
+              <option value="Leptospirosis">Leptospirosis</option>
+              <option value="Malaria">Malaria</option>
+              <option value="Measles">Measles</option>
+              <option value="Meningitis">Meningitis</option>
+              <option value="Mumps">Mumps</option>
+              <option value="Rubella / Congenital Rubella Syndrome">Rubella / Congenital Rubella Syndrome</option>
+              <option value="Simple Continued Fever of Over 7 Days or More">Simple Continued Fever of Over 7 Days or More</option>
+              <option value="Tetanus">Tetanus</option>
+              <option value="Neonatal Tetanus">Neonatal Tetanus</option>
+              <option value="Typhus Fever">Typhus Fever</option>
+              <option value="Viral Hepatitis">Viral Hepatitis</option>
+              <option value="Whooping Cough (Pertussis)">Whooping Cough (Pertussis)</option>
+              <option value="Tuberculosis">Tuberculosis</option>
+              <option value="Leishmaniasis">Leishmaniasis</option>
+              <option value="Leprosy">Leprosy</option>
+            </select>
+          </div>
 
         <div>
           <label htmlFor="occupation" className="block text-sm font-medium text-gray-700">

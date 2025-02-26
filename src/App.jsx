@@ -13,13 +13,16 @@ import Footer from "./Components/Footer/Footer.jsx";
 import H544Table from "./Components/Dashboard/PHI/H544Table.jsx";
 import AcceptedRequestsTable from "./Components/Dashboard/PHI/AcceptedRequestsTable.jsx";
 import InwardForm from "./Components/Dashboard/PHI/InwardForm.jsx";
+import InwardTable from "./Components/Dashboard/PHI/InwardTable.jsx";
 
-import OnwardForm from "./Components/Dashboard/PHI/OnwardForm.jsx";
 import H411Form from "./Components/Dashboard/MOH/h411Form.jsx";
 import InfectionsDiseasesTable from "./Components/Dashboard/InfectionsDiseasesTable.jsx";
 
 import NoteBook from "./Components/Dashboard/PHI/NoteBook.jsx";
+
 import Outwardform from "./Components/Dashboard/PHI/Outwardform.jsx";
+import OutwardTable from "./Components/Dashboard/PHI/OutwardTable.jsx";
+
 import { Toaster } from "react-hot-toast";
 import H544Form from "./Components/Dashboard/MOH/H544Form.jsx";
 import PendingTable from "./Components/Dashboard/MOH/PendingTable.jsx";
@@ -58,15 +61,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/sign-in" element={<Login />} />
-          <Route path="/sign-up" element={<Signup />} />
-
-          <Route path="/h544-table" element={<H544Table />} />
-          {/* <Route
-            path="/accepted-requests"
-            element={<AcceptedRequestsTable />}
-          /> */}
-          <Route path="/inward-form/:patientId" element={<InwardForm />} />
-          <Route path="/onward-form" element={<OnwardForm />} />
+          <Route path="/sign-up" element={<Signup />} />          
+       
           <Route path="/h411-form" element={<H411Form />} />
           <Route
             path="/infections-diseases-table"
@@ -94,12 +90,12 @@ function App() {
               // Make sure to pass any necessary props here
               />
             }
-          />
-          <Route path="/inward-form" element={<InwardForm />} />
+          />          
+          <Route path="/inward-table" element={<InwardTable />} />          
           <Route path="/notebook" element={<NoteBook />} />
-
           <Route path="/outwardform" element={<Outwardform />} />
-          <Route path="/inward-form" element={<InwardForm />} />
+          <Route path="/outward-table" element={<OutwardTable />} />
+          
           <Route path="/notebook" element={<NoteBook />} />
           <Route path="/visit-inward" element={<VisitInward />} />
 
