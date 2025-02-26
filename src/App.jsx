@@ -16,6 +16,7 @@ import InwardForm from "./Components/Dashboard/PHI/InwardForm.jsx";
 import InwardTable from "./Components/Dashboard/PHI/InwardTable.jsx";
 
 import H411Form from "./Components/Dashboard/MOH/h411Form.jsx";
+import CreateNews from "./Components/Dashboard/MOH/CreateNews.jsx";
 import InfectionsDiseasesTable from "./Components/Dashboard/InfectionsDiseasesTable.jsx";
 
 import NoteBook from "./Components/Dashboard/PHI/NoteBook.jsx";
@@ -111,6 +112,8 @@ function App() {
               onSubmit={handleFormSubmit} />
             }
           />
+
+          <Route path="/createNews" element={<CreateNews />} /> 
         </Routes>
       </div>
 
