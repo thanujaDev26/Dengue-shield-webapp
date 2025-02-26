@@ -42,7 +42,6 @@ export default function InwardTable() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Implement actual search/filter logic here
     const filtered = sampleData.filter(item => item.date === selectedDate);
     setData(filtered);
   };
