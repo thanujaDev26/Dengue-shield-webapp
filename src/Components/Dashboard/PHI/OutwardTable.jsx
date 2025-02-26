@@ -7,7 +7,7 @@ const sampleData = [
       date: '2024-03-01', // Main date outside formData
       patientName: 'John Doe',
       formData: {
-        fromWhom: 'Public Health Dept',
+        toWhom: 'Public Health Dept',
         subject: 'Dengue Case Report',
         dateOfAnswer: '2024-03-02',
         remarks: 'Urgent attention required'
@@ -132,8 +132,8 @@ export default function InwardTable() {
                         icon="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                     />
                     <DetailItem 
-                        label="From Whom" 
-                        value={selectedFormData?.fromWhom} 
+                        label="To Whom" 
+                        value={selectedFormData?.toWhom} 
                         icon="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                     />
                     <DetailItem 

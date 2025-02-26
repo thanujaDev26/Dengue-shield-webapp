@@ -87,7 +87,7 @@ export default function LandingPHI() {
           <button
             className="md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105"
             onClick={() => {
-              navigate("/outwardform");
+              navigate("/outward-table");
             }}
           >
             <div className="flex-shrink-0 flex items-center justify-center p-3">
