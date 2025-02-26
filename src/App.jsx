@@ -61,36 +61,27 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/sign-in" element={<Login />} />
-          <Route path="/sign-up" element={<Signup />} />          
-       
+          <Route path="/sign-up" element={<Signup />} />       
           <Route path="/h411-form" element={<H411Form />} />
-          <Route
-            path="/infections-diseases-table"
-            element={<InfectionsDiseasesTable />}
+          <Route path="/infections-diseases-table" element={<InfectionsDiseasesTable />} />
+
+          <Route path="/h544-table" element={
+              <H544Table 
+                setAcceptedRequests={setAcceptedRequests} 
+              />
+            }
           />
 
-          <Route
-            path="/h544-table"
-            element={<H544Table setAcceptedRequests={setAcceptedRequests} />}
-          />
-          <Route
-            path="/accepted-requests"
-            element={
+          <Route path="/accepted-requests" element={
               <AcceptedRequestsTable
                 acceptedRequests={acceptedRequests}
                 setAcceptedRequests={setAcceptedRequests}
               />
             }
           />
+
           <Route path="/inward-form/:patientId" element={<InwardForm />} />
-          <Route
-            path="/inward-form"
-            element={
-              <InwardForm
-              // Make sure to pass any necessary props here
-              />
-            }
-          />          
+          <Route path="/inward-form" element={<InwardForm />} />          
           <Route path="/inward-table" element={<InwardTable />} />          
           <Route path="/notebook" element={<NoteBook />} />
           <Route path="/outwardform" element={<Outwardform />} />
@@ -103,17 +94,22 @@ function App() {
 
           <Route path="/outwardform" element={<Outwardform />} />
 
-          <Route
-            path="/h544form"
-            element={<H544Form onSubmit={handleFormSubmit} />}
+          <Route path="/h544form" element={
+            <H544Form 
+              onSubmit={handleFormSubmit} />
+            }
           />
-          <Route
-            path="/pending-table"
-            element={<PendingTable patients={patients} />}
+
+          <Route path="/pending-table" element={
+            <PendingTable 
+              patients={patients} />
+            }
           />
-          <Route
-            path="/edit-form"
-            element={<H544Form onSubmit={handleFormSubmit} />}
+
+          <Route path="/edit-form" element={
+            <H544Form 
+              onSubmit={handleFormSubmit} />
+            }
           />
         </Routes>
       </div>
