@@ -20,7 +20,7 @@ import CreateNews from "./Components/Dashboard/MOH/CreateNews.jsx";
 import InfectionsDiseasesTable from "./Components/Dashboard/InfectionsDiseasesTable.jsx";
 
 import NoteBook from "./Components/Dashboard/PHI/NoteBook.jsx";
-
+import Complains from "./Components/Dashboard/MOH/Complains.jsx";
 import Outwardform from "./Components/Dashboard/PHI/Outwardform.jsx";
 import OutwardTable from "./Components/Dashboard/PHI/OutwardTable.jsx";
 
@@ -87,13 +87,10 @@ function App() {
           <Route path="/notebook" element={<NoteBook />} />
           <Route path="/outwardform" element={<Outwardform />} />
           <Route path="/outward-table" element={<OutwardTable />} />
-          
-          <Route path="/notebook" element={<NoteBook />} />
           <Route path="/visit-inward" element={<VisitInward />} />
+          <Route path="/complains" element={<Complains />} />
 
           <Route path="/visit-inward-form" element={<VisitInwardForm />} />
-
-          <Route path="/outwardform" element={<Outwardform />} />
 
           <Route path="/h544form" element={
             <H544Form 

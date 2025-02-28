@@ -8,7 +8,7 @@ export default function Landing() {
 
   return (
     <div className="flex flex-col md:flex-row items-center bg-transparent min-h-1/2 m-0 w-full p-0">
-        <LandingMOH />
+        <LandingPHI />
           {/* Image section */}
           <div className="md:w-1/2 relative">
           <div className="absolute inset-0 bg-gradient-to-r from-white to-transparent md:block hidden"></div>
