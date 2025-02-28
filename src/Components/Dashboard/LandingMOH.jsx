@@ -4,15 +4,18 @@ export default function LandingMOH() {
   const navigate = useNavigate();
 
   const handleNewsCreation = () => {
-    navigate("/createNews"); // Redirect to H544Table page
+    navigate("/createNews"); // Redirect to News Creation page
   };
 
   const handlePendingTable = () => {
     navigate("/pending-table"); // Navigate to the pending table page
   };
   const handleOpenH544Form = () => {
-    navigate("/h544form"); // Redirect to AcceptedRequestsTable page
+    navigate("/h544form"); // Redirect to H544 Form page
   };
+  const handleComplains = () => {
+    navigate("/complains"); // Redirect to Complains page
+  }
   return (
     <div className="md:w-1/2 p-12 text-center md:text-left" id="MOH">
       <div>
@@ -83,7 +86,10 @@ export default function LandingMOH() {
             </p>
           </button>
 
-          <button className="md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105">
+          <button
+            onClick={handleComplains}
+            className="md:m-4 m-4 rounded-3xl border-2 border-emerald-500 md:w-1/2 w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105"
+          >
             <div className="flex-shrink-0 flex items-center justify-center p-3">
               <h1 className="p-1 text-xl font-bold text-gray-600">
                 Recived Complains
