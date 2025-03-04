@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import authService from "../../service/authService.js";
@@ -42,7 +42,7 @@ const Signup = () => {
     console.log("Form data submitted:", formInput);
     try {
       setIsSubmitting(true);
-      await authService.register(
+      await authService.handleRegister(
         formInput.username,
         formInput.email,
         formInput.password
@@ -124,7 +124,7 @@ const Signup = () => {
                 type="submit"
                 className="md:w-1/4 w-1/2 px-6 py-3 my-8 bg-teal-500 text-white rounded-3xl hover:bg-teal-300 hover:text-black"
               >
-                Sign Up
+                {isSubmitting ? "Submitting" : "Sign Up"}
               </button>
             </div>
             <div className="w-full px-4 flex justify-center items-center">
