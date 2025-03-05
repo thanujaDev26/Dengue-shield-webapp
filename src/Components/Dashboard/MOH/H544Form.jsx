@@ -1,7 +1,7 @@
 // H544Form.js
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { saveDiseaseNotification } from "../../../service/mohService";
+import mohService from "../../../service/index.js";
 
 const H544Form = () => {
   const [formData, setFormData] = useState({
@@ -64,7 +64,9 @@ const H544Form = () => {
         },
       };
 
-      const response = await saveDiseaseNotification(notificationData);
+      const response = await mohService.saveDiseaseNotification(
+        notificationData
+      );
       console.log(response);
       navigate("/pending-table");
     } catch (error) {
@@ -192,47 +194,47 @@ const H544Form = () => {
                 onChange={handleChange}
                 required
               />
-            </div>          
-              <div>
-                <label
-                  htmlFor="ward"
-                  className="block text-sm mt-2 font-medium text-gray-700"
-                >
-                  Patient Ward
-                </label>
-                <input
-                  type="Number"
-                  placeholder="Enter Patient Ward Number"
-                  className="w-full p-2 mb-4 border border-gray-300 rounded"
-                  id="ward"
-                  name="ward"
-                  value={formData.ward}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="gender"
-                  className="block text-sm font-medium mt-2 text-gray-700"
-                >
-                  Gender
-                </label>
-                <select
-                  id="gender"
-                  name="gender"
-                  className="w-full p-2 mb-4 border border-gray-300 rounded"
-                  value={formData.gender}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>
-                    Select Gender
-                  </option>
-                  <option value="female">Female</option>
-                  <option value="male">Male</option>
-                </select>
-              </div>            
+            </div>
+            <div>
+              <label
+                htmlFor="ward"
+                className="block text-sm mt-2 font-medium text-gray-700"
+              >
+                Patient Ward
+              </label>
+              <input
+                type="Number"
+                placeholder="Enter Patient Ward Number"
+                className="w-full p-2 mb-4 border border-gray-300 rounded"
+                id="ward"
+                name="ward"
+                value={formData.ward}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="gender"
+                className="block text-sm font-medium mt-2 text-gray-700"
+              >
+                Gender
+              </label>
+              <select
+                id="gender"
+                name="gender"
+                className="w-full p-2 mb-4 border border-gray-300 rounded"
+                value={formData.gender}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>
+                  Select Gender
+                </option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+              </select>
+            </div>
             <div>
               <label
                 htmlFor="labResults"
@@ -353,7 +355,7 @@ const H544Form = () => {
                 <option value="other">Other</option>
               </select>
             </div>
-          </div>          
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ml-10 mr-10">
             <button
               onClick={handleBack}

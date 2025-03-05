@@ -16,17 +16,4 @@ const saveDiseaseNotification = async (notificationData) => {
   }
 };
 
-const findPatient = async (patientData) => {
-  try {
-    const response = await Apiclient.g(
-      API_URL + "findPatient",
-      patientData
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error during disease notification save:", error);
-    throw error;
-  }
-};
-
-export { saveDiseaseNotification, findPatient };
+export default { saveDiseaseNotification };
