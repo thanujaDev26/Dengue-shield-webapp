@@ -186,7 +186,10 @@ const PatientSearchPage = () => {
                       {patient.telephoneNumber}
                     </td>
                     <td className="px-6 py-4">
-                      <button className="mx-2 px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition">
+                      <button
+                        key={patient.id}
+                        className="mx-2 px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition"
+                      >
                         Update Patient
                       </button>
 

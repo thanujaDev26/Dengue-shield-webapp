@@ -17,6 +17,8 @@ const H544Form = () => {
     patientAge: "",
     ward: "",
     gender: "",
+    diseaseName: "",
+    telephone: "",
   });
 
   const location = useLocation();
@@ -354,6 +356,42 @@ const H544Form = () => {
                 <option value="imo">IMO</option>
                 <option value="other">Other</option>
               </select>
+            </div>
+            <div>
+              <label
+                htmlFor="telephone"
+                className="block text-sm mt-2 font-medium text-gray-700"
+              >
+                Telephone Number
+              </label>
+              <input
+                type="tel"
+                placeholder="Enter Sri Lankan Phone Number (e.g. 077XXXXXXX)"
+                className="w-full p-2 mb-4 border border-gray-300 rounded"
+                id="telephone"
+                name="telephone"
+                value={formData.telephone}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="diseaseName"
+                className="block text-sm mt-2 font-medium text-gray-700"
+              >
+                Disease Name
+              </label>
+              <input
+                type="text"
+                placeholder="Enter Disease Name"
+                className="w-full p-2 mb-4 border border-gray-300 rounded"
+                id="diseaseName"
+                name="diseaseName"
+                value={formData.diseaseName}
+                onChange={handleChange}
+                required
+              />
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ml-10 mr-10">
