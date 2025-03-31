@@ -29,6 +29,9 @@ import H544Form from "./Components/Dashboard/MOH/H544Form.jsx";
 import PendingTable from "./Components/Dashboard/MOH/PendingTable.jsx";
 import VisitInward from "./Components/Dashboard/MOH/VisitInward.jsx";
 import VisitInwardForm from "./Components/Dashboard/MOH/VisitInwardForm.jsx";
+import PatientSearchPage from "./Components/Dashboard/MOH/PatientSearchPage.jsx";
+import PatientForm from "./Components/Dashboard/PatientForm.jsx";
+import SendH544Form from "./Components/Dashboard/MOH/SendH544Form.jsx";
 
 function App() {
   const [acceptedRequests, setAcceptedRequests] = useState([]);
@@ -62,55 +65,55 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/sign-in" element={<Login />} />
-          <Route path="/sign-up" element={<Signup />} />       
+          <Route path="/sign-up" element={<Signup />} />
           <Route path="/h411-form" element={<H411Form />} />
-          <Route path="/infections-diseases-table" element={<InfectionsDiseasesTable />} />
-
-          <Route path="/h544-table" element={
-              <H544Table 
-                setAcceptedRequests={setAcceptedRequests} 
-              />
-            }
+          <Route
+            path="/infections-diseases-table"
+            element={<InfectionsDiseasesTable />}
           />
 
-          <Route path="/accepted-requests" element={
+          <Route
+            path="/h544-table"
+            element={<H544Table setAcceptedRequests={setAcceptedRequests} />}
+          />
+
+          <Route
+            path="/accepted-requests"
+            element={
               <AcceptedRequestsTable
                 acceptedRequests={acceptedRequests}
                 setAcceptedRequests={setAcceptedRequests}
               />
             }
           />
-
+          <Route path="/patient-search-page" element={<PatientSearchPage />} />
           <Route path="/inward-form/:patientId" element={<InwardForm />} />
-          <Route path="/inward-form" element={<InwardForm />} />          
-          <Route path="/inward-table" element={<InwardTable />} />          
+          <Route path="/inward-form" element={<InwardForm />} />
+          <Route path="/inward-table" element={<InwardTable />} />
           <Route path="/notebook" element={<NoteBook />} />
           <Route path="/outwardform" element={<Outwardform />} />
           <Route path="/outward-table" element={<OutwardTable />} />
           <Route path="/visit-inward" element={<VisitInward />} />
           <Route path="/complains" element={<Complains />} />
-
+          <Route path="/patient-form" element={<PatientForm />} />
           <Route path="/visit-inward-form" element={<VisitInwardForm />} />
-
-          <Route path="/h544form" element={
-            <H544Form 
-              onSubmit={handleFormSubmit} />
-            }
+          <Route path="/send-h544-form/:h544Id" element={<SendH544Form />} />
+          <Route
+            path="/h544form/:patientId"
+            element={<H544Form onSubmit={handleFormSubmit} />}
           />
 
-          <Route path="/pending-table" element={
-            <PendingTable 
-              patients={patients} />
-            }
+          <Route
+            path="/pending-table"
+            element={<PendingTable patients={patients} />}
           />
 
-          <Route path="/edit-form" element={
-            <H544Form 
-              onSubmit={handleFormSubmit} />
-            }
+          <Route
+            path="/edit-form"
+            element={<H544Form onSubmit={handleFormSubmit} />}
           />
 
-          <Route path="/createNews" element={<CreateNews />} /> 
+          <Route path="/createNews" element={<CreateNews />} />
         </Routes>
       </div>
 

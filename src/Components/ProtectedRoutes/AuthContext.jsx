@@ -1,47 +1,55 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const AuthContext = createContext();
 
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
+
+// AuthProvider Component
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  const [user, setUser] = useState(() => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch (error) {
+      console.error("Failed to parse user from localStorage:", error);
+      return null;
+    }
+  });
 
   useEffect(() => {
-    const userDetailsString = localStorage.getItem("user");
-    console.log(userDetailsString);
-
-    if (userDetailsString) {
-      try {
-        const userDetails = JSON.parse(userDetailsString);
-        if (userDetails.appuser && userDetails.appuser.role) {
-          setUser(userDetails); // Store user in context
-        } else {
-          logout(); // Invalid data, force logout
-        }
-      } catch (error) {
-        console.error("Error parsing user data:", error);
-        logout();
-      }
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
     }
-  }, []);
+  }, [user]);
+
+  // Determine login status based on user state
+  const isLoggedIn = !!user;
 
   const login = (userData) => {
-    localStorage.setItem("user", JSON.stringify(userData));
+    console.log(userData);
     setUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem("user");
     setUser(null);
-    navigate("/sign-in");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../ProtectedRoutes/AuthContext.jsx";
-import { userState } from "../../atoms/atom.js";
-import { useRecoilState } from "recoil";
 import toast from "react-hot-toast";
 import authService from "../../service/authService.js";
 
@@ -13,9 +11,8 @@ const initialState = {
 
 const Login = () => {
   const [formInput, setFormInput] = useState(initialState);
-  const [error, setError] = useState(null);
+  const [Error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useRecoilState(userState);
   const navigate = useNavigate();
 
   const { login } = useAuth();
@@ -43,20 +40,17 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await authService.login(
+      const response = await authService.handleLogin(
         formInput.email,
         formInput.password
       );
       login(response);
-
-      setUser(response);
-
       toast.success("welcome back!");
       navigate("/dashboard");
     } catch (error) {
       const message = error?.response?.data?.message || "Login failed";
       setError(message);
-      toast.error(message);
+      toast.error(Error);
     } finally {
       setLoading(false);
     }

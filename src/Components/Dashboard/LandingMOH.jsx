@@ -10,8 +10,8 @@ export default function LandingMOH() {
   const handlePendingTable = () => {
     navigate("/pending-table"); // Navigate to the pending table page
   };
-  const handleOpenH544Form = () => {
-    navigate("/h544form"); // Redirect to H544 Form page
+  const handleOpenPatientForm = () => {
+    navigate("/patient-search-page"); // Redirect to patient-search-page Form page
   };
   const handleComplains = () => {
     navigate("/complains"); // Redirect to Complains page
@@ -22,7 +22,7 @@ export default function LandingMOH() {
         <div>
           <div className="flex flex-col md:flex-row items-center text-center">
             <button
-              onClick={handleOpenH544Form}
+              onClick={handleOpenPatientForm}
               className="md:m-4 m-4 rounded-3xl border-2 bg-emerald-500 border-emerald-600 md:w-full w-11/12 h-30 shadow-2xl transition duration-700 ease-in-out hover:scale-105"
             >
               <div className="flex-shrink-0 flex items-center justify-center p-3">

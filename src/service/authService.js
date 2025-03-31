@@ -3,7 +3,7 @@ import Apiclient from "./apiClient.js"; // Import the reusable Axios client
 const API_URL = "/api/v1/appuser/"; // Relative path for auth-related endpoints
 
 // Register a new user
-const register = async (name, email, password) => {
+const handleRegister = async (name, email, password) => {
   try {
     const response = await Apiclient.post(API_URL + "register", {
       name,
@@ -18,18 +18,24 @@ const register = async (name, email, password) => {
 };
 
 // Log in a user
-const login = async (email, password) => {
+const handleLogin = async (useremail, password) => {
   try {
     const response = await Apiclient.post(API_URL + "login", {
-      email,
+      email: useremail,
       password,
     });
-
     console.log(response.data);
-    return response.data;
-    // Return the server response
+
+    const appuser = response?.data?.data?.appuser; // Safe navigation
+
+    if (!appuser) {
+      throw new Error("Invalid response data: appuser is undefined");
+    }
+
+    const { id, name, email, role } = appuser;
+    return { id, name, email, role };
   } catch (error) {
-    console.error("Error during login:", error);
+    console.error("Error during login:", error.message);
     throw error;
   }
 };
@@ -45,7 +51,7 @@ const logout = async () => {
 };
 
 export default {
-  register,
-  login,
+  handleRegister,
+  handleLogin,
   logout,
 };
