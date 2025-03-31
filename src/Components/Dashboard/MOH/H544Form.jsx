@@ -1,33 +1,79 @@
 // H544Form.js
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import mohService from "../../../service/index.js";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
+import mohService from "../../../service/mohService.js";
+import pateintService from "../../../service/pateintService.js";
+import { useAuth } from "../../ProtectedRoutes/AuthContext.jsx";
+import H544FormBody from "./H544FormBody.jsx";
 
 const H544Form = () => {
+  const AuthUser = useAuth();
+  const mohId = AuthUser.user.role == "ROLE_MOH" ? AuthUser.user.id : null;
+  const { patientId } = useParams();
   const [formData, setFormData] = useState({
-    institute: "",
-    patientName: "",
-    guardianName: "",
-    address: "",
     labResults: "",
-    bht: "",
-    onsetDate: "",
-    admissionDate: "",
-    patientId: "",
-    patientAge: "",
+    dateOfOnset: "",
+    dateOfAdmission: "",
+    institute: "",
     ward: "",
-    gender: "",
+    bedNumber: "",
+    nameOfNotifier: "",
+    notifierStatus: "",
     diseaseName: "",
-    telephone: "",
+    mohOfficerId: null,
+    patient: {},
   });
-
-  const location = useLocation();
   const navigate = useNavigate();
+
+  //validating errors
+  const validateForm = (formData) => {
+    // Define required fields with human-readable labels
+    const requiredFields = {
+      diseaseName: "Disease name",
+      labResults: "Lab results",
+      dateOfOnset: "Date of onset",
+      dateOfAdmission: "Date of admission",
+      institute: "Institute name",
+      ward: "Ward",
+      bedNumber: "Bed number",
+      nameOfNotifier: "Name of notifier",
+      notifierStatus: "Notifier status",
+    };
+
+    // Loop through each required field and validate
+    for (const [key, label] of Object.entries(requiredFields)) {
+      if (!formData[key] || formData[key].trim() === "") {
+        toast.error(`${label} is required!`);
+        return false;
+      }
+    }
+
+    return true; // All validations passed
+  };
 
   // Handle back button
   const handleBack = () => {
-    navigate("/dashboard"); // Navigate back to the previous page
+    navigate("/patient-search-page"); // Navigate back to the previous page
   };
+
+  useEffect(() => {
+    async function getOnePatient() {
+      try {
+        const response = await pateintService.getPatientById(patientId);
+        const patientData = response.data;
+        setFormData((prevData) => ({
+          ...prevData,
+          mohOfficerId: mohId,
+          patient: patientData,
+        }));
+      } catch (error) {
+        console.error("Error fetching patients:", error);
+      }
+    }
+    getOnePatient();
+  }, []);
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -39,47 +85,19 @@ const H544Form = () => {
   };
 
   // Submit the form data and handle the onSubmit action
-  const handleSubmit = async () => {
-    try {
-      const notificationData = {
-        guardianName: formData.guardianName,
-        name: formData.patientName,
-        labResults: formData.labResults,
-        dateOfOnset: formData.onsetDate, // Ensure format is correct
-        dateOfAdmission: formData.admissionDate, // Ensure format is correct
-        institute: formData.institute,
-        ward: formData.ward,
-        bedNumber: formData.bht,
-        medicalOfficer: "", // Make sure this field exists in DTO
-        patient: {
-          nic: formData.patientId, // Ensure key matches DTO (was patientId, should be nic)
-          name: formData.patientName,
-          address: formData.address,
-          notifierStatus: formData.notifierStatus || "Unknown", // Provide default if needed
-          religion: formData.religion || null, // Handle optional fields
-          race: formData.race || null,
-          telephoneNumber: formData.telephone || null,
-          occupation: formData.occupation || null,
-          gender: formData.gender,
-          nameOfNotifier: formData.nameOfNotifier || "Unknown",
-          // Ensure correct date format
-        },
-      };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm(formData)) return;
 
-      const response = await mohService.saveDiseaseNotification(
-        notificationData
-      );
+    try {
+      const response = await mohService.saveDiseaseNotification(formData);
+      toast.success("H544 form  save successfully saved!");
       console.log(response);
-      navigate("/pending-table");
+      navigate(`/send-h544-form/${response.data.id}`);
     } catch (error) {
-      alert(error);
+      console.error(error);
+      toast.error(error);
     }
-    // if (formData.patientId) {
-    //    // Pass the form data to the parent
-    //   navigate("/pending-table"); // Navigate back to the pending table page
-    // } else {
-    //   alert("Please fill in the patient ID.");
-    // }
   };
 
   return (
@@ -88,7 +106,7 @@ const H544Form = () => {
         <div className="w-2/3 items-center p-6 bg-white rounded-lg shadow-md mt-6 mb-10">
           <h2 className="text-2xl text-center font-bold mb-20">H544 Form</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-10 mr-10">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-10 mr-10">
             <div>
               <label
                 htmlFor="institute"
@@ -120,9 +138,8 @@ const H544Form = () => {
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="patientName"
                 name="patientName"
-                value={formData.patientName}
-                onChange={handleChange}
-                required
+                value={formData.patient.name}
+                readOnly
               />
             </div>
             <div>
@@ -138,9 +155,8 @@ const H544Form = () => {
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="guardianName"
                 name="guardianName"
-                value={formData.guardianName}
-                onChange={handleChange}
-                required
+                value={formData.patient.guardianName || ""}
+                readOnly
               />
             </div>
             <div>
@@ -156,9 +172,8 @@ const H544Form = () => {
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="address"
                 name="address"
-                value={formData.address}
-                onChange={handleChange}
-                required
+                value={formData.patient.address || ""}
+                readOnly
               />
             </div>
             <div>
@@ -174,9 +189,8 @@ const H544Form = () => {
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="patientId"
                 name="patientId"
-                value={formData.patientId}
-                onChange={handleChange}
-                required
+                value={formData.patient.id || ""}
+                readOnly
               />
             </div>
             <div>
@@ -192,9 +206,8 @@ const H544Form = () => {
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="patientAge"
                 name="patientAge"
-                value={formData.patientAge}
-                onChange={handleChange}
-                required
+                value={formData.patient.age || ""}
+                readOnly
               />
             </div>
             <div>
@@ -222,20 +235,15 @@ const H544Form = () => {
               >
                 Gender
               </label>
-              <select
+              <input
+                type="text"
                 id="gender"
-                name="gender"
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
-                value={formData.gender}
-                onChange={handleChange}
-                required
-              >
-                <option value="" disabled>
-                  Select Gender
-                </option>
-                <option value="female">Female</option>
-                <option value="male">Male</option>
-              </select>
+                name="patientGender"
+                value={formData.patient.gender || ""}
+                placeholder="Patient Gender"
+                readOnly
+              />
             </div>
             <div>
               <label
@@ -267,8 +275,8 @@ const H544Form = () => {
                 placeholder="Enter Bed Head Ticket Number"
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="bht"
-                name="bht"
-                value={formData.bht}
+                name="bedNumber"
+                value={formData.bedNumber}
                 onChange={handleChange}
                 required
               />
@@ -285,8 +293,8 @@ const H544Form = () => {
                 placeholder="Enter Date of Onset"
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="onsetDate"
-                name="onsetDate"
-                value={formData.onsetDate}
+                name="dateOfOnset"
+                value={formData.dateOfOnset}
                 onChange={handleChange}
                 required
               />
@@ -303,8 +311,8 @@ const H544Form = () => {
                 placeholder="Enter Admitted Date"
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="admissionDate"
-                name="admissionDate"
-                value={formData.admissionDate}
+                name="dateOfAdmission"
+                value={formData.dateOfAdmission}
                 onChange={handleChange}
                 required
               />
@@ -314,15 +322,15 @@ const H544Form = () => {
                 htmlFor="notifier"
                 className="block text-sm mt-2 font-medium text-gray-700"
               >
-                Notifier's Name
+                Notifier s Name
               </label>
               <input
                 type="text"
                 placeholder="Enter Name of the Notifier"
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="notifier"
-                name="notifier"
-                value={formData.notifier}
+                name="nameOfNotifier"
+                value={formData.nameOfNotifier}
                 onChange={handleChange}
                 required
               />
@@ -332,18 +340,18 @@ const H544Form = () => {
                 htmlFor="notifireStatus"
                 className="block text-sm font-medium mt-2 text-gray-700"
               >
-                Notifire's Status
+                Notifire s Status
               </label>
               <select
                 id="notifireStatus"
-                name="notifireStatus"
+                name="notifierStatus"
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
-                value={formData.notifireStatus}
+                value={formData.notifierStatus}
                 onChange={handleChange}
                 required
               >
                 <option value="" disabled>
-                  Select Notifire's Status
+                  Select Notifire s Status
                 </option>
                 <option value="onDuty">On Duty</option>
                 <option value="offDuty">Off Duty</option>
@@ -370,9 +378,8 @@ const H544Form = () => {
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 id="telephone"
                 name="telephone"
-                value={formData.telephone}
-                onChange={handleChange}
-                required
+                value={formData.patient.telephoneNumber}
+                readOnly
               />
             </div>
             <div>
@@ -393,7 +400,8 @@ const H544Form = () => {
                 required
               />
             </div>
-          </div>
+          </div> */}
+          <H544FormBody formData={formData} handleChange={handleChange} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ml-10 mr-10">
             <button
               onClick={handleBack}
@@ -405,7 +413,7 @@ const H544Form = () => {
               onClick={handleSubmit}
               className="bg-green-500 w-40  text-white px-4 mt-5 py-2 rounded-lg hover:bg-green-600"
             >
-              {location.state && location.state.patient ? "Update " : "Submit "}
+              Submit
             </button>
           </div>
         </div>

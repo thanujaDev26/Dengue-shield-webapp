@@ -30,6 +30,8 @@ import PendingTable from "./Components/Dashboard/MOH/PendingTable.jsx";
 import VisitInward from "./Components/Dashboard/MOH/VisitInward.jsx";
 import VisitInwardForm from "./Components/Dashboard/MOH/VisitInwardForm.jsx";
 import PatientSearchPage from "./Components/Dashboard/MOH/PatientSearchPage.jsx";
+import PatientForm from "./Components/Dashboard/PatientForm.jsx";
+import SendH544Form from "./Components/Dashboard/MOH/SendH544Form.jsx";
 
 function App() {
   const [acceptedRequests, setAcceptedRequests] = useState([]);
@@ -93,11 +95,11 @@ function App() {
           <Route path="/outward-table" element={<OutwardTable />} />
           <Route path="/visit-inward" element={<VisitInward />} />
           <Route path="/complains" element={<Complains />} />
-
+          <Route path="/patient-form" element={<PatientForm />} />
           <Route path="/visit-inward-form" element={<VisitInwardForm />} />
-
+          <Route path="/send-h544-form/:h544Id" element={<SendH544Form />} />
           <Route
-            path="/h544form"
+            path="/h544form/:patientId"
             element={<H544Form onSubmit={handleFormSubmit} />}
           />
 
