@@ -27,13 +27,13 @@ const handleLogin = async (useremail, password) => {
     console.log(response.data);
 
     const appuser = response?.data?.data?.appuser; // Safe navigation
-
+    const userId = response?.data?.data?.id;
     if (!appuser) {
       throw new Error("Invalid response data: appuser is undefined");
     }
 
-    const { id, name, email, role } = appuser;
-    return { id, name, email, role };
+    const { name, email, role } = appuser;
+    return { id: userId, name, email, role };
   } catch (error) {
     console.error("Error during login:", error.message);
     throw error;

@@ -1,33 +1,33 @@
 // src/components/PHIExtendedForm.js
-import React, { useState } from 'react';
-import { ChevronDownIcon } from '@heroicons/react/16/solid';
+import React, { useState } from "react";
+import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
 export default function H411Form({ patientId, onSubmit }) {
   const [phiData, setPhiData] = useState({
-    phiReferenceNo: '',
-    mohNotificationNo: '',
-    phiRegisterNo: '',
-    phiRange: '',
-    mohArea: '',
-    diseaseAsNotified: '',
-    diseaseAsNotifiedDate: '',
-    diseaseConfirm: '',
-    diseaseConfirmDate: '',
-    nameOfPatient: '',
-    address: '',
-    age: '',
-    sex: '',
-    ethnicGroup: '',
-    dateOfOnset: '',
-    dateOfHospitalization: '',
-    dateOfDischarge: '',
-    nameOfHospital: '',
-    outcome: '',
-    whereIsolated: '',
-    natureOfCase: '',
-    oneCaseInOutbreak: '',
-    patientsMovements: '',
-    laboratoryFindings: '',
+    phiReferenceNo: "",
+    mohNotificationNo: "",
+    phiRegisterNo: "",
+    phiRange: "",
+    mohArea: "",
+    diseaseAsNotified: "",
+    diseaseAsNotifiedDate: "",
+    diseaseConfirm: "",
+    diseaseConfirmDate: "",
+    nameOfPatient: "",
+    address: "",
+    age: "",
+    sex: "",
+    ethnicGroup: "",
+    dateOfOnset: "",
+    dateOfHospitalization: "",
+    dateOfDischarge: "",
+    nameOfHospital: "",
+    outcome: "",
+    whereIsolated: "",
+    natureOfCase: "",
+    oneCaseInOutbreak: "",
+    patientsMovements: "",
+    laboratoryFindings: "",
   });
 
   const handlePhiChange = (e) => {
@@ -39,8 +39,8 @@ export default function H411Form({ patientId, onSubmit }) {
   };
 
   const handleSubmit = () => {
-    if (Object.values(phiData).includes('')) {
-      alert('Please fill out all fields.');
+    if (Object.values(phiData).includes("")) {
+      alert("Please fill out all fields.");
       return;
     }
     onSubmit(phiData);
@@ -49,11 +49,18 @@ export default function H411Form({ patientId, onSubmit }) {
   return (
     <form className="space-y-12 p-6">
       <div className="border-b border-gray-900/10 pb-12">
-        <h2 className="text-xl font-semibold text-gray-900">Extended P.H.I Form for Patient {patientId}</h2>
-        
+        <h2 className="text-xl font-semibold text-gray-900">
+          Extended P.H.I Form for Patient {patientId}
+        </h2>
+
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div className="sm:col-span-3">
-            <label htmlFor="phiReferenceNo" className="block text-sm font-medium text-gray-900">P.H.I Name</label>
+            <label
+              htmlFor="phiReferenceNo"
+              className="block text-sm font-medium text-gray-900"
+            >
+              P.H.I Name
+            </label>
             <input
               type="text"
               id="phiReferenceNo"
@@ -67,7 +74,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="mohNotificationNo" className="block text-sm font-medium text-gray-900">M.O.H. Name</label>
+            <label
+              htmlFor="mohNotificationNo"
+              className="block text-sm font-medium text-gray-900"
+            >
+              M.O.H. Name
+            </label>
             <input
               type="text"
               id="mohNotificationNo"
@@ -81,7 +93,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="phiRegisterNo" className="block text-sm font-medium text-gray-900">P.H.I. Register No</label>
+            <label
+              htmlFor="phiRegisterNo"
+              className="block text-sm font-medium text-gray-900"
+            >
+              P.H.I. Register No
+            </label>
             <input
               type="text"
               id="phiRegisterNo"
@@ -94,7 +111,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="phiRange" className="block text-sm font-medium text-gray-900">P.H.I. Range</label>
+            <label
+              htmlFor="phiRange"
+              className="block text-sm font-medium text-gray-900"
+            >
+              P.H.I. Range
+            </label>
             <input
               type="text"
               id="phiRange"
@@ -108,7 +130,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-6">
-            <label htmlFor="mohArea" className="block text-sm font-medium text-gray-900">M.O.H. Area</label>
+            <label
+              htmlFor="mohArea"
+              className="block text-sm font-medium text-gray-900"
+            >
+              M.O.H. Area
+            </label>
             <input
               type="text"
               id="mohArea"
@@ -122,7 +149,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="diseaseAsNotified" className="block text-sm font-medium text-gray-900">Disease as Notified</label>
+            <label
+              htmlFor="diseaseAsNotified"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Disease as Notified
+            </label>
             <input
               type="text"
               id="diseaseAsNotified"
@@ -136,7 +168,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="diseaseAsNotifiedDate" className="block text-sm font-medium text-gray-900">Date of Disease Notified</label>
+            <label
+              htmlFor="diseaseAsNotifiedDate"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Date of Disease Notified
+            </label>
             <input
               type="date"
               id="diseaseAsNotifiedDate"
@@ -149,7 +186,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="diseaseConfirm" className="block text-sm font-medium text-gray-900">Disease Confirmed</label>
+            <label
+              htmlFor="diseaseConfirm"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Disease Confirmed
+            </label>
             <input
               type="text"
               id="diseaseConfirm"
@@ -163,7 +205,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="diseaseConfirmDate" className="block text-sm font-medium text-gray-900">Date of Disease Confirmation</label>
+            <label
+              htmlFor="diseaseConfirmDate"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Date of Disease Confirmation
+            </label>
             <input
               type="date"
               id="diseaseConfirmDate"
@@ -173,22 +220,27 @@ export default function H411Form({ patientId, onSubmit }) {
               className="w-full p-3 mb-4 border border-gray-300 rounded"
               disabled
             />
-            
           </div>
 
-            <div className="p-6">
-              {/* Heading */}
-              <h2 className="text-2xl font-semibold text-gray-900">Patient's Details</h2>
-              
-              {/* Horizontal Line */}
-              <hr className="my-4 border-t-2 border-gray-300" />
+          <div className="p-6">
+            {/* Heading */}
+            <h2 className="text-2xl font-semibold text-gray-900">
+              Patient's Details
+            </h2>
 
-              {/* Other content can follow here */}
-            </div>
+            {/* Horizontal Line */}
+            <hr className="my-4 border-t-2 border-gray-300" />
 
+            {/* Other content can follow here */}
+          </div>
 
           <div className="sm:col-span-6">
-            <label htmlFor="nameOfPatient" className="block text-sm font-medium text-gray-900">Name of Patient</label>
+            <label
+              htmlFor="nameOfPatient"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Name of Patient
+            </label>
             <input
               type="text"
               id="nameOfPatient"
@@ -200,9 +252,14 @@ export default function H411Form({ patientId, onSubmit }) {
               disabled
             />
           </div>
-          
+
           <div className="sm:col-span-3">
-            <label htmlFor="address" className="block text-sm font-medium text-gray-900">Address</label>
+            <label
+              htmlFor="address"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Address
+            </label>
             <input
               type="text"
               id="address"
@@ -216,7 +273,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-2">
-            <label htmlFor="age" className="block text-sm font-medium text-gray-900">Age</label>
+            <label
+              htmlFor="age"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Age
+            </label>
             <input
               type="number"
               id="age"
@@ -230,18 +292,21 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-">
-            <label htmlFor="sex" className="block text-sm font-medium text-gray-900">Sex</label>
+            <label
+              htmlFor="sex"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Sex
+            </label>
             <input
-              type='text'
+              type="text"
               id="sex"
               name="sex"
               value={phiData.sex}
               onChange={handlePhiChange}
               className="w-full p-3 mb-4 border border-gray-300 rounded"
               disabled
-            >
-            </input>
-            
+            ></input>
           </div>
 
           {/* <div className="sm:col-span-3">
@@ -272,7 +337,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div> */}
 
           <div className="sm:col-span-3">
-            <label htmlFor="dateOfOnset" className="block text-sm font-medium text-gray-900">Date of Onset</label>
+            <label
+              htmlFor="dateOfOnset"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Date of Onset
+            </label>
             <input
               type="date"
               id="dateOfOnset"
@@ -285,7 +355,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="dateOfHospitalization" className="block text-sm font-medium text-gray-900">Date of Hospitalization</label>
+            <label
+              htmlFor="dateOfHospitalization"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Date of Hospitalization
+            </label>
             <input
               type="date"
               id="dateOfHospitalization"
@@ -298,7 +373,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-3">
-            <label htmlFor="dateOfDischarge" className="block text-sm font-medium text-gray-900">Date of Discharge</label>
+            <label
+              htmlFor="dateOfDischarge"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Date of Discharge
+            </label>
             <input
               type="date"
               id="dateOfDischarge"
@@ -311,7 +391,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-6">
-            <label htmlFor="nameOfHospital" className="block text-sm font-medium text-gray-900">Name of Hospital</label>
+            <label
+              htmlFor="nameOfHospital"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Name of Hospital
+            </label>
             <input
               type="text"
               id="nameOfHospital"
@@ -325,7 +410,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-6">
-            <label htmlFor="natureOfCase" className="block text-sm font-medium text-gray-900">Nature of Case</label>
+            <label
+              htmlFor="natureOfCase"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Nature of Case
+            </label>
             <input
               type="text"
               id="natureOfCase"
@@ -339,7 +429,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div>
 
           <div className="sm:col-span-6">
-            <label htmlFor="oneCaseInOutbreak" className="block text-sm font-medium text-gray-900">One Case in Outbreak</label>
+            <label
+              htmlFor="oneCaseInOutbreak"
+              className="block text-sm font-medium text-gray-900"
+            >
+              One Case in Outbreak
+            </label>
             <input
               type="text"
               id="oneCaseInOutbreak"
@@ -367,7 +462,12 @@ export default function H411Form({ patientId, onSubmit }) {
           </div> */}
 
           <div className="sm:col-span-6">
-            <label htmlFor="laboratoryFindings" className="block text-sm font-medium text-gray-900">Laboratory Findings</label>
+            <label
+              htmlFor="laboratoryFindings"
+              className="block text-sm font-medium text-gray-900"
+            >
+              Laboratory Findings
+            </label>
             <input
               type="text"
               id="laboratoryFindings"
@@ -379,7 +479,6 @@ export default function H411Form({ patientId, onSubmit }) {
               disabled
             />
           </div>
-
         </div>
       </div>
 
