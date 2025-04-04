@@ -27,6 +27,9 @@ const Notebook = () => {
     religion: '',
     race: '',
     job: '',
+    isolation: "",
+    termination: "",
+    infectedMembers: [""],
   });
 
   // Pre-filling the form data with location.state if available
@@ -99,6 +102,22 @@ const Notebook = () => {
   const handleBack = () => {
     navigate(-1); // Navigate back to the previous page
   };
+  
+  const handleInfectedMemberChange = (index, value) => {
+    const updated = [...formData.infectedMembers];
+    updated[index] = value;
+    setFormData({ ...formData, infectedMembers: updated });
+  };
+  
+  const addInfectedMember = () => {
+    setFormData({ ...formData, infectedMembers: [...formData.infectedMembers, ""] });
+  };
+  
+  const removeInfectedMember = (index) => {
+    const updated = formData.infectedMembers.filter((_, i) => i !== index);
+    setFormData({ ...formData, infectedMembers: updated });
+  };
+  
 
   return (
     <div className='justify-items-center'>
@@ -353,6 +372,43 @@ const Notebook = () => {
         </div>
 
         <div>
+          <label htmlFor="diseaseCondition" className="block text-sm font-medium text-gray-700">
+            Nature of Disease
+          </label>
+          <select            
+            id="diseaseCondition"
+            name="diseaseCondition"
+            value={formData.diseaseCondition}
+            onChange=""
+            className="w-full p-2 mb-4 border border-gray-300 rounded"
+          >
+            <option value="" disabled selected>Select the Nature of Disease</option>
+            <option value="Well-maintained">Well-maintained</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Poorly Maintained">Poorly Maintained</option>
+            <option value="Temporary Shelter">Temporary Shelter</option>
+            <option value="Overcrowded">Overcrowded</option>
+            <option value="Unsanitary">Unsanitary</option>
+            <option value="Flood-prone Area">Flood-prone Area</option>
+            <option value="Mosquito Breeding Risk">Mosquito Breeding Risk</option>
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="labresult" className="block text-sm font-medium text-gray-700">
+            Laboratory Result
+          </label>
+          <input type="text"            
+            id="labresult"
+            name="labresult"
+            value={formData.labresult}
+            onChange=""
+            className="w-full p-2 mb-4 border border-gray-300 rounded"
+          >
+          </input>
+        </div>
+
+        <div>
           <label htmlFor="isolation" className="block text-sm font-medium text-gray-700">
             Isolation
           </label>
@@ -387,6 +443,55 @@ const Notebook = () => {
         </div>
 
         <div>
+          <label htmlFor="disinfectiondate" className="block text-sm font-medium text-gray-700">
+            Date of Terminal Disinfection
+          </label>
+          <input type="date"            
+            id="disinfectiondate"
+            name="disinfectiondate"
+            value={formData.disinfectiondate}
+            onChange=""
+            className="w-full p-2 mb-4 border border-gray-300 rounded"
+          >
+          </input>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Infected Members
+          </label>
+
+          {formData.infectedMembers.map((member, index) => (
+            <div key={index} className="flex items-center mb-2">
+              <input
+                type="text"
+                name={`infectedMember-${index}`}
+                value={member}
+                onChange={(e) => handleInfectedMemberChange(index, e.target.value)}
+                placeholder={`Infected Member ${index + 1}`}
+                className="w-full p-2 border border-gray-300 rounded mr-2"
+              />
+              <button
+                type="button"
+                onClick={() => removeInfectedMember(index)}
+                className="text-red-500 hover:text-red-700"
+              >
+                ✖
+              </button>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={addInfectedMember}
+            className="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+          >
+            ➕ Add Infected Member
+          </button>
+        </div>
+
+
+        <div>
           <label htmlFor="distance" className="block text-sm font-medium text-gray-700">
             Remarks
           </label>
@@ -402,7 +507,7 @@ const Notebook = () => {
 
        
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-4 ml-10 mr-10'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-4 ml-10 mr-10'>
           <button
             onClick={handleBack}
             className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600"
