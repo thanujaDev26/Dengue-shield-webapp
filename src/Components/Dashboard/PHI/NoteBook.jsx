@@ -395,20 +395,6 @@ const Notebook = () => {
         </div>
 
         <div>
-          <label htmlFor="labresult" className="block text-sm font-medium text-gray-700">
-            Laboratory Result
-          </label>
-          <input type="text"            
-            id="labresult"
-            name="labresult"
-            value={formData.labresult}
-            onChange=""
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-          >
-          </input>
-        </div>
-
-        <div>
           <label htmlFor="isolation" className="block text-sm font-medium text-gray-700">
             Isolation
           </label>

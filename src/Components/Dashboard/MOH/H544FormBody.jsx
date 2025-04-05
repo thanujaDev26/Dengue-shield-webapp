@@ -218,7 +218,7 @@ export default function H544FormBody({ formData, handleChange }) {
           htmlFor="notifier"
           className="block text-sm mt-2 font-medium text-gray-700"
         >
-          Notifier s Name
+          Notifier's Name
         </label>
         <input
           type="text"
@@ -236,7 +236,7 @@ export default function H544FormBody({ formData, handleChange }) {
           htmlFor="notifireStatus"
           className="block text-sm font-medium mt-2 text-gray-700"
         >
-          Notifire s Status
+          Notifire's Status
         </label>
         <select
           id="notifireStatus"
@@ -247,7 +247,7 @@ export default function H544FormBody({ formData, handleChange }) {
           required
         >
           <option value="" disabled>
-            Select Notifire s Status
+            Select Notifire's Status
           </option>
           <option value="onDuty">On Duty</option>
           <option value="offDuty">Off Duty</option>
