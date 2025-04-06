@@ -1,8 +1,12 @@
 // src/components/PHIExtendedForm.js
-import React, { useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import phiService from "../../../service/phiService";
 
-export default function H411Form({ patientId, onSubmit }) {
+
+export default function H411Form() {
+  const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
   const [phiData, setPhiData] = useState({
     phiReferenceNo: "",
     mohNotificationNo: "",
@@ -30,6 +34,9 @@ export default function H411Form({ patientId, onSubmit }) {
     laboratoryFindings: "",
   });
 
+
+  const { messageId } = useParams();
+
   const handlePhiChange = (e) => {
     const { name, value } = e.target;
     setPhiData((prevData) => ({
@@ -45,6 +52,25 @@ export default function H411Form({ patientId, onSubmit }) {
     }
     onSubmit(phiData);
   };
+
+    useEffect(() => {
+      async function getMessage() {
+        try {
+          const response = await phiService.getMessagebyId(messageId);
+  
+          if (response.data) {
+            setMessage(response.data);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      getMessage();
+    }, [messageId]);
+
+
+
+
 
   return (
     <form className="space-y-12 p-6">
@@ -225,7 +251,7 @@ export default function H411Form({ patientId, onSubmit }) {
           <div className="p-6">
             {/* Heading */}
             <h2 className="text-2xl font-semibold text-gray-900">
-              Patient's Details
+              Patient s Details
             </h2>
 
             {/* Horizontal Line */}

@@ -13,6 +13,7 @@ const PendingTable = () => {
   const mohId = AuthUser.user.role === "ROLE_MOH" ? AuthUser.user.id : null;
   const [messageList, setMessageList] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState(null);
+  const [selectedMessageStatus, setSelectedMessageStatus] = useState("");
   const [isViewOpen, setIsViewOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTab, setActiveTab] = useState("Pending");
@@ -47,11 +48,13 @@ const PendingTable = () => {
       }
     }
     getMessageList();
-  }, [mohId]);
+  }, [mohId, messageList.length]);
 
   const h544List = messageList.map((message) => ({
+    messageId: message.id,
     h544: message.h544,
     status: message.status,
+    phiName: message.phiOfficer.appuser.name,
   }));
 
   const filteredRequests = h544List.filter((request) => {
@@ -68,7 +71,8 @@ const PendingTable = () => {
   );
 
   const openViewModal = (request) => {
-    setSelectedH544Id(request.h544.id); // Set the selected H544 ID
+    setSelectedH544Id(request.h544.id);
+    setSelectedMessageStatus(request.status); // Set the selected H544 ID
 
     const mappedRequest = {
       labResults: request.h544.labResults || "",
@@ -101,6 +105,20 @@ const PendingTable = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setCurrentPage(1);
+  };
+
+  const handledelete = async (messageId) => {
+    try {
+      const response = await mohService.deleteMessage(messageId);
+      console.log(response.data);
+      toast.success("you have successfully deleted the message");
+      setMessageList((prevMessages) =>
+        prevMessages.filter((message) => message.id !== messageId)
+      );
+    } catch (error) {
+      console.log(error);
+      toast.error("something wrong happend when deleting");
+    }
   };
 
   const handleUpdate = async () => {
@@ -175,6 +193,9 @@ const PendingTable = () => {
                   Institute: {request.h544.institute}
                 </p>
                 <p className="text-gray-600">Status: {request.status}</p>
+                <p className="text-gray-600">
+                  Phi Officer name: {request.phiName}
+                </p>
                 <div className="mt-4 flex gap-3">
                   <button
                     onClick={() => openViewModal(request)}
@@ -182,6 +203,16 @@ const PendingTable = () => {
                   >
                     View
                   </button>
+                  {(request.status === "PENDING" ||
+                    request.status === "COMPLETED") && (
+                    <button
+                      key={request.messageId}
+                      onClick={() => handledelete(request.messageId)}
+                      className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition-colors duration-200"
+                    >
+                      delete
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
@@ -212,7 +243,15 @@ const PendingTable = () => {
             <div className="mt-4 flex flex-col sm:flex-row justify-between gap-4 sm:gap-6">
               <button
                 onClick={handleUpdate}
-                className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-400 transition-colors duration-200 w-full sm:w-auto"
+                className={`px-4 py-2 rounded-lg transition-colors duration-200 w-full sm:w-auto 
+    ${
+      selectedMessageStatus.trim().toUpperCase() === "PENDING"
+        ? "bg-yellow-500 hover:bg-yellow-400 text-white"
+        : "bg-gray-400 text-gray-600 cursor-not-allowed"
+    }`}
+                disabled={
+                  selectedMessageStatus.trim().toUpperCase() !== "PENDING"
+                }
               >
                 Update
               </button>

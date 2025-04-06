@@ -25,6 +25,8 @@ import VisitInwardForm from "./Components/Dashboard/MOH/VisitInwardForm.jsx";
 import PatientSearchPage from "./Components/Dashboard/MOH/PatientSearchPage.jsx";
 import PatientForm from "./Components/Dashboard/PatientForm.jsx";
 import SendH544Form from "./Components/Dashboard/MOH/SendH544Form.jsx";
+import Profile from "./Components/Profile/Profile.jsx";
+import Mainpanel from "./Components/Dengue Officer Panel/Mainpanel.jsx";
 
 function App() {
   return (
@@ -45,7 +47,7 @@ function App() {
             path="/infections-diseases-table"
             element={<InfectionsDiseasesTable />}
           />
-
+          <Route path="/profile" element={<Profile />} />
           <Route path="/h544-table" element={<H544Table />} />
 
           <Route
@@ -65,7 +67,7 @@ function App() {
           <Route path="/visit-inward-form" element={<VisitInwardForm />} />
           <Route path="/send-h544-form/:h544Id" element={<SendH544Form />} />
           <Route path="/h544form/:patientId" element={<H544Form />} />
-
+          <Route path="/mainpanel" element={<Mainpanel />} />
           <Route path="/pending-table" element={<PendingTable />} />
 
           {/* <Route

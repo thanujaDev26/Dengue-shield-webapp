@@ -50,8 +50,51 @@ const logout = async () => {
   }
 };
 
+const getUserDetails = async (role, id) => {
+  try {
+    const response = await Apiclient.get(
+      API_URL + `getAppUser?id=${id}&role=${role}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error during getting message list:", error);
+    throw error;
+  }
+};
+
+const updateUserDetails = async (role, id, updates) => {
+  try {
+    const response = await Apiclient.patch(
+      `/api/v1/${role}/updateUser/${id}`,
+      updates
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error during updating user details:", error);
+    throw error;
+  }
+};
+
+const deleteUser = async (role, id) => {
+  try {
+    const response = await Apiclient.delete(
+      API_URL + `deleteAppUser?id=${id}&role=${role}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error during deleting the user:", error);
+    throw error;
+  }
+};
+
 export default {
   handleRegister,
   handleLogin,
   logout,
+  getUserDetails,
+  updateUserDetails,
+  deleteUser,
 };

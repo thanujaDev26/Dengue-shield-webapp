@@ -23,7 +23,9 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
-  const { isLoggedIn, logout } = useAuth();
+  const { user, isLoggedIn, logout } = useAuth();
+  const id = user?.id;
+  const role = user?.role;
   const navigate = useNavigate();
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -103,7 +105,8 @@ export default function Navbar() {
                     <MenuItem>
                       {({ active }) => (
                         <Link
-                          to="/profile"
+                          to={`/profile`}
+                          state={{ id: id, role: role }}
                           className={classNames(
                             active ? "bg-gray-100" : "",
                             "block px-4 py-2 text-sm text-gray-700"
@@ -116,13 +119,13 @@ export default function Navbar() {
                     <MenuItem>
                       {({ active }) => (
                         <Link
-                          to="/settings"
+                          to="/mainpanel"
                           className={classNames(
                             active ? "bg-gray-100" : "",
                             "block px-4 py-2 text-sm text-gray-700"
                           )}
                         >
-                          Settings
+                          Dengue Officer Panel
                         </Link>
                       )}
                     </MenuItem>
