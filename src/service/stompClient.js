@@ -15,8 +15,8 @@ class StompClient {
       connectHeaders: {},
       debug: (str) => console.log(str), // Debugging logs
       reconnectDelay: 5000, // Reconnect after 5 seconds if the connection is lost
-      heartbeatIncoming: 0, // No incoming heartbeat
-      heartbeatOutgoing: 20000, // Send outgoing heartbeat every 20 seconds
+      heartbeatIncoming: 5000, // No incoming heartbeat
+      heartbeatOutgoing: 5000, // Send outgoing heartbeat every 20 seconds
       onConnect: this.onConnect, // Called when connected
       onDisconnect: () => {
         console.log("Disconnected");

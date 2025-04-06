@@ -70,10 +70,37 @@ const saveNote = async (phiId, note) => {
   }
 };
 
+const getAllChatMessages = async (phiId) => {
+  try {
+    console.log(phiId);
+    const response = await Apiclient.get(`/getChatMessages/${phiId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error during getting message:", error);
+    throw error;
+  }
+};
+
+
+const setReadStatus = async (msgId) => {
+  try {
+    const response = await Apiclient.post(`/setChatMessageStatus`, msgId);
+    console.log(response.data);
+    return response.data;
+   }
+  catch (error){
+    console.error("Error during changing message status:", error);
+    throw error;
+  }
+}
+
 export default {
   getMessageList,
   updateStatus,
   getSentMessageList,
   getMessagebyId,
   saveNote,
+  getAllChatMessages,
+  setReadStatus,
 };
