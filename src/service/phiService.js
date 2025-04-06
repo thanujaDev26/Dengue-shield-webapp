@@ -95,6 +95,21 @@ const setReadStatus = async (msgId) => {
   }
 }
 
+const saveExtendedFormData = async (id,updates) => {
+try {
+  const response = await Apiclient.post(
+    "/api/v1/H411" + `/saveExtendedFormData/${id}`,
+    updates
+  );
+  console.log(response.data);
+  return response.data;
+} catch (error) {
+  console.error("Error during saving h411:", error);
+  throw error;
+}
+
+}
+
 export default {
   getMessageList,
   updateStatus,
@@ -103,4 +118,5 @@ export default {
   saveNote,
   getAllChatMessages,
   setReadStatus,
+  saveExtendedFormData,
 };
