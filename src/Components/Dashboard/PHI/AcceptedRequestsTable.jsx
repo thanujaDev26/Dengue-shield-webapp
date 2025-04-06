@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../ProtectedRoutes/AuthContext";
@@ -33,14 +34,31 @@ const AcceptedRequestsTable = () => {
     date: message.updatedAt,
   }));
 
+
+
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedPatient, setSelectedPatient] = useState(null);
 
   const handleBack = () => {
-    navigate(-1); // Navigate back to the previous page
+    navigate(-1);
   };
+
 
   const handleContinue = (messageId) => {
     navigate(`/notebook/${messageId}`); // Navigate to InwardForm with patientId
+
+
+
+  const handleViewDetails = (request) => {
+    setSelectedPatient(request);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedPatient(null);
+
   };
 
   return (
@@ -55,6 +73,7 @@ const AcceptedRequestsTable = () => {
         Accepted Requests
       </h2>
 
+
       {isLoading ? (
         <div className="flex justify-center py-6">
           <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
@@ -62,6 +81,8 @@ const AcceptedRequestsTable = () => {
       ) : (
         <table className="min-w-full table-auto">
           <thead>
+
+      
             <tr>
               <th className="px-4 py-2 border-b text-left">Request ID</th>
               <th className="px-4 py-2 border-b text-left">Patient ID</th>
@@ -70,6 +91,7 @@ const AcceptedRequestsTable = () => {
                 Go to Inward Form
               </th>
             </tr>
+
           </thead>
           <tbody>
             {acceptedRequests.length > 0 ? (
@@ -104,9 +126,12 @@ const AcceptedRequestsTable = () => {
             )}
           </tbody>
         </table>
+
+         
       )}
     </div>
   );
 };
+}
 
 export default AcceptedRequestsTable;
