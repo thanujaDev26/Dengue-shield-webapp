@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import stompClient from "../../../service/stompClient";
 
-export default function MessageMOH({ assignedPHIs }) {
+export default function MessageMOH({ assignedPHIs, userId }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPHIs, setSelectedPHIs] = useState([]);
@@ -9,6 +10,7 @@ export default function MessageMOH({ assignedPHIs }) {
   const [message, setMessage] = useState("");
   const [showToast, setShowToast] = useState(false);
 
+  stompClient.connect();
   const filteredPHIs = assignedPHIs.filter((phi) =>
     `${phi.appuser.name} ${phi.area}`
       .toLowerCase()
@@ -39,15 +41,29 @@ export default function MessageMOH({ assignedPHIs }) {
   const handleSend = () => {
     console.log("Message:", message);
     console.log("Sending to IDs:", selectedPHIs);
-    // You can replace this with actual API logic
 
-    // Reset
+    // Send the message to each selected PHI
+    stompClient.sendMessage(
+      "/app/chat",
+      JSON.stringify({
+        senderId: userId,
+        receiverId: selectedPHIs, // Can be an array of user IDs for multiple recipients
+        content: message,
+        timestamp: new Date().toISOString(),
+        read: false,
+      })
+    );
+
+    // Reset state after sending the message
     setIsModalOpen(false);
     setMessage("");
     setSelectedPHIs([]);
     setShowToast(true);
 
-    // Hide toast after 3s
+    // Disconnect the stompClient
+    stompClient.disconnect();
+
+    // Hide toast after 3 seconds
     setTimeout(() => setShowToast(false), 3000);
   };
 
@@ -181,4 +197,5 @@ MessageMOH.propTypes = {
       }).isRequired,
     })
   ).isRequired,
+  userId: PropTypes.number.isRequired,
 };

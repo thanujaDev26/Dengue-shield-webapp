@@ -4,6 +4,7 @@ import mohService from "../../../service/mohService";
 import toast from "react-hot-toast";
 import MoHStats from "./MoHStats";
 import MessageMOH from "./MessageMOH";
+import MOHInbox from "./MOHInbox";
 
 export default function MOHpanel() {
   const { user } = useAuth();
@@ -99,7 +100,7 @@ export default function MOHpanel() {
             MOH Officer Panel
           </h2>
           <div className="space-y-4">
-            {["viewPHI", "viewStats", "messagePHI"].map((tab) => (
+            {["viewPHI", "viewStats", "messagePHI", "inbox"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -112,6 +113,7 @@ export default function MOHpanel() {
                 {tab === "viewPHI" && "View PHI Officers"}
                 {tab === "viewStats" && "View PHI Stats"}
                 {tab === "messagePHI" && "Message PHI Officers"}
+                {tab === "inbox" && "InBox"}
               </button>
             ))}
           </div>
@@ -255,7 +257,11 @@ export default function MOHpanel() {
 
           {/* Message PHI Officers Tab */}
           {activeTab === "messagePHI" && (
-            <MessageMOH assignedPHIs={assignedPHIs} />
+            <MessageMOH assignedPHIs={assignedPHIs} userId={userId} />
+          )}
+
+          {activeTab === "inbox" && (
+            <MOHInbox />
           )}
         </div>
       </div>
