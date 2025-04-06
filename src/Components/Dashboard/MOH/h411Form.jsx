@@ -338,33 +338,6 @@ export default function H411Form() {
             ></input>
           </div>
 
-          {/* <div className="sm:col-span-3">
-            <label htmlFor="ethnicGroup" className="block text-sm font-medium text-gray-900">Ethnic Group</label>
-            <select
-              id="ethnicGroup"
-              name="ethnicGroup"
-              value={phiData.ethnicGroup}
-              onChange={handlePhiChange}
-              className="w-full p-3 mb-4 border border-gray-300 rounded"
-            >
-              <option value="">Select Ethnic Group</option>
-              <option value="Sinhalese">Sinhalese</option>
-              <option value="Tamil">Tamil</option>
-              <option value="Muslim">Muslim</option>
-              <option value="Burgher">Burgher</option>
-              <option value="Others">Others</option>
-            </select>
-            <div className="w-full">
-           
-            <h2 className="text-2xl w-full font-semibold text-gray-900">Disease Infromation</h2>
-            
-           
-            <hr className="my-4 border-t-2 border-gray-300" />
-
-            
-            </div>
-          </div> */}
-
           <div className="sm:col-span-3">
             <label
               htmlFor="dateOfOnset"
@@ -476,20 +449,6 @@ export default function H411Form() {
             />
           </div>
 
-          {/* <div className="sm:col-span-6">
-            <label htmlFor="patientsMovements" className="block text-sm font-medium text-gray-900">Patient's Movements</label>
-            <input
-              type="text"
-              id="patientsMovements"
-              name="patientsMovements"
-              placeholder="Enter Patient's Movements"
-              value={phiData.patientsMovements}
-              onChange={handlePhiChange}
-              className="w-full p-3 mb-4 border border-gray-300 rounded"
-              disabled
-            />
-          </div> */}
-
           <div className="sm:col-span-6">
             <label
               htmlFor="laboratoryFindings"
@@ -507,6 +466,11 @@ export default function H411Form() {
               className="w-full p-3 mb-4 border border-gray-300 rounded"
               disabled
             />
+          </div>
+        </div>
+      </div>
+      </form>
+  );
 
   const handleBack = () => {
     navigate(-1); // Navigate back to the previous page

@@ -132,5 +132,6 @@ const AcceptedRequestsTable = () => {
     </div>
   );
 };
+}
 
 export default AcceptedRequestsTable;
