@@ -1,50 +1,57 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import phiService from "../../../service/phiService";
+import { useAuth } from "../../ProtectedRoutes/AuthContext";
+import toast from "react-hot-toast";
 
-export default function H544Table({ setAcceptedRequests }) {
-  const [h544Requests, setH544Requests] = useState([
-    { id: 1, requestId: 'H544-001', date: '2025-02-16', patientId: 'P001' },
-    { id: 2, requestId: 'H544-002', date: '2025-02-15', patientId: 'P002' },
-    { id: 3, requestId: 'H544-003', date: '2025-02-14', patientId: 'P003' },
-  ]);
-  const [notification, setNotification] = useState(null);
+export default function H544Table() {
+  const [isLoading, setLoading] = useState(false);
+  const [isAccepting, setIsAccepting] = useState(false);
+  const [messageId, setMessageId] = useState(0);
+  const [messageList, setMessageList] = useState([]);
+
+  const AuthUser = useAuth();
+  const phiId = AuthUser.user.role === "ROLE_PHI" ? AuthUser.user.id : null;
+  console.log("phi id is" + phiId);
+
+  useEffect(() => {
+    async function getMessageList() {
+      setLoading(true);
+      try {
+        const response = await phiService.getMessageList(phiId);
+        setMessageList(response.data);
+      } catch (error) {
+        console.error("Error fetching message list:", error);
+        toast.error("Failed to load messages.");
+      } finally {
+        setLoading(false);
+      }
+    }
+    getMessageList();
+  }, [phiId, messageId]);
+
+  const h544Requests = messageList.map((message) => ({
+    id: message.id,
+    h544: message.h544,
+    status: message.status,
+    dateCreated: message.createdAt,
+  }));
+
   const navigate = useNavigate();
+  const handleBack = () => navigate(-1);
 
-  const handleBack = () => {
-    navigate(-1); // Navigate back to the previous page
-  };
-
-  const handleAccept = (patientId, h544Id) => {
-    const confirmDelete = window.confirm(
-      `Are you sure you want to accept Patient ID: ${patientId}, H544 form: ${h544Id}?`
-    );
-
-    if (confirmDelete) {
-      setAcceptedRequests((prevAcceptedRequests) => {
-        if (!prevAcceptedRequests.find((request) => request.patientId === patientId)) {
-          const acceptedRequest = h544Requests.find((request) => request.requestId === h544Id);
-
-          // Update the state of H544 table to remove all requests with the accepted patient ID
-          const updatedH544Requests = h544Requests.filter(
-            (request) => request.patientId !== patientId
-          );
-          setH544Requests(updatedH544Requests);
-
-          // Show notification
-          setNotification(
-            `Notification sent to MOH for Patient ID: ${patientId}, H544 form: ${h544Id}.`
-          );
-
-          // Navigate to accepted-requests page         
-
-          return [...prevAcceptedRequests, acceptedRequest];
-        } else {
-          setNotification(`Patient ID: ${patientId} is already accepted.`);
-          return prevAcceptedRequests;
-        }
-      });
-    } else {
-      setNotification('Action canceled.');
+  const handleAccept = async (messageId) => {
+    setIsAccepting(true);
+    try {
+      const response = await phiService.updateStatus(messageId);
+      console.log(response.data);
+      toast.success("You have successfully accepted the H544 request.");
+      setMessageId(messageId);
+    } catch (error) {
+      console.log(error);
+      toast.error(error);
+    } finally {
+      setIsAccepting(false);
     }
   };
 
@@ -52,48 +59,63 @@ export default function H544Table({ setAcceptedRequests }) {
     <div className="w-full p-6 rounded mt-8">
       <button
         onClick={handleBack}
-        className="bg-emerald-800 text-white px-4  py-2  w-40  rounded-full hover:bg-emerald-500 mb-4"
+        className="bg-emerald-800 text-white px-4 py-2 w-40 rounded-full hover:bg-emerald-500 mb-4"
       >
         Back
       </button>
+
       <div className="w-full p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center text-emerald-500 mb-4">
           H544 Requests
         </h2>
-        <table className="min-w-full table-auto">
-          <thead>
-            <tr>
-              <th className="px-4 py-2 border-b text-left">Request ID</th>
-              <th className="px-4 py-2 border-b text-left">Patient ID</th>
-              <th className="px-4 py-2 border-b text-left">Date</th>
-              <th className="px-4 py-2 border-b text-left">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {h544Requests.map((request) => (
-              <tr key={request.id}>
-                <td className="px-4 py-2 border-b text-left">{request.requestId}</td>
-                <td className="px-4 py-2 border-b text-left">{request.patientId}</td>
-                <td className="px-4 py-2 border-b text-left">{request.date}</td>
-                <td className="px-4 py-2 border-b text-left">
-                  <button
-                    onClick={() => handleAccept(request.patientId, request.requestId)}
-                    className="bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600"
-                  >
-                    Accept
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
 
-      {notification && (
-        <div className="mt-4 p-4 bg-yellow-200 text-yellow-800 rounded-lg">
-          {notification}
-        </div>
-      )}
+        {isLoading ? (
+          <p className="text-center text-gray-600">Loading requests...</p>
+        ) : (
+          <table className="min-w-full table-auto">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 border-b text-left">Request ID</th>
+                <th className="px-4 py-2 border-b text-left">Patient ID</th>
+                <th className="px-4 py-2 border-b text-left">Date</th>
+                <th className="px-4 py-2 border-b text-left">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {h544Requests.length > 0 ? (
+                h544Requests.map((request) => (
+                  <tr key={request.h544.id}>
+                    <td className="px-4 py-2 border-b text-left">
+                      H544-{request.h544.id}
+                    </td>
+                    <td className="px-4 py-2 border-b text-left">
+                      {request.h544.patient.id}
+                    </td>
+                    <td className="px-4 py-2 border-b text-left">
+                      {request.dateCreated.toString().split("T")[0]}
+                    </td>
+                    <td className="px-4 py-2 border-b text-left">
+                      <button
+                        className="bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 disabled:bg-gray-400"
+                        onClick={() => handleAccept(request.id)}
+                        disabled={isAccepting}
+                      >
+                        {isAccepting ? "Processing..." : "Accept"}
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="text-center text-gray-500 py-4">
+                    No requests found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import "./App.css";
-import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navigation/Navbar.jsx";
 import Home from "./Components/Home/Home.jsx";
@@ -9,21 +8,15 @@ import Contact from "./Components/ContactUs/Contact.jsx";
 import Login from "./Components/Login/Login.jsx";
 import Signup from "./Components/Login/Signup.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
-
 import H544Table from "./Components/Dashboard/PHI/H544Table.jsx";
 import AcceptedRequestsTable from "./Components/Dashboard/PHI/AcceptedRequestsTable.jsx";
-import InwardForm from "./Components/Dashboard/PHI/InwardForm.jsx";
 import InwardTable from "./Components/Dashboard/PHI/InwardTable.jsx";
-
 import H411Form from "./Components/Dashboard/MOH/h411Form.jsx";
 import CreateNews from "./Components/Dashboard/MOH/CreateNews.jsx";
 import InfectionsDiseasesTable from "./Components/Dashboard/InfectionsDiseasesTable.jsx";
-
 import NoteBook from "./Components/Dashboard/PHI/NoteBook.jsx";
 import Complains from "./Components/Dashboard/MOH/Complains.jsx";
-import Outwardform from "./Components/Dashboard/PHI/Outwardform.jsx";
 import OutwardTable from "./Components/Dashboard/PHI/OutwardTable.jsx";
-
 import { Toaster } from "react-hot-toast";
 import H544Form from "./Components/Dashboard/MOH/H544Form.jsx";
 import PendingTable from "./Components/Dashboard/MOH/PendingTable.jsx";
@@ -32,27 +25,10 @@ import VisitInwardForm from "./Components/Dashboard/MOH/VisitInwardForm.jsx";
 import PatientSearchPage from "./Components/Dashboard/MOH/PatientSearchPage.jsx";
 import PatientForm from "./Components/Dashboard/PatientForm.jsx";
 import SendH544Form from "./Components/Dashboard/MOH/SendH544Form.jsx";
+import Profile from "./Components/Profile/Profile.jsx";
+import Mainpanel from "./Components/Dengue Officer Panel/Mainpanel.jsx";
 
 function App() {
-  const [acceptedRequests, setAcceptedRequests] = useState([]);
-
-  const [patients, setPatients] = useState([]);
-
-  const handleFormSubmit = (patient) => {
-    // Check if it's an update or new submission
-    if (patients.some((p) => p.patientId === patient.patientId)) {
-      // Update existing patient
-      setPatients((prevPatients) =>
-        prevPatients.map((p) =>
-          p.patientId === patient.patientId ? patient : p
-        )
-      );
-    } else {
-      // Add new patient
-      setPatients((prevPatients) => [...prevPatients, patient]);
-    }
-  };
-
   return (
     <div className="flex flex-col min-h-screen">
       <Toaster />
@@ -66,52 +42,38 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
-          <Route path="/h411-form" element={<H411Form />} />
+          <Route path="/h411-form/:messageId" element={<H411Form />} />
           <Route
             path="/infections-diseases-table"
             element={<InfectionsDiseasesTable />}
           />
-
-          <Route
-            path="/h544-table"
-            element={<H544Table setAcceptedRequests={setAcceptedRequests} />}
-          />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/h544-table" element={<H544Table />} />
 
           <Route
             path="/accepted-requests"
-            element={
-              <AcceptedRequestsTable
-                acceptedRequests={acceptedRequests}
-                setAcceptedRequests={setAcceptedRequests}
-              />
-            }
+            element={<AcceptedRequestsTable />}
           />
           <Route path="/patient-search-page" element={<PatientSearchPage />} />
-          <Route path="/inward-form/:patientId" element={<InwardForm />} />
-          <Route path="/inward-form" element={<InwardForm />} />
+          {/* <Route path="/inward-form/:patientId" element={<InwardForm />} /> */}
+          {/* <Route path="/inward-form" element={<InwardForm />} /> */}
           <Route path="/inward-table" element={<InwardTable />} />
-          <Route path="/notebook" element={<NoteBook />} />
-          <Route path="/outwardform" element={<Outwardform />} />
+          <Route path="/notebook/:messageId" element={<NoteBook />} />
+          {/* <Route path="/outwardform" element={<Outwardform />} /> */}
           <Route path="/outward-table" element={<OutwardTable />} />
           <Route path="/visit-inward" element={<VisitInward />} />
           <Route path="/complains" element={<Complains />} />
           <Route path="/patient-form" element={<PatientForm />} />
           <Route path="/visit-inward-form" element={<VisitInwardForm />} />
           <Route path="/send-h544-form/:h544Id" element={<SendH544Form />} />
-          <Route
-            path="/h544form/:patientId"
-            element={<H544Form onSubmit={handleFormSubmit} />}
-          />
+          <Route path="/h544form/:patientId" element={<H544Form />} />
+          <Route path="/mainpanel" element={<Mainpanel />} />
+          <Route path="/pending-table" element={<PendingTable />} />
 
-          <Route
-            path="/pending-table"
-            element={<PendingTable patients={patients} />}
-          />
-
-          <Route
+          {/* <Route
             path="/edit-form"
             element={<H544Form onSubmit={handleFormSubmit} />}
-          />
+          /> */}
 
           <Route path="/createNews" element={<CreateNews />} />
         </Routes>

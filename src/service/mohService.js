@@ -74,9 +74,54 @@ const updateH544Form = async (id, updates) => {
   }
 };
 
+const deleteMessage = async (messageId) => {
+  try {
+    // console.log(mohid);
+    const response = await Apiclient.delete(
+      API_URL + `deleteMessage/${messageId} `
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error during deleting messages:", error);
+    throw error;
+  }
+};
 
+const getAllThePhi = async (id) => {
+  try {
+    const response = await Apiclient.get(API_URL + `getAllPhis/${id}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    console.error(" error fetching  the phis");
+  }
+};
 
+const assignPhi = async (mohId, phiId) => {
+  try {
+    const response = await Apiclient.patch(
+      API_URL + `updatePhi?mohId=${mohId}&phiId=${phiId}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+const unassignPhi = async (phiId) => {
+  try {
+    const response = await Apiclient.patch(API_URL + `unassignPhi/${phiId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//unassignPhi
 
 export default {
   saveDiseaseNotification,
@@ -84,4 +129,8 @@ export default {
   sendH544Form,
   getMessageList,
   updateH544Form,
+  deleteMessage,
+  getAllThePhi,
+  assignPhi,
+  unassignPhi,
 };
