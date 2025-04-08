@@ -82,33 +82,44 @@ const getAllChatMessages = async (phiId) => {
   }
 };
 
-
 const setReadStatus = async (msgId) => {
   try {
     const response = await Apiclient.post(`/setChatMessageStatus`, msgId);
     console.log(response.data);
     return response.data;
-   }
-  catch (error){
+  } catch (error) {
     console.error("Error during changing message status:", error);
     throw error;
   }
-}
+};
 
-const saveExtendedFormData = async (id,updates) => {
-try {
-  const response = await Apiclient.post(
-    "/api/v1/H411" + `/saveExtendedFormData/${id}`,
-    updates
-  );
-  console.log(response.data);
-  return response.data;
-} catch (error) {
-  console.error("Error during saving h411:", error);
-  throw error;
-}
+const saveExtendedFormData = async (id, updates) => {
+  try {
+    const response = await Apiclient.post(
+      "/api/v1/H411" + `/saveExtendedFormData/${id}`,
+      updates
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error during saving h411:", error);
+    throw error;
+  }
+};
 
-}
+const getCompleteMessageList = async (phiid) => {
+  try {
+    console.log(phiid);
+    const response = await Apiclient.get(
+      API_URL + `getAllCompletedMessages/${phiid}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error during getting message list:", error);
+    throw error;
+  }
+};
 
 export default {
   getMessageList,
@@ -119,4 +130,5 @@ export default {
   getAllChatMessages,
   setReadStatus,
   saveExtendedFormData,
+  getCompleteMessageList,
 };

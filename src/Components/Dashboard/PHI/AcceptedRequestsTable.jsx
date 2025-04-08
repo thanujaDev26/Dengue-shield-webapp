@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../ProtectedRoutes/AuthContext";
@@ -10,6 +9,10 @@ const AcceptedRequestsTable = () => {
   const AuthUser = useAuth();
   const phiId = AuthUser.user.role === "ROLE_PHI" ? AuthUser.user.id : null;
   const [messageList, setMessageList] = useState([]);
+
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedPatient, setSelectedPatient] = useState(null);
 
   useEffect(() => {
     async function getMessageList() {
@@ -24,7 +27,7 @@ const AcceptedRequestsTable = () => {
         setLoading(false);
       }
     }
-    getMessageList();
+    if (phiId) getMessageList();
   }, [phiId]);
 
   const acceptedRequests = messageList.map((message) => ({
@@ -34,21 +37,13 @@ const AcceptedRequestsTable = () => {
     date: message.updatedAt,
   }));
 
-
-
-  const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
-  const [selectedPatient, setSelectedPatient] = useState(null);
-
   const handleBack = () => {
     navigate(-1);
   };
 
-
   const handleContinue = (messageId) => {
-    navigate(`/notebook/${messageId}`); // Navigate to InwardForm with patientId
-
-
+    navigate(`/notebook/${messageId}`);
+  };
 
   const handleViewDetails = (request) => {
     setSelectedPatient(request);
@@ -58,7 +53,6 @@ const AcceptedRequestsTable = () => {
   const closeModal = () => {
     setShowModal(false);
     setSelectedPatient(null);
-
   };
 
   return (
@@ -73,7 +67,6 @@ const AcceptedRequestsTable = () => {
         Accepted Requests
       </h2>
 
-
       {isLoading ? (
         <div className="flex justify-center py-6">
           <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
@@ -81,57 +74,87 @@ const AcceptedRequestsTable = () => {
       ) : (
         <table className="min-w-full table-auto">
           <thead>
-
-      
             <tr>
               <th className="px-4 py-2 border-b text-left">Request ID</th>
               <th className="px-4 py-2 border-b text-left">Patient ID</th>
               <th className="px-4 py-2 border-b text-left">Date</th>
-              <th className="px-4 py-2 border-b text-left">
-                Go to Inward Form
-              </th>
+              <th className="px-4 py-2 border-b text-left">Actions</th>
             </tr>
-
           </thead>
           <tbody>
             {acceptedRequests.length > 0 ? (
               acceptedRequests.map((request) => (
                 <tr key={request.id}>
-                  <td className="px-4 py-2 border-b text-left">{request.id}</td>
-                  <td className="px-4 py-2 border-b text-left">
-                    {request.h544.patient.id}
+                  <td className="px-4 py-2 border-b">{request.id}</td>
+                  <td className="px-4 py-2 border-b">
+                    {request.h544?.patient?.id || "N/A"}
                   </td>
-                  <td className="px-4 py-2 border-b text-left">
-                    {request.date.toString().split("T")[0]}
+                  <td className="px-4 py-2 border-b">
+                    {new Date(request.date).toLocaleString()}
                   </td>
-                  <td className="px-4 py-2 border-b text-left">
+                  <td className="px-4 py-2 border-b space-x-2">
                     <button
                       onClick={() => handleContinue(request.id)}
-                      className={`bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 ${
-                        isLoading ? "opacity-50 cursor-not-allowed" : ""
-                      }`}
-                      disabled={isLoading}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
                     >
-                      Continue Process
+                      go to note book
+                    </button>
+                    <button
+                      onClick={() => handleViewDetails(request)}
+                      className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded"
+                    >
+                      View
                     </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="text-center py-4 text-gray-500">
-                  No accepted requests.
+                <td colSpan="4" className="text-center py-4">
+                  No accepted requests found.
                 </td>
               </tr>
             )}
           </tbody>
         </table>
+      )}
 
-         
+      {showModal && selectedPatient && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded shadow-lg w-full max-w-lg">
+            <h3 className="text-xl font-semibold mb-4">Patient Details</h3>
+            <p>
+              <strong>Name:</strong> {selectedPatient.h544?.patient?.name}
+            </p>
+            <p>
+              <strong>Gender:</strong> {selectedPatient.h544?.patient?.gender}
+            </p>
+            <p>
+              <strong>Age:</strong> {selectedPatient.h544?.patient?.age}
+            </p>
+            <p>
+              <strong>Disease:</strong> {selectedPatient.h544?.diseaseName}
+            </p>
+            <p>
+              <strong>Institute:</strong> {selectedPatient.h544?.institute}
+            </p>
+            <p>
+              <strong>Ward:</strong> {selectedPatient.h544?.ward}
+            </p>
+            <p>
+              <strong>Bed No:</strong> {selectedPatient.h544?.bedNumber}
+            </p>
+            <button
+              onClick={closeModal}
+              className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
 };
-}
 
 export default AcceptedRequestsTable;
