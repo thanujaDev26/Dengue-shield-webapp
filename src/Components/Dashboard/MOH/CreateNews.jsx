@@ -1,27 +1,46 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@mui/material";
-
+import NewsService from "../../../service/NewsService";
 const NewsManagement = () => {
   const [formData, setFormData] = useState({
     title: "",
+    message: "",
     date: "",
-    author: "",
+    venue: "",
+    type: "",
     image: null,
     preview: null,
   });
+
+  const eventTypes = [
+    "Blood Donation Camp",
+    "Medical Camp",
+    "Health Screening",
+    "Vaccination Drive",
+    "Dengue Prevention Campaign",
+    "Free Eye Check-up",
+    "COVID-19 Awareness & Testing",
+    "Mental Health Camp",
+    "Nutrition Awareness Program",
+    "Non-Communicable Diseases (NCD) Awareness",
+    "Reproductive Health & Hygiene Education",
+    "Substance Abuse Awareness",
+    "Water Sanitation & Hygiene (WASH) Program",
+    "Family Planning Awareness",
+    "STD/HIV Prevention Awareness",
+    "Anti-Smoking Campaign",
+    "Charity Program for Low-Income Families",
+    "Distribution of Free Medicines",
+    "Mobile Health Clinic for Rural Areas",
+    "Elderly Care Initiative",
+    "Women & Child Welfare Camp",
+    "Cleanliness and Sanitation Drive",
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  useEffect(() => {
-    return () => {
-      if (formData.preview) {
-        URL.revokeObjectURL(formData.preview);
-      }
-    };
-  }, [formData.preview]);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -43,134 +62,170 @@ const NewsManagement = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your submission logic here
-    console.log("News Submitted:", formData);
-    // Reset form
+
+    const submission = new FormData();
+    submission.append("title", formData.title);
+    submission.append("message", formData.message);
+    submission.append("type", formData.type);
+    submission.append("venue", formData.venue);
+    submission.append("date", formData.date);
+    if (formData.image) {
+      submission.append("image", formData.image);
+    }
+
+    console.log("FormData to submit:", formData);
+
+    try {
+      const response = await NewsService.saveNews(submission);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+
     setFormData({
       title: "",
+      message: "",
       date: "",
-      author: "",
+      venue: "",
+      type: "",
       image: null,
       preview: null,
     });
   };
 
+  useEffect(() => {
+    return () => {
+      if (formData.preview) {
+        URL.revokeObjectURL(formData.preview);
+      }
+    };
+  }, [formData.preview]);
+
   return (
     <div className="p-4 space-y-6">
-      {/* News Submission Form */}
       <Card>
         <CardHeader
-          title="Post New Article"
-          subheader="Fill in the details below to publish a new news article"
+          title="Post New MOH Event"
+          subheader="Fill in the details to publish an official event"
         />
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Title Field */}
+              {/* Title */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Title
-                </label>
+                <label className="block text-sm font-medium">Title</label>
                 <input
                   type="text"
                   name="title"
                   value={formData.title}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                   required
+                  className="w-full p-2 border rounded"
                 />
               </div>
 
-              {/* Date Field */}
+              {/* Venue */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Date
-                </label>
+                <label className="block text-sm font-medium">Venue</label>
                 <input
-                  type="date"
+                  type="text"
+                  name="venue"
+                  value={formData.venue}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full p-2 border rounded"
+                />
+              </div>
+
+              {/* Date & Time */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium">Date & Time</label>
+                <input
+                  type="datetime-local"
                   name="date"
                   value={formData.date}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-emerald-500"
                   required
+                  className="w-full p-2 border rounded"
                 />
               </div>
 
-              {/* Author Field */}
+              {/* Event Type */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Author Name
-                </label>
-                <input
-                  type="text"
-                  name="author"
-                  value={formData.author}
+                <label className="block text-sm font-medium">Event Type</label>
+                <select
+                  name="type"
+                  value={formData.type}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-emerald-500"
                   required
+                  className="w-full p-2 border rounded"
+                >
+                  <option value="">Select type</option>
+                  {eventTypes.map((type, idx) => (
+                    <option key={idx} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Message */}
+              <div className="md:col-span-2 space-y-2">
+                <label className="block text-sm font-medium">
+                  Message / Description
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={4}
+                  required
+                  className="w-full p-2 border rounded"
                 />
               </div>
 
               {/* Image Upload */}
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Upload a Image
+              <div className="md:col-span-2 space-y-2">
+                <label className="block text-sm font-medium">
+                  Upload Image
                 </label>
-                <div className="flex items-center gap-4">
-                  {!formData.preview ? (
-                    <label className="flex flex-col items-center px-4 py-6 border-2 border-dashed rounded cursor-pointer hover:border-emerald-500">
-                      <svg
-                        className="w-8 h-8 text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
-                      <span className="mt-2 text-sm text-gray-600">
-                        Click to upload
-                      </span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        className="hidden"
-                      />
-                    </label>
-                  ) : (
-                    <div className="relative group">
-                      <img
-                        src={formData.preview}
-                        alt="Preview"
-                        className="w-20 h-20 object-cover rounded"
-                      />
-                      <button
-                        type="button"
-                        onClick={handleRemoveImage}
-                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  )}
-                </div>
+                {!formData.preview ? (
+                  <label className="flex items-center justify-center px-4 py-6 border-2 border-dashed rounded cursor-pointer">
+                    <span className="text-gray-500">Click to upload</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
+                  </label>
+                ) : (
+                  <div className="relative inline-block group">
+                    <img
+                      src={formData.preview}
+                      alt="Preview"
+                      className="w-24 h-24 object-cover rounded"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleRemoveImage}
+                      className="absolute top-0 right-0 bg-red-600 text-white rounded-full px-2 py-0.5 text-xs"
+                    >
+                      ×
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Submit Button */}
-            <div className="border-t pt-6">
+            <div className="pt-4 border-t">
               <button
                 type="submit"
-                className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3 rounded-lg font-medium transition-colors"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded font-medium"
               >
-                Publish Article
+                Publish Event
               </button>
             </div>
           </form>
