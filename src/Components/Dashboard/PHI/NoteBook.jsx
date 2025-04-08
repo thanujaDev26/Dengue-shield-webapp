@@ -34,6 +34,7 @@ const Notebook = () => {
       "remarks",
     ];
 
+
     const patientRequiredFields = ["occupation", "religion", "race"];
 
     for (const field of requiredFields) {
@@ -114,6 +115,22 @@ const Notebook = () => {
   const handleBack = () => {
     navigate(-1); // Navigate back to the previous page
   };
+  
+  const handleInfectedMemberChange = (index, value) => {
+    const updated = [...formData.infectedMembers];
+    updated[index] = value;
+    setFormData({ ...formData, infectedMembers: updated });
+  };
+  
+  const addInfectedMember = () => {
+    setFormData({ ...formData, infectedMembers: [...formData.infectedMembers, ""] });
+  };
+  
+  const removeInfectedMember = (index) => {
+    const updated = formData.infectedMembers.filter((_, i) => i !== index);
+    setFormData({ ...formData, infectedMembers: updated });
+  };
+  
 
   return (
     <div className="justify-items-center">
@@ -394,6 +411,7 @@ const Notebook = () => {
             </select>
           </div>
 
+
           <div>
             <label
               htmlFor="houseCondition"
@@ -423,6 +441,7 @@ const Notebook = () => {
               </option>
             </select>
           </div>
+
 
           <div>
             <label
@@ -486,6 +505,8 @@ const Notebook = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ml-10 mr-10">
+
+
           <button
             onClick={handleBack}
             className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600"
