@@ -11,6 +11,7 @@ const Notebook = () => {
   const { messageId } = useParams();
   console.log(messageId);
   const intialState = {
+    messageId: messageId,
     h544Id: 0,
     patient: {},
     distance: "",

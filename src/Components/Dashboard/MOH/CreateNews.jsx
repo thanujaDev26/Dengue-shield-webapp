@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@mui/material";
 
 const NewsManagement = () => {
   const [formData, setFormData] = useState({
-    title: '',
-    date: '',
-    author: '',
+    title: "",
+    date: "",
+    author: "",
     image: null,
-    preview: null
+    preview: null,
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   useEffect(() => {
@@ -26,37 +26,43 @@ const NewsManagement = () => {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         image: file,
-        preview: URL.createObjectURL(file)
+        preview: URL.createObjectURL(file),
       }));
     }
   };
 
   const handleRemoveImage = () => {
     URL.revokeObjectURL(formData.preview);
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       image: null,
-      preview: null
+      preview: null,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add your submission logic here
-    console.log('News Submitted:', formData);
+    console.log("News Submitted:", formData);
     // Reset form
-    setFormData({ title: '', date: '', author: '', image: null, preview: null });
+    setFormData({
+      title: "",
+      date: "",
+      author: "",
+      image: null,
+      preview: null,
+    });
   };
 
   return (
     <div className="p-4 space-y-6">
       {/* News Submission Form */}
       <Card>
-        <CardHeader 
-          title="Post New Article" 
+        <CardHeader
+          title="Post New Article"
           subheader="Fill in the details below to publish a new news article"
         />
         <CardContent>
@@ -64,7 +70,9 @@ const NewsManagement = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Title Field */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Title</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Title
+                </label>
                 <input
                   type="text"
                   name="title"
@@ -77,7 +85,9 @@ const NewsManagement = () => {
 
               {/* Date Field */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Date</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Date
+                </label>
                 <input
                   type="date"
                   name="date"
@@ -90,7 +100,9 @@ const NewsManagement = () => {
 
               {/* Author Field */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Author Name</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Author Name
+                </label>
                 <input
                   type="text"
                   name="author"
@@ -109,15 +121,22 @@ const NewsManagement = () => {
                 <div className="flex items-center gap-4">
                   {!formData.preview ? (
                     <label className="flex flex-col items-center px-4 py-6 border-2 border-dashed rounded cursor-pointer hover:border-emerald-500">
-                      <svg 
-                        className="w-8 h-8 text-gray-400" 
-                        fill="none" 
-                        stroke="currentColor" 
+                      <svg
+                        className="w-8 h-8 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
                       </svg>
-                      <span className="mt-2 text-sm text-gray-600">Click to upload</span>
+                      <span className="mt-2 text-sm text-gray-600">
+                        Click to upload
+                      </span>
                       <input
                         type="file"
                         accept="image/*"
@@ -127,9 +146,9 @@ const NewsManagement = () => {
                     </label>
                   ) : (
                     <div className="relative group">
-                      <img 
-                        src={formData.preview} 
-                        alt="Preview" 
+                      <img
+                        src={formData.preview}
+                        alt="Preview"
                         className="w-20 h-20 object-cover rounded"
                       />
                       <button
