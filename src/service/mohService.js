@@ -74,9 +74,88 @@ const updateH544Form = async (id, updates) => {
   }
 };
 
+const deleteMessage = async (messageId) => {
+  try {
+    // console.log(mohid);
+    const response = await Apiclient.delete(
+      API_URL + `deleteMessage/${messageId} `
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error during deleting messages:", error);
+    throw error;
+  }
+};
 
+const getAllThePhi = async (id) => {
+  try {
+    const response = await Apiclient.get(API_URL + `getAllPhis/${id}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    console.error(" error fetching  the phis");
+  }
+};
 
+const assignPhi = async (mohId, phiId) => {
+  try {
+    const response = await Apiclient.patch(
+      API_URL + `updatePhi?mohId=${mohId}&phiId=${phiId}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+const unassignPhi = async (phiId) => {
+  try {
+    const response = await Apiclient.patch(API_URL + `unassignPhi/${phiId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getMOhOfficer = async (mohId) => {
+  try {
+    const response = await Apiclient.get(API_URL + `getmoh/${mohId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    console.error(" error fetching  the phis");
+  }
+};
+
+const getAllChatMessages = async (Id) => {
+  try {
+    console.log(Id);
+    const response = await Apiclient.get(`/getChatMessages/${Id}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error during getting message:", error);
+    throw error;
+  }
+};
+
+const setReadStatus = async (msgId) => {
+  try {
+    const response = await Apiclient.post(`/setChatMessageStatus`, msgId);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error during changing message status:", error);
+    throw error;
+  }
+};
+
+//unassignPhi
 
 export default {
   saveDiseaseNotification,
@@ -84,4 +163,11 @@ export default {
   sendH544Form,
   getMessageList,
   updateH544Form,
+  deleteMessage,
+  getAllThePhi,
+  assignPhi,
+  unassignPhi,
+  getMOhOfficer,
+  getAllChatMessages,
+  setReadStatus,
 };
