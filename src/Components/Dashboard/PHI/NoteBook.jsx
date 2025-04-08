@@ -22,6 +22,7 @@ const Notebook = () => {
     remarks: "",
   };
   const [formData, setFormData] = useState(intialState);
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateForm = (formData) => {
     const requiredFields = [
@@ -33,7 +34,6 @@ const Notebook = () => {
       "termination",
       "remarks",
     ];
-
 
     const patientRequiredFields = ["occupation", "religion", "race"];
 
@@ -97,12 +97,14 @@ const Notebook = () => {
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     if (!validateForm(formData)) return;
     try {
       await phiService.saveNote(phiId, formData);
       toast.success("You have successfully saved the note");
       setFormData(intialState);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong while saving the note");
@@ -115,22 +117,24 @@ const Notebook = () => {
   const handleBack = () => {
     navigate(-1); // Navigate back to the previous page
   };
-  
+
   const handleInfectedMemberChange = (index, value) => {
     const updated = [...formData.infectedMembers];
     updated[index] = value;
     setFormData({ ...formData, infectedMembers: updated });
   };
-  
+
   const addInfectedMember = () => {
-    setFormData({ ...formData, infectedMembers: [...formData.infectedMembers, ""] });
+    setFormData({
+      ...formData,
+      infectedMembers: [...formData.infectedMembers, ""],
+    });
   };
-  
+
   const removeInfectedMember = (index) => {
     const updated = formData.infectedMembers.filter((_, i) => i !== index);
     setFormData({ ...formData, infectedMembers: updated });
   };
-  
 
   return (
     <div className="justify-items-center">
@@ -411,7 +415,6 @@ const Notebook = () => {
             </select>
           </div>
 
-
           <div>
             <label
               htmlFor="houseCondition"
@@ -441,7 +444,6 @@ const Notebook = () => {
               </option>
             </select>
           </div>
-
 
           <div>
             <label
@@ -505,21 +507,22 @@ const Notebook = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ml-10 mr-10">
-
-
           <button
+            disabled={isLoading}
             onClick={handleBack}
             className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600"
           >
             Back
           </button>
           <button
+            disabled={isLoading}
             onClick={handleSubmit}
             className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600"
           >
             Submit
           </button>
           <button
+            disabled={isLoading}
             onClick={handleContinue}
             className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600"
           >

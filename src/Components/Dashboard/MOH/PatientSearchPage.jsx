@@ -171,6 +171,9 @@ const PatientSearchPage = () => {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">
+                    Patient Id
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">
                     Patient Name
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">
@@ -190,6 +193,9 @@ const PatientSearchPage = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredPatients.map((patient) => (
                   <tr key={patient.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 text-sm text-gray-900">
+                      {patient.id}
+                    </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
                       {patient.name}
                     </td>
