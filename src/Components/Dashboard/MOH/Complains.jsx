@@ -1,28 +1,60 @@
-import { useState } from 'react';
-import { Card, CardContent, Modal } from '@mui/material';
+import { useEffect, useState } from "react";
+import { Card, CardContent, Button } from "@mui/material";
+import PropTypes from "prop-types";
+import ComplainService from "../../../service/ComplainService";
 
 const ComplaintsPage = () => {
-  const [selectedComplaint, setSelectedComplaint] = useState(null);
-  const [showPHIForm, setShowPHIForm] = useState(false);
+  const [complaints, setComplaints] = useState([]);
   const [expandedComplaint, setExpandedComplaint] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [complaintsPerPage] = useState(5); // Change the number of complaints per page
 
-  // Sample data
-  const complaints = [
-    {
-      id: 1,
-      title: "Garbage Accumulation",
-      sender: "John Doe",
-      date: "2024-03-15",
-      address: "123 Main Street, Colombo",
-      image: "images/Dashboard_main.jpeg",
-      description: "Large garbage pile accumulating near the park...",
-      phiAreas: ["Colombo Central", "Colombo North", "Colombo South"]
-    },
-    // Add more complaints
-  ];
+  useEffect(() => {
+    const fetchComplaints = async () => {
+      try {
+        const res = await ComplainService.getAllComplains();
+        if (res.code === 200 && res.data) {
+          const formattedComplaints = res.data.map((c) => ({
+            id: c.complaintId,
+            title: c.type,
+            sender: `${c.fName} ${c.lName}`,
+            date: new Date(c.complaintTime).toISOString().split("T")[0],
+            address: c.location,
+            image: JSON.parse(c.images)[0],
+            description: c.complain,
+            phiAreas: ["Colombo Central", "Colombo North", "Colombo South"],
+          }));
+          setComplaints(formattedComplaints);
+        }
+      } catch (err) {
+        console.error("Failed to fetch complaints:", err);
+      }
+    };
+
+    fetchComplaints();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await ComplainService.deleteById(id);
+      if (response.code === 200) {
+        // Remove the deleted complaint from the state
+        setComplaints((prevComplaints) =>
+          prevComplaints.filter((complaint) => complaint.id !== id)
+        );
+      } else {
+        console.error("Failed to delete complaint:", response.message);
+      }
+    } catch (error) {
+      console.error("Error deleting complaint:", error);
+    }
+  };
 
   const ComplaintCard = ({ complaint }) => (
-    <Card className="mb-4 shadow-lg rounded-3xl transition duration-1000 ease-in-out hover:bg-gray-300">
+    <Card
+      key={complaint.id}
+      className="mb-4 shadow-lg rounded-3xl transition duration-1000 ease-in-out hover:bg-gray-300"
+    >
       <CardContent>
         <div className="grid grid-cols-3 gap-4">
           {/* Left Section */}
@@ -31,16 +63,17 @@ const ComplaintsPage = () => {
               {complaint.title}
             </h3>
             <div className="space-y-1 mb-4">
-              <div className='flex w-full justify-between'>
+              <div className="flex w-full justify-between">
                 <p className="text-gray-600">
-                    <span className="font-medium">From:</span> {complaint.sender}
+                  <span className="font-medium">From:</span> {complaint.sender}
                 </p>
                 <p className="text-gray-600">
-                    <span className="font-medium">Date:</span> {complaint.date}
+                  <span className="font-medium">Date:</span> {complaint.date}
                 </p>
               </div>
               <p className="text-gray-600">
-                <span className="font-medium">Address:</span> {complaint.address}
+                <span className="font-medium">Address:</span>{" "}
+                {complaint.address}
               </p>
             </div>
 
@@ -48,29 +81,23 @@ const ComplaintsPage = () => {
               <p className="text-gray-700 mb-4">{complaint.description}</p>
             )}
 
-            <div className="flex flex-col gap-4 mt-4">
+            <div className="flex gap-4 mt-4">
               <button
-                onClick={() => setExpandedComplaint(
-                  expandedComplaint === complaint.id ? null : complaint.id
-                )}
-                className="text-emerald-600 hover:text-emerald-700"
+                onClick={() => {
+                  setExpandedComplaint(
+                    expandedComplaint === complaint.id ? null : complaint.id
+                  );
+                }}
+                className="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
               >
-                {expandedComplaint === complaint.id ? "See Less" : "See More"}
+                {expandedComplaint === complaint.id ? "View Less" : "View More"}
               </button>
-              <div>
-                <button
-                    onClick={() => setShowPHIForm(true)}
-                    className="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
-                >
-                    Send to PHI
-                </button>
-                &nbsp;
-                <button
-                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                >
-                    Delete
-                </button>
-              </div>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                onClick={() => handleDelete(complaint.id)}
+              >
+                Delete
+              </button>
             </div>
           </div>
 
@@ -87,74 +114,54 @@ const ComplaintsPage = () => {
     </Card>
   );
 
-  const PHIFormModal = () => (
-    <Modal open={showPHIForm} onClose={() => setShowPHIForm(false)}>
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg p-6 w-full max-w-md">
-          <h3 className="text-xl font-bold text-emerald-600 mb-4">
-            Send to Public Health Inspector
-          </h3>
-          
-          <form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                PHI Area
-              </label>
-              <select
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-emerald-500"
-                required
-              >
-                <option value="">Select PHI Area</option>
-                {complaints[0]?.phiAreas?.map(area => (
-                  <option key={area} value={area}>{area}</option>
-                ))}
-              </select>
-            </div>
+  ComplaintCard.propTypes = {
+    complaint: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      sender: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      phiAreas: PropTypes.arrayOf(PropTypes.string),
+    }).isRequired,
+  };
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Remarks
-              </label>
-              <textarea
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-emerald-500"
-                rows="4"
-                required
-              />
-            </div>
-
-            <div className="flex justify-end gap-4">
-              <button
-                type="button"
-                onClick={() => setShowPHIForm(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
-              >
-                Send Complaint
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </Modal>
+  // Calculate which complaints to display on the current page
+  const indexOfLastComplaint = currentPage * complaintsPerPage;
+  const indexOfFirstComplaint = indexOfLastComplaint - complaintsPerPage;
+  const currentComplaints = complaints.slice(
+    indexOfFirstComplaint,
+    indexOfLastComplaint
   );
 
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
-    <div className="p-4">      
+    <div className="p-4">
       <div className="space-y-4">
-        {complaints.map(complaint => (
-          <>
-            <ComplaintCard key={complaint.id} complaint={complaint} />
-            <ComplaintCard key={complaint.id} complaint={complaint} />
-          </>
+        {currentComplaints.map((complaint) => (
+          <ComplaintCard key={complaint.id} complaint={complaint} />
         ))}
       </div>
 
-      <PHIFormModal />
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-4">
+        <Button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="mr-2"
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={indexOfLastComplaint >= complaints.length}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 };

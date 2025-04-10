@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@mui/material";
 import NewsService from "../../../service/NewsService";
+import toast from "react-hot-toast";
+
 const NewsManagement = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -80,8 +82,10 @@ const NewsManagement = () => {
     try {
       const response = await NewsService.saveNews(submission);
       console.log(response.data);
+      toast.success("succesfully post the news to public :)");
     } catch (error) {
       console.log(error);
+      toast.error("something went wrong");
     }
 
     setFormData({

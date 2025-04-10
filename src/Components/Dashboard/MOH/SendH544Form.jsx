@@ -65,12 +65,12 @@ export default function SendH544Form() {
       const response = await mohService.sendH544Form(message);
       console.log(response);
       toast.success("H544 sent succesfully");
+      navigate("/pending-table");
     } catch (error) {
       console.log(error);
       toast.error("something error occured during sending");
     } finally {
       setSending(false);
-      navigate("/pending-table");
     }
   };
 

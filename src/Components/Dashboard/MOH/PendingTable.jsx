@@ -33,7 +33,7 @@ const PendingTable = () => {
   };
 
   useEffect(() => {
-    async function getMessageList() {
+    async function getAllMessages() {
       setLoading(true);
       setError(null); // Reset error state
       try {
@@ -47,7 +47,7 @@ const PendingTable = () => {
         setLoading(false);
       }
     }
-    getMessageList();
+    getAllMessages();
   }, [mohId, messageList.length]);
 
   const h544List = messageList.map((message) => ({
